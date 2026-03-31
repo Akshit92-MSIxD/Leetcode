@@ -7,7 +7,10 @@ void dfs(List<List<Integer>> graph, int curr_node, int parent_node, int ins_time
     
     for(int nbr_node : graph.get(curr_node))
     {
-        if(!vis[nbr_node])
+
+         if(nbr_node == parent_node) continue;
+
+        if(!vis[nbr_node]) // tree edge
         {
             dfs(graph,nbr_node,curr_node,ins_time+1,tin,low,vis,bridges);
             low[curr_node] = Math.min(low[curr_node],low[nbr_node]);
@@ -15,9 +18,9 @@ void dfs(List<List<Integer>> graph, int curr_node, int parent_node, int ins_time
            if(low[nbr_node] > tin[curr_node])
            bridges.add(new ArrayList<>(List.of(curr_node,nbr_node)));
         }
-        else if(nbr_node != parent_node)
+        else // back edge
         {
-            low[curr_node] = Math.min(low[curr_node],tin[nbr_node]);
+            low[curr_node] = Math.min(low[curr_node],low[nbr_node]);
         }
     }
 
