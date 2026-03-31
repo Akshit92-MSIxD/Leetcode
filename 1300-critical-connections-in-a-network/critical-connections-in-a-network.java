@@ -17,7 +17,7 @@ void dfs(List<List<Integer>> graph, int curr_node, int parent_node, int ins_time
         }
         else if(nbr_node != parent_node)
         {
-            low[curr_node] = Math.min(low[curr_node],low[nbr_node]);
+            low[curr_node] = Math.min(low[curr_node],tin[nbr_node]);
         }
     }
 
