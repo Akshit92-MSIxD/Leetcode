@@ -55,12 +55,12 @@ void dfs(List<List<Integer>> graph, int curr_node, int parent_node, int ins_time
 
         List<List<Integer>> bridges = new ArrayList<>();
 
-        for(int node = 0;node<n;node++)
-        {
-            if(!vis[node])
-            dfs(graph,node,-1,0,tin,low,vis,bridges);
-        }
-
+        // for(int node = 0;node<n;node++)
+        // {
+        //     if(!vis[node])
+        //     dfs(graph,node,-1,0,tin,low,vis,bridges);
+        // }
+           dfs(graph,0,-1,0,tin,low,vis,bridges);
         return bridges;
 
 
