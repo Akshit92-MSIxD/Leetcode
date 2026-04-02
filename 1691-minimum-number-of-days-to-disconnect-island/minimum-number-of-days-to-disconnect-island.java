@@ -46,7 +46,7 @@ class Solution {
          }
       }
 
-      if((children > 1 && parent_node == -1) || (children == 0 && parent_node == -1))
+      if((children > 1 && parent_node == -1))
       has_art_pt = true;
 
         return;
@@ -65,6 +65,7 @@ class Solution {
      boolean[] vis = new boolean[rows*cols];
 
      int count_island = 0;
+     int totalOnes = 0;
 
      for(int r=0;r<rows;r++)
      {
@@ -72,19 +73,27 @@ class Solution {
         {
             int node = r*cols + c;
 
-           if(!vis[node] && grid[r][c] == 1)
+           if(grid[r][c] == 1)
            {
-             count_island++;
+             totalOnes++;
+             
+                if(!vis[node])
+                {
+                count_island++;
 
-             if(count_island == 2)
-             return 0;
+                if(count_island == 2)
+                return 0;
 
-             dfs(grid,r,c,-1,rows,cols,tin,low,vis);
+                dfs(grid,r,c,-1,rows,cols,tin,low,vis);
+                }
            }
         }
      }
 
-       if(count_island == 0) return 0;
+       if(totalOnes == 0)
+       return 0;
+       else if(totalOnes == 1)
+       return 1;
 
 
       return has_art_pt ? 1 : 2;
