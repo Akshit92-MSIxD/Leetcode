@@ -64,7 +64,7 @@ class Solution {
 
      boolean[] vis = new boolean[rows*cols];
 
-     int count_calls = 0;
+     int count_island = 0;
 
      for(int r=0;r<rows;r++)
      {
@@ -74,9 +74,9 @@ class Solution {
 
            if(!vis[node] && grid[r][c] == 1)
            {
-             count_calls++;
+             count_island++;
 
-             if(count_calls == 2)
+             if(count_island == 2)
              return 0;
 
              dfs(grid,r,c,-1,rows,cols,tin,low,vis);
@@ -84,7 +84,7 @@ class Solution {
         }
      }
 
-       if(count_calls == 0) return 0;
+       if(count_island == 0) return 0;
 
 
       return has_art_pt ? 1 : 2;
