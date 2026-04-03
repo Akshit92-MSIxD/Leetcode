@@ -1,5 +1,8 @@
 // *** NOTE : “Grid graphs have low connectivity” --> easier to break into multiple comps by removing just few nodes or  in case of grid(4 directionally connected) -->  (nodes removal is always <= 2) to make grid graph disconnected !!!
 
+// Approach : Tarjen's Algo in case of grid (Written by me)
+// TC : O(m*n)
+// SC : O(m*n)
 
 class Solution {
 
