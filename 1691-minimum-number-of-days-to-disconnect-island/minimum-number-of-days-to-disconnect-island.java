@@ -1,5 +1,7 @@
 // *** NOTE : “Grid graphs have low connectivity” --> easier to break into multiple comps by removing just few nodes or  in case of grid(4 directionally connected) -->  (nodes removal is always <= 2) to make grid graph disconnected !!!
 
+// *** Prerequisite Problem : https://www.geeksforgeeks.org/problems/articulation-point-1/1
+
 // Approach : Tarjen's Algo for Articulation Point in case of grid (Written by me)
 // TC : O(m*n)
 // SC : O(m*n)
