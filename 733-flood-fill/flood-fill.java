@@ -1,7 +1,7 @@
 
 // Approach : Using BFS
 // TC : O(n*m)
-// SC : 
+// SC : O(min(r,c)) (How ?? Paper pe analyze kr !!! if starting cell (0,0) se traversal suru krenge !!! )
 
 class Node{
    
