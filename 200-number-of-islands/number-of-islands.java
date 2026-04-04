@@ -83,12 +83,10 @@ class DisjointSet{
     if(r1 > r2)
     {
        parent.put(leader2,leader1);
-       rank.put(leader1,rank.get(leader1) + 1);
     }
     else if(r1 < r2)
     {
        parent.put(leader1,leader2);
-       rank.put(leader2,rank.get(leader2) + 1);
     }
     else
     {
@@ -145,7 +143,7 @@ class Solution {
                         int nbr_r = r + dir[0];
                         int nbr_c = c + dir[1];
 
-                        if(nbr_r>=0 && nbr_r<rows && nbr_c>=0 && nbr_c<cols && grid[nbr_r][nbr_c] == '1')
+                        if(nbr_r<rows && nbr_c<cols && grid[nbr_r][nbr_c] == '1')
                         {
                           int nbr_node = nbr_r*cols + nbr_c;
                           ds.unionByRank(curr_node,nbr_node);
