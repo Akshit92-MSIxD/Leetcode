@@ -52,179 +52,140 @@
 
 
 
-// class DisjointSet{
 
-//  HashMap<Integer,Integer> parent;
-//  HashMap<Integer,Integer> rank;
-
-//  DisjointSet(){
-//      parent = new HashMap<>();
-//      rank = new HashMap<>();
-//  }
-
-//  int find(int node)
-//  {
-//     if(node == parent.get(node))
-//      return node;
-
-//      int leader = find(parent.get(node));
-//      parent.put(node,leader);
-//      return leader;
-//  }
-
-//  void unionByRank(int node1, int node2)
-//  {
-//     int leader1 = find(node1);
-//     int leader2 = find(node2);
-
-//     int r1 = rank.get(leader1);
-//     int r2 = rank.get(leader2);
-
-//     if(r1 > r2)
-//     {
-//        parent.put(leader2,leader1);
-//     }
-//     else if(r1 < r2)
-//     {
-//        parent.put(leader1,leader2);
-//     }
-//     else
-//     {
-//        parent.put(leader2,leader1);
-//        rank.put(leader1,rank.get(leader1) + 1);
-//     }
-//  }
-
-// }
+/*--------------------------------------------------------------------------------------------*/
 
 
-// class Solution {
+
+class DisjointSet{
+
+ HashMap<Integer,Integer> parent;
+ HashMap<Integer,Integer> rank;
+
+ DisjointSet(){
+     parent = new HashMap<>();
+     rank = new HashMap<>();
+ }
+
+ int find(int node)
+ {
+    if(node == parent.get(node))
+     return node;
+
+     int leader = find(parent.get(node));
+     parent.put(node,leader);
+     return leader;
+ }
+
+ void unionByRank(int node1, int node2)
+ {
+    int leader1 = find(node1);
+    int leader2 = find(node2);
+
+    if(leader1 == leader2)return;
+
+    int r1 = rank.get(leader1);
+    int r2 = rank.get(leader2);
+
+    if(r1 > r2)
+    {
+       parent.put(leader2,leader1);
+    }
+    else if(r1 < r2)
+    {
+       parent.put(leader1,leader2);
+    }
+    else
+    {
+       parent.put(leader2,leader1);
+       rank.put(leader1,rank.get(leader1) + 1);
+    }
+ }
+
+}
 
 
-//     public int numIslands(char[][] grid) {
+class Solution {
 
-//         DisjointSet ds = new DisjointSet();
+
+    public int numIslands(char[][] grid) {
+
+        DisjointSet ds = new DisjointSet();
          
-//         int rows = grid.length;
-//         int cols = grid[0].length;
+        int rows = grid.length;
+        int cols = grid[0].length;
        
-//         // traversing to put only valid island nodes in the ds
-//         for(int r=0;r<rows;r++)
-//         {
-//             for(int c=0;c<cols;c++)
-//             {
-//                 if(grid[r][c] == '1')
-//                 {
-//                 int node = r*cols + c;
-//                 ds.parent.put(node,node);
-//                 ds.rank.put(node,1);
-//                 }
-//             }
-//         }
+        // traversing to put only valid island nodes in the ds
+        for(int r=0;r<rows;r++)
+        {
+            for(int c=0;c<cols;c++)
+            {
+                if(grid[r][c] == '1')
+                {
+                int node = r*cols + c;
+                ds.parent.put(node,node);
+                ds.rank.put(node,1);
+                }
+            }
+        }
 
 
-//         int[][] directions = {{0,1},{1,0}}; // right and bottom
+        int[][] directions = {{0,1},{1,0}}; // right and bottom
 
 
-//         // traversing again to join/union island nodes
+        // traversing again to join/union island nodes
 
-//         for(int r=0;r<rows;r++)
-//         {
-//             for(int c=0;c<cols;c++)
-//             {
-//                 if(grid[r][c] == '1')
-//                 {
-//                     int curr_node = r*cols + c;
+        for(int r=0;r<rows;r++)
+        {
+            for(int c=0;c<cols;c++)
+            {
+                if(grid[r][c] == '1')
+                {
+                    int curr_node = r*cols + c;
 
-//                     // explore its neigbhours only right and bottom !!!
+                    // explore its neigbhours only right and bottom !!!
 
-//                     for(int[] dir : directions)
-//                     {
-//                         int nbr_r = r + dir[0];
-//                         int nbr_c = c + dir[1];
+                    for(int[] dir : directions)
+                    {
+                        int nbr_r = r + dir[0];
+                        int nbr_c = c + dir[1];
 
-//                         if(nbr_r<rows && nbr_c<cols && grid[nbr_r][nbr_c] == '1')
-//                         {
-//                           int nbr_node = nbr_r*cols + nbr_c;
-//                           ds.unionByRank(curr_node,nbr_node);
-//                         }
-//                     }
-//                 }
-//             }
-//         }
+                        if(nbr_r<rows && nbr_c<cols && grid[nbr_r][nbr_c] == '1')
+                        {
+                          int nbr_node = nbr_r*cols + nbr_c;
+                          ds.unionByRank(curr_node,nbr_node);
+                        }
+                    }
+                }
+            }
+        }
 
-//         int count_islands = 0;
+        int count_islands = 0;
 
-//         for(int node : ds.parent.keySet())
-//         {
-//             if(ds.parent.get(node) == node)
-//             count_islands++;
-//         }
+        for(int node : ds.parent.keySet())
+        {
+            if(ds.parent.get(node) == node)
+            count_islands++;
+        }
 
-//         return count_islands;
+        return count_islands;
 
 
 
           
-//     }
-// }
-
-
-class DisjointSet {
-    int[] parent, rank;
-
-    DisjointSet(int n) {
-        parent = new int[n];
-        rank   = new int[n];
-        Arrays.fill(parent, -1);      // -1 = water / not added
-    }
-
-    void add(int node) {
-        parent[node] = node;
-        rank[node]   = 0;
-    }
-
-    int find(int node) {
-        if (parent[node] == node) return node;
-        return parent[node] = find(parent[node]);  // path compression inline
-    }
-
-    boolean union(int a, int b) {
-        int la = find(a), lb = find(b);
-        if (la == lb) return false;                // already same component
-
-        if (rank[la] < rank[lb]) { int t = la; la = lb; lb = t; }
-        parent[lb] = la;
-        if (rank[la] == rank[lb]) rank[la]++;      // only increment on tie
-        return true;
     }
 }
 
-class Solution {
-    public int numIslands(char[][] grid) {
-        int rows = grid.length, cols = grid[0].length;
-        DisjointSet ds = new DisjointSet(rows * cols);
-        int count = 0;
 
-        for (int r = 0; r < rows; r++)
-            for (int c = 0; c < cols; c++)
-                if (grid[r][c] == '1') {
-                    ds.add(r * cols + c);
-                    count++;                       // every new land = potential island
-                }
 
-        int[][] dirs = {{0,1},{1,0}};
 
-        for (int r = 0; r < rows; r++)
-            for (int c = 0; c < cols; c++)
-                if (grid[r][c] == '1')
-                    for (int[] d : dirs) {
-                        int nr = r + d[0], nc = c + d[1];
-                        if (nr < rows && nc < cols && grid[nr][nc] == '1')
-                            if (ds.union(r * cols + c, nr * cols + nc))
-                                count--;           // merged two islands → one less
-                    }
+/*--------------------------------------------------------------------------------------------*/
 
-        return count;
-    }
-}
+
+
+
+
+
+
+
+
