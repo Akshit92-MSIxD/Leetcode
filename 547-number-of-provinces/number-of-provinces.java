@@ -1,11 +1,11 @@
-// Note : Basic DFS and BFS approach left (just find the number of connected components !!!)
-
-
-
-
+// Check All approaches for this problem !!! DFS and DSU below !!!
+// We can also change the input Adjacency matrix to Adjacency List for better understanding !!!
 
 
 // Approach : DFS
+// ** Hint : Just find the no. of components !!!
+// TC : O(n^2)
+// SC : O(n) [Auxiliary Space]
 
 class Solution {
 
@@ -51,12 +51,7 @@ class Solution {
 
 
 
-
-
-
-
-
-
+/*-------------------------------------------------------------------------------------------------------------*/
 
 
 
@@ -145,6 +140,13 @@ class Solution {
 
 //     }
 // }
+
+
+
+
+/*-------------------------------------------------------------------------------------------------------------*/
+
+
 
 
 // class DisjointSet{
