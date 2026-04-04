@@ -1,5 +1,7 @@
 
 // Approach : Using BFS
+// TC : O(n*m)
+// SC : 
 
 class Node{
    
@@ -27,6 +29,7 @@ class Solution {
         Queue<Node> q = new ArrayDeque<>();
         q.add(new Node(sr,sc));
 
+        image[sr][sc] = color;
 
         int[][] directions = {{-1,0},{1,0},{0,-1},{0,1}}; // top , bottom , left , right
 
@@ -37,7 +40,6 @@ class Solution {
             int curr_r = top.r;
             int curr_c = top.c;
 
-            image[curr_r][curr_c] = color;
 
             // explore the neighbours
 
@@ -47,7 +49,10 @@ class Solution {
                 int nbr_c = curr_c + dir[1];
 
                 if(nbr_r>=0 && nbr_r<rows && nbr_c>=0 && nbr_c<cols && image[nbr_r][nbr_c] == org_color)
-                    q.add(new Node(nbr_r,nbr_c));
+                {
+                 q.add(new Node(nbr_r,nbr_c));
+                 image[nbr_r][nbr_c] = color;
+                }
             }
         }
     }
