@@ -15,6 +15,8 @@ class Solution {
                 mp.put(sum,1);
                else if(sum<=n)
                 mp.put(sum,mp.get(sum)+1);
+                else
+                break;
 
                 sum = 0;
             }
