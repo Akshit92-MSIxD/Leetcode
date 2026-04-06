@@ -25,10 +25,11 @@ class Solution {
 
         for(int num : mp.keySet())
         {
-            if(num <= n && mp.get(num) > 1)
+            if(mp.get(num) > 1)
             ans.add(num);
         }
-
+        
+        Collections.sort(ans);
         return ans;
 
         
