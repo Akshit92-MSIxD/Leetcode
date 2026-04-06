@@ -3,7 +3,7 @@ class Solution {
 
         List<Integer> ans = new ArrayList<>();
          
-        Map<Integer,Integer> mp = new TreeMap<>();
+        Map<Integer,Integer> mp = new HashMap<>();
 
         for(int a = 1; a*a*a < n;a++)
         {
