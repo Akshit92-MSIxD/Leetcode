@@ -191,27 +191,31 @@ class Solution {
     public long minIncrease(int[] nums) {
         int n = nums.length;
 
-        long[] cost = new long[n];
-        for(int i = 1; i < n-1; i++)
-            cost[i] = Math.max(0, Math.max(nums[i-1], nums[i+1]) - nums[i] + 1);
-
-        long[][] dp = new long[n+1][2];  // pre-allocated, no new arrays in loop
+        // dp[i] depends only on dp[i+1] and dp[i+2]
+        // so just use 6 variables!
+        long ind1 = 0, oprs1 = 0;  // dp[i+1]
+        long ind2 = 0, oprs2 = 0;  // dp[i+2]
+        long indCurr, oprsCurr;
 
         for(int i = n-2; i >= 1; i--) {
-            long takeInd  = dp[i+2][0] + 1;
-            long takeOprs = dp[i+2][1] + cost[i];
-            long notInd   = dp[i+1][0];
-            long notOprs  = dp[i+1][1];
+            long cost = Math.max(0, Math.max(nums[i-1], nums[i+1]) - nums[i] + 1);
 
-            if(takeInd > notInd || (takeInd == notInd && takeOprs < notOprs)) {
-                dp[i][0] = takeInd;
-                dp[i][1] = takeOprs;
+            long takeInd  = ind2 + 1;
+            long takeOprs = oprs2 + cost;
+
+            if(takeInd > ind1 || (takeInd == ind1 && takeOprs < oprs1)) {
+                indCurr  = takeInd;
+                oprsCurr = takeOprs;
             } else {
-                dp[i][0] = notInd;
-                dp[i][1] = notOprs;
+                indCurr  = ind1;
+                oprsCurr = oprs1;
             }
+
+            // shift windows
+            ind2 = ind1;   oprs2 = oprs1;
+            ind1 = indCurr; oprs1 = oprsCurr;
         }
 
-        return dp[1][1];
+        return oprs1;
     }
 }
