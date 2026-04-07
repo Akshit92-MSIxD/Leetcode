@@ -118,11 +118,6 @@ class Pair{
     this.minOprs = minOprs;
   }
 
-  Pair(Pair p)
-  {
-    this.maxInd = p.maxInd;
-    this.minOprs = p.minOprs;
-  }
 }
 class Solution {
 
@@ -139,10 +134,7 @@ class Solution {
          for(int i=1;i<n-1;i++)
          {   
             long large = Math.max(nums[i-1],nums[i+1]);
-             if(large >= nums[i])
-             cost[i] = large - nums[i] + 1;
-             else
-             cost[i] = 0;
+            cost[i] = Math.max(0,large - nums[i] + 1);
          }
          
          Pair[] dp = new Pair[n+1];
