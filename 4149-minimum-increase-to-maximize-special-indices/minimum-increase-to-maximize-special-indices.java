@@ -192,23 +192,24 @@ class Solution {
         int n = nums.length;
 
         long[] cost = new long[n];
-        for(int i = 1; i < n-1; i++) {
-            long large = Math.max(nums[i-1], nums[i+1]);
-            cost[i] = Math.max(0, large - nums[i] + 1);
-        }
+        for(int i = 1; i < n-1; i++)
+            cost[i] = Math.max(0, Math.max(nums[i-1], nums[i+1]) - nums[i] + 1);
 
-        // dp[i] = {maxSpecial, minOps}
-        long[][] dp = new long[n+1][2];
+        long[][] dp = new long[n+1][2];  // pre-allocated, no new arrays in loop
 
         for(int i = n-2; i >= 1; i--) {
-            long[] take    = {dp[i+2][0] + 1, dp[i+2][1] + cost[i]};
-            long[] notTake = {dp[i+1][0],     dp[i+1][1]};
+            long takeInd  = dp[i+2][0] + 1;
+            long takeOprs = dp[i+2][1] + cost[i];
+            long notInd   = dp[i+1][0];
+            long notOprs  = dp[i+1][1];
 
-            // pick whichever gives more special, break ties by min cost
-            if(take[0] > notTake[0] || (take[0] == notTake[0] && take[1] < notTake[1]))
-                dp[i] = take;
-            else
-                dp[i] = notTake;
+            if(takeInd > notInd || (takeInd == notInd && takeOprs < notOprs)) {
+                dp[i][0] = takeInd;
+                dp[i][1] = takeOprs;
+            } else {
+                dp[i][0] = notInd;
+                dp[i][1] = notOprs;
+            }
         }
 
         return dp[1][1];
