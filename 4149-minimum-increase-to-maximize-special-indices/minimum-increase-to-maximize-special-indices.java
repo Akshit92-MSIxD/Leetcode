@@ -1,4 +1,4 @@
-
+// Approach : DP tabulation
 class Pair{
  
  int maxInd = 0;
@@ -83,7 +83,8 @@ class Solution {
 /*--------------------------------------------------------------------------------------------------*/
 
 
-
+// Approach : Space optimized version of DP tabulation
+ 
 // class Solution {
 //     public long minIncrease(int[] nums) {
 //         int n = nums.length;
