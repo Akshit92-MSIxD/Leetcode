@@ -20,7 +20,7 @@ class Solution {
                    if(dfs(grid,nbr_r,nbr_c,cr,cc,vis))
                    return true;
                 }
-                else if(nbr_r != pr && nbr_c != pc)
+                else if(nbr_r != pr || nbr_c != pc)
                 {
                    return true; // cycle exits;
                 }
