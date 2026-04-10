@@ -66,6 +66,12 @@
 /*--------------------------------------------------------------*/
 
 
+
+// Approach : Using DSU
+// Concept : "Convert grid to graph, connect same cells, and if we try to connect already connected cells → cycle"
+// TC : O(n*m)
+//  SC : O(n*m)
+
 class DisjointSet{
 
  int n;
