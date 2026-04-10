@@ -1,3 +1,9 @@
+
+// Approach : Using BFS
+// Similar to Rotting Oranges problem on leetcode
+// TC : O(m*n)
+// SC : O(m*n)
+
 class Node{
 
   int r;
