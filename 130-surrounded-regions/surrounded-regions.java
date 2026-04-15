@@ -1,3 +1,88 @@
+// I have written two DFS approaches and one DSU approach below !!!
+
+
+
+// Approach : Optimal Simple DFS approach
+// Hint : Boundary 'O' is the main culprit behind which group will change and which group will not !!!
+
+class Solution {
+
+    int[][] directions = {{-1,0},{1,0},{0,1},{0,-1}}; // top,down,left,right
+
+    void dfs(char[][] board, int cr, int cc, int rows, int cols)
+    {
+
+       // explore only 'T' value neighbours
+
+       for(int[] dir : directions)
+       {
+         int nbr_r = cr + dir[0];
+         int nbr_c = cc + dir[1];
+
+         if(nbr_r > 0 && nbr_r < rows-1 && nbr_c > 0 && nbr_c < cols - 1)
+
+          if(board[nbr_r][nbr_c] == 'T')
+          {
+            board[nbr_r][nbr_c] = 'O';
+            dfs(board,nbr_r,nbr_c,rows,cols);
+          }
+       }
+
+    }
+
+
+    public void solve(char[][] board) {
+         
+          int rows = board.length;
+          int cols = board[0].length;
+
+          for(int i=0;i<rows;i++)
+          {
+            for(int j=0;j<cols;j++)
+            {
+                if(i > 0 && i < rows-1 && j > 0 && j < cols-1)
+                {
+                    if(board[i][j] == 'O')
+                    board[i][j] = 'T';
+                }
+
+            }
+          }
+
+          for(int i=0;i<rows;i++)
+          {
+            for(int j=0;j<cols;j++)
+            {
+                    if(board[i][j] == 'O')
+                        dfs(board,i,j,rows,cols);
+            }
+          }
+
+
+          for(int i=0;i<rows;i++)
+          {
+            for(int j=0;j<cols;j++)
+            {
+                if(board[i][j] == 'T')
+                board[i][j] = 'X';
+            }
+          }
+
+          return;
+
+         
+}
+}
+
+
+
+
+/*-----------------------------------------------------------------------------------------------------------------------------*/
+
+
+
+// // Approach : Using DSU
+
 // class DisjointSet{
  
 //  int n;
@@ -125,6 +210,12 @@
 
 
 
+/*---------------------------------------------------------------------------------------------------------------------------------*/
+
+
+
+
+// Approach : Using DFS (brute force by me !!!)
 // class Solution {
 
 //     int[][] directions = {{-1,0},{1,0},{0,-1},{0,1}}; // top,down,left,right
@@ -196,139 +287,13 @@
 
 
 
-// class Solution {
-
-//     int[][] directions = {{-1,0},{1,0},{0,1},{0,-1}}; // top,down,left,right
-
-//     void dfs(char[][] board, int cr, int cc, int rows, int cols)
-//     {
-
-//        // explore only 'T' value neighbours
-
-//        for(int[] dir : directions)
-//        {
-//          int nbr_r = cr + dir[0];
-//          int nbr_c = cc + dir[1];
-
-//          if(nbr_r > 0 && nbr_r < rows-1 && nbr_c > 0 && nbr_c < cols - 1)
-
-//           if(board[nbr_r][nbr_c] == 'T')
-//           {
-//             board[nbr_r][nbr_c] = 'O';
-//             dfs(board,nbr_r,nbr_c,rows,cols);
-//           }
-//        }
-
-//     }
 
 
-//     public void solve(char[][] board) {
-         
-//           int rows = board.length;
-//           int cols = board[0].length;
-
-//           for(int i=0;i<rows;i++)
-//           {
-//             for(int j=0;j<cols;j++)
-//             {
-//                 if(i > 0 && i < rows-1 && j > 0 && j < cols-1)
-//                 {
-//                     if(board[i][j] == 'O')
-//                     board[i][j] = 'T';
-//                 }
-
-//             }
-//           }
-
-//           for(int i=0;i<rows;i++)
-//           {
-//             for(int j=0;j<cols;j++)
-//             {
-//                     if(board[i][j] == 'O')
-//                         dfs(board,i,j,rows,cols);
-//             }
-//           }
 
 
-//           for(int i=0;i<rows;i++)
-//           {
-//             for(int j=0;j<cols;j++)
-//             {
-//                 if(board[i][j] == 'T')
-//                 board[i][j] = 'X';
-//             }
-//           }
-
-//           return;
-
-         
-// }
-// }
 
 
-class Solution {
 
-    int[][] directions = {{-1,0},{1,0},{0,1},{0,-1}}; // top,down,left,right
-
-    void dfs(char[][] board, int cr, int cc, int rows, int cols, HashSet<Integer> vis)
-    {
-
-        vis.add(cr*cols+cc);
-
-       for(int[] dir : directions)
-       {
-         int nbr_r = cr + dir[0];
-         int nbr_c = cc + dir[1];
-
-         if(nbr_r > 0 && nbr_r < rows-1 && nbr_c > 0 && nbr_c < cols - 1)
-         {
-          if(!vis.contains(nbr_r*cols+nbr_c) && board[nbr_r][nbr_c] == 'O')
-            dfs(board,nbr_r,nbr_c,rows,cols,vis);
-         }
-       }
-
-    }
-
-
-    public void solve(char[][] board) {
-         
-          int rows = board.length;
-          int cols = board[0].length;
-
-          HashSet<Integer> vis = new HashSet<>();
-
-          for(int i=0;i<rows;i++)
-          {
-            for(int j=0;j<cols;j++)
-            {
-                if(i == 0 || i == rows-1 || j == 0 || j == cols-1)
-                {
-                    if(board[i][j] == 'O')
-                    dfs(board,i,j,rows,cols,vis); 
-                }
-
-            }
-          }
-
-          for(int i=0;i<rows;i++)
-          {
-            for(int j=0;j<cols;j++)
-            {
-                 if(i > 0 && i < rows-1 && j > 0 && j < cols-1)
-                {
-                    if(board[i][j] == 'O' && !vis.contains(i*cols+j))
-                    board[i][j] = 'X';
-                    
-                }
-            }
-          }
-
-
-          return;
-
-         
-}
-}
 
 
 
