@@ -203,14 +203,13 @@ class Solution {
         int rows = board.length;
         int cols = board[0].length;
 
-        // mark visited
+        // mark visited temporarily
         board[r][c] = 'T';
 
-        boolean isEnclosed = true;
+        boolean enclosed = true;
 
-        // if boundary → not enclosed
         if(r == 0 || r == rows-1 || c == 0 || c == cols-1) {
-            isEnclosed = false;
+            enclosed = false;
         }
 
         for(int[] d : directions) {
@@ -219,18 +218,20 @@ class Solution {
 
             if(nr >= 0 && nr < rows && nc >= 0 && nc < cols && board[nr][nc] == 'O') {
                 if(!dfs(board, nr, nc)) {
-                    isEnclosed = false;
+                    enclosed = false;
                 }
             }
         }
 
-        return isEnclosed;
+        return enclosed;
     }
 
-    void fill(char[][] board, int r, int c, char target) {
+    void convert(char[][] board, int r, int c, char target) {
 
         int rows = board.length;
         int cols = board[0].length;
+
+        if(board[r][c] != 'T') return;
 
         board[r][c] = target;
 
@@ -238,8 +239,8 @@ class Solution {
             int nr = r + d[0];
             int nc = c + d[1];
 
-            if(nr >= 0 && nr < rows && nc >= 0 && nc < cols && board[nr][nc] == 'T') {
-                fill(board, nr, nc, target);
+            if(nr >= 0 && nr < rows && nc >= 0 && nc < cols) {
+                convert(board, nr, nc, target);
             }
         }
     }
@@ -257,12 +258,13 @@ class Solution {
                     boolean enclosed = dfs(board, i, j);
 
                     if(enclosed) {
-                        fill(board, i, j, 'X');
+                        convert(board, i, j, 'X');
                     } else {
-                        fill(board, i, j, 'O');
+                        convert(board, i, j, 'O');
                     }
                 }
             }
         }
     }
 }
+
