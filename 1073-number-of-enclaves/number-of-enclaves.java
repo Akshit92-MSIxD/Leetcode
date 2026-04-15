@@ -1,4 +1,14 @@
 
+// Prerequisite Problem : https://leetcode.com/problems/surrounded-regions/
+
+// Note : I have written only one approach for this problem below since its similar to prerequisite problem !!!
+// Note : DFS and DSU approach left (but easy !!!)
+
+
+
+// Approach : Multisource BFS
+// Hint : Boundary '1' is the main guy who makes the whole group easily walk off the boundary :)
+
 class Node{
    
     int r;
