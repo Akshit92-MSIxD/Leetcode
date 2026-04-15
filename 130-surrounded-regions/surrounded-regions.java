@@ -244,11 +244,8 @@ class Solution {
           {
             for(int j=0;j<cols;j++)
             {
-                if(i==0 || i == rows-1 || j == 0 || j==cols-1)
-                {
                     if(board[i][j] == 'O')
                         dfs(board,i,j,rows,cols);
-                }
             }
           }
 
