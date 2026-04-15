@@ -194,77 +194,82 @@
 // }
 
 
+
+
 class Solution {
 
-    int[][] directions = {{-1,0},{1,0},{0,-1},{0,1}};
+    int[][] directions = {{-1,0},{1,0},{0,1},{0,-1}}; // top,down,left,right
 
-    boolean dfs(char[][] board, int r, int c) {
+    void dfs(char[][] board, int cr, int cc, int rows, int cols)
+    {
 
-        int rows = board.length;
-        int cols = board[0].length;
+       // explore only 'T' value neighbours
 
-        // mark visited temporarily
-        board[r][c] = 'T';
+       for(int[] dir : directions)
+       {
+         int nbr_r = cr + dir[0];
+         int nbr_c = cc + dir[1];
 
-        boolean enclosed = true;
+         if(nbr_r > 0 && nbr_r < rows-1 && nbr_c > 0 && nbr_c < cols - 1)
 
-        if(r == 0 || r == rows-1 || c == 0 || c == cols-1) {
-            enclosed = false;
-        }
+          if(board[nbr_r][nbr_c] == 'T')
+          {
+            board[nbr_r][nbr_c] = 'O';
+            dfs(board,nbr_r,nbr_c,rows,cols);
+          }
+       }
 
-        for(int[] d : directions) {
-            int nr = r + d[0];
-            int nc = c + d[1];
-
-            if(nr >= 0 && nr < rows && nc >= 0 && nc < cols && board[nr][nc] == 'O') {
-                if(!dfs(board, nr, nc)) {
-                    enclosed = false;
-                }
-            }
-        }
-
-        return enclosed;
     }
 
-    void convert(char[][] board, int r, int c, char target) {
-
-        int rows = board.length;
-        int cols = board[0].length;
-
-        if(board[r][c] != 'T') return;
-
-        board[r][c] = target;
-
-        for(int[] d : directions) {
-            int nr = r + d[0];
-            int nc = c + d[1];
-
-            if(nr >= 0 && nr < rows && nc >= 0 && nc < cols) {
-                convert(board, nr, nc, target);
-            }
-        }
-    }
 
     public void solve(char[][] board) {
+         
+          int rows = board.length;
+          int cols = board[0].length;
 
-        int rows = board.length;
-        int cols = board[0].length;
+          for(int i=0;i<rows;i++)
+          {
+            for(int j=0;j<cols;j++)
+            {
+                if(i > 0 && i < rows-1 && j > 0 && j < cols-1)
+                {
+                    if(board[i][j] == 'O')
+                    board[i][j] = 'T';
+                }
 
-        for(int i = 1; i < rows-1; i++) {
-            for(int j = 1; j < cols-1; j++) {
+            }
+          }
 
-                if(board[i][j] == 'O') {
-
-                    boolean enclosed = dfs(board, i, j);
-
-                    if(enclosed) {
-                        convert(board, i, j, 'X');
-                    } else {
-                        convert(board, i, j, 'O');
-                    }
+          for(int i=0;i<rows;i++)
+          {
+            for(int j=0;j<cols;j++)
+            {
+                if(i==0 || i == rows-1 || j == 0 || j==cols-1)
+                {
+                    if(board[i][j] == 'O')
+                        dfs(board,i,j,rows,cols);
                 }
             }
-        }
-    }
+          }
+
+
+          for(int i=0;i<rows;i++)
+          {
+            for(int j=0;j<cols;j++)
+            {
+                if(board[i][j] == 'T')
+                board[i][j] = 'X';
+            }
+          }
+
+          return;
+
+         
 }
+}
+
+
+
+
+
 
