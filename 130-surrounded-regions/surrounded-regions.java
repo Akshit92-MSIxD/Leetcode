@@ -125,70 +125,144 @@
 
 
 
-class Solution {
+// class Solution {
 
-    int[][] directions = {{-1,0},{1,0},{0,-1},{0,1}}; // top,down,left,right
+//     int[][] directions = {{-1,0},{1,0},{0,-1},{0,1}}; // top,down,left,right
 
-    int dfs(char[][] board, int cr, int cc,ArrayList<Integer> group, boolean[][] vis)
-    {
-         vis[cr][cc] = true;
+//     int dfs(char[][] board, int cr, int cc,ArrayList<Integer> group, boolean[][] vis)
+//     {
+//          vis[cr][cc] = true;
 
-         if(cr == 0 || cr == board.length-1 || cc == 0 || cc == board[cr].length-1)
-          return 0;
+//          if(cr == 0 || cr == board.length-1 || cc == 0 || cc == board[cr].length-1)
+//           return 0;
 
-         group.add(cr*board[cr].length+cc);
+//          group.add(cr*board[cr].length+cc);
 
-          int covered_status = 1;
+//           int covered_status = 1;
 
-          // explore the neighbours
+//           // explore the neighbours
 
-          for(int[] dir : directions)
-          {
-             int nbr_r = cr + dir[0];
-             int nbr_c = cc + dir[1];
+//           for(int[] dir : directions)
+//           {
+//              int nbr_r = cr + dir[0];
+//              int nbr_c = cc + dir[1];
 
-            if(nbr_r>=0 && nbr_r<board.length && nbr_c>=0 && nbr_c<board[0].length && !vis[nbr_r][nbr_c] && board[nbr_r][nbr_c] == 'O')
-                   covered_status = Math.min(covered_status,dfs(board,nbr_r,nbr_c,group,vis));
-          }
+//             if(nbr_r>=0 && nbr_r<board.length && nbr_c>=0 && nbr_c<board[0].length && !vis[nbr_r][nbr_c] && board[nbr_r][nbr_c] == 'O')
+//                    covered_status = Math.min(covered_status,dfs(board,nbr_r,nbr_c,group,vis));
+//           }
 
-          return covered_status;
+//           return covered_status;
 
          
+//     }
+
+//     public void solve(char[][] board) {
+         
+//           int rows = board.length;
+//           int cols = board[0].length;
+
+//           boolean[][] vis = new boolean[rows][cols];
+          
+//           for(int i=0;i<rows;i++)
+//           {
+//                 for(int j=0;j<cols;j++)
+//                 {
+
+//                  ArrayList<Integer> group = new ArrayList<>();
+
+//                   int covered_status = 0;
+                
+//                     if(i>0 && i<rows-1 && j>0 && j<cols-1 && !vis[i][j] && board[i][j] == 'O')
+//                     {
+//                         covered_status = dfs(board,i,j,group,vis);
+
+//                             if(covered_status == 1)
+//                             {
+//                                 for(int node : group)
+//                                 {
+//                                     int r = node/cols;
+//                                     int c = node%cols;
+
+//                                     board[r][c] = 'X';
+//                                 }
+//                             }
+//                     }
+//                 }
+
+//           }
+// }
+// }
+
+
+class Solution {
+
+    int[][] directions = {{-1,0},{1,0},{0,-1},{0,1}};
+
+    boolean dfs(char[][] board, int r, int c) {
+
+        int rows = board.length;
+        int cols = board[0].length;
+
+        // mark visited
+        board[r][c] = 'T';
+
+        boolean isEnclosed = true;
+
+        // if boundary → not enclosed
+        if(r == 0 || r == rows-1 || c == 0 || c == cols-1) {
+            isEnclosed = false;
+        }
+
+        for(int[] d : directions) {
+            int nr = r + d[0];
+            int nc = c + d[1];
+
+            if(nr >= 0 && nr < rows && nc >= 0 && nc < cols && board[nr][nc] == 'O') {
+                if(!dfs(board, nr, nc)) {
+                    isEnclosed = false;
+                }
+            }
+        }
+
+        return isEnclosed;
+    }
+
+    void fill(char[][] board, int r, int c, char target) {
+
+        int rows = board.length;
+        int cols = board[0].length;
+
+        board[r][c] = target;
+
+        for(int[] d : directions) {
+            int nr = r + d[0];
+            int nc = c + d[1];
+
+            if(nr >= 0 && nr < rows && nc >= 0 && nc < cols && board[nr][nc] == 'T') {
+                fill(board, nr, nc, target);
+            }
+        }
     }
 
     public void solve(char[][] board) {
-         
-          int rows = board.length;
-          int cols = board[0].length;
 
-          boolean[][] vis = new boolean[rows][cols];
-          
-          for(int i=0;i<rows;i++)
-          {
-                for(int j=0;j<cols;j++)
-                {
+        int rows = board.length;
+        int cols = board[0].length;
 
-                 ArrayList<Integer> group = new ArrayList<>();
+        for(int i = 1; i < rows-1; i++) {
+            for(int j = 1; j < cols-1; j++) {
 
-                  int covered_status = 0;
-                
-                    if(i>0 && i<rows-1 && j>0 && j<cols-1 && !vis[i][j] && board[i][j] == 'O')
-                    {
-                        covered_status = dfs(board,i,j,group,vis);
+                if(board[i][j] == 'O') {
 
-                            if(covered_status == 1)
-                            {
-                                for(int node : group)
-                                {
-                                    int r = node/cols;
-                                    int c = node%cols;
+                    boolean enclosed = dfs(board, i, j);
 
-                                    board[r][c] = 'X';
-                                }
-                            }
+                    if(enclosed) {
+                        fill(board, i, j, 'X');
+                    } else {
+                        fill(board, i, j, 'O');
                     }
                 }
-
-          }
-}
+            }
+        }
+    }
 }
