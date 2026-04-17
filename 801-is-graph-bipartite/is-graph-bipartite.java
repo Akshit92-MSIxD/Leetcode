@@ -1,5 +1,5 @@
 
-// I have written two approaches for this problem below and both approaches are identical but the way to perceiving them is different !!!
+// I have written three approaches for this problem below and both approaches are identical but the way to perceiving them is different !!!
 
 // Approach 1 : A graph is bipartite if we can divide its nodes into two groups such that no two adjacent nodes belong to the same group.
 
