@@ -19,44 +19,105 @@
 // Approach 2 : Using BFS(space optmized than Approach 1)
 // Note : A graph is bipartite if we can color all nodes using two colors such that no two adjacent nodes have the same color.
 
-// class Solution {
+class Solution {
 
-//     boolean bfs(int[][] graph, int curr_node, int[] color)
-//     {
-//              int n = graph.length;
+    boolean bfs(int[][] graph, int curr_node, int[] color)
+    {
+             int n = graph.length;
 
-//              Queue<Integer> q = new ArrayDeque<>();
+             Queue<Integer> q = new ArrayDeque<>();
 
-//              q.add(curr_node);
-//              color[curr_node] = 1;
+             q.add(curr_node);
+             color[curr_node] = 1;
 
-//              while(!q.isEmpty())
-//              {
-//                 curr_node = q.poll();
+             while(!q.isEmpty())
+             {
+                curr_node = q.poll();
 
-//                 // explore its neighbours
+                // explore its neighbours
 
-//                 for(int nbr_node : graph[curr_node])
-//                 {
-//                     if(color[nbr_node] == -1)
-//                     { 
-//                        q.add(nbr_node);
-//                        color[nbr_node] = (color[curr_node] == 1) ? 0 : 1;
-//                     }
-//                     else
-//                     {
-//                        if(color[nbr_node] == color[curr_node])
-//                        return false;
-//                     }
-//                 }
-//              }
+                for(int nbr_node : graph[curr_node])
+                {
+                    if(color[nbr_node] == -1)
+                    { 
+                       q.add(nbr_node);
+                       color[nbr_node] = (color[curr_node] == 1) ? 0 : 1;
+                    }
+                    else
+                    {
+                       if(color[nbr_node] == color[curr_node])
+                       return false;
+                    }
+                }
+             }
 
 
-//              return true;
+             return true;
 
              
+    }
+
+    public boolean isBipartite(int[][] graph) {
+       
+     int n = graph.length;
+
+     int[] color = new int[n];   // default value is -1 mean the node is yet to be coloured, 1 and 0 represent two colors
+
+     for(int i=0;i<n;i++)
+     color[i] = -1;
+     
+     for(int node=0;node<n;node++)
+     {
+          if(color[node] == -1)
+          {
+             if(bfs(graph,node,color) == false)
+             return false;
+          }
+     }
+
+     return true;
+
+    }
+}
+
+
+
+
+/*------------------------------------------------------------------------------------------------------------------------*/
+
+
+
+
+// // Approach 3 : Using DFS 
+
+// class Solution {
+
+//     boolean dfs(int[][] graph, int curr_node, int[] color)
+//     {
+        
+//         // explore the neighbours
+
+//         for(int nbr_node : graph[curr_node])
+//         {
+//             if(color[nbr_node] != -1)
+//             {
+//                  if(color[nbr_node] == color[curr_node])
+//                  return false;
+//             }
+//             else
+//             {
+//                color[nbr_node] = (color[curr_node] == 1) ? 0 : 1;
+                
+//                 if(dfs(graph,nbr_node,color) == false)
+//                 return false;
+//             }
+//         }
+
+//         return true;
+
 //     }
 
+    
 //     public boolean isBipartite(int[][] graph) {
        
 //      int n = graph.length;
@@ -70,7 +131,8 @@
 //      {
 //           if(color[node] == -1)
 //           {
-//              if(bfs(graph,node,color) == false)
+//              color[node] = 1;
+//              if(dfs(graph,node,color) == false)
 //              return false;
 //           }
 //      }
@@ -82,12 +144,13 @@
 
 
 
-/*------------------------------------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
 
 
 
-// Approach1 : Using DFS
+// Approach1 : Using BFS
 // A graph is bipartite if we can divide its nodes into two groups such that no two adjacent nodes belong to the same group.
 
 // class Solution {
@@ -151,66 +214,5 @@
 
 //     }
 // }
-
-
-
-
-/*---------------------------------------------------------------------------------------------------------------------------*/
-
-
-
-
-class Solution {
-
-    boolean dfs(int[][] graph, int curr_node, int[] color)
-    {
-        
-        // explore the neighbours
-
-        for(int nbr_node : graph[curr_node])
-        {
-            if(color[nbr_node] != -1)
-            {
-                 if(color[nbr_node] == color[curr_node])
-                 return false;
-            }
-            else
-            {
-               color[nbr_node] = (color[curr_node] == 1) ? 0 : 1;
-                
-                if(dfs(graph,nbr_node,color) == false)
-                return false;
-            }
-        }
-
-        return true;
-
-    }
-
-    
-    public boolean isBipartite(int[][] graph) {
-       
-     int n = graph.length;
-
-     int[] color = new int[n];   // default value is -1 mean the node is yet to be coloured, 1 and 0 represent two colors
-
-     for(int i=0;i<n;i++)
-     color[i] = -1;
-     
-     for(int node=0;node<n;node++)
-     {
-          if(color[node] == -1)
-          {
-             color[node] = 1;
-             if(dfs(graph,node,color) == false)
-             return false;
-          }
-     }
-
-     return true;
-
-    }
-}
-
 
 
