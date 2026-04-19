@@ -110,12 +110,10 @@ class Node
     }
 
 class Solution {
-    public int[][] colorGrid(int n, int m, int[][] sources) {
+    public int[][] colorGrid(int rows, int cols, int[][] sources) {
 
-         int[][] grid = new int[n][m];
+         int[][] grid = new int[rows][cols];
          
-        
-
         for(int i=0;i<sources.length;i++)
             { 
                 int r = sources[i][0];
@@ -126,8 +124,6 @@ class Solution {
 
             }
 
-            int rows = grid.length;
-            int cols = grid[0].length;
         
             int[][] vis_lvl = new int[rows][cols];
 
@@ -161,8 +157,6 @@ class Solution {
                 int cr = top.r;
                 int cc = top.c;
                 int clvl = top.lvl;
-
-                int curr_node = cr*cols + cc;
 
                  for(int[] dir : directions)
                      {
