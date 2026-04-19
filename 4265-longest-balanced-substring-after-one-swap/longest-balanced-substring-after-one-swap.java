@@ -351,108 +351,101 @@ class Solution {
 
     int getLongestBalancedSubstringLength(String s, int zeroes, int ones)
     {
-           int n = s.length();
-           int prefixSum = 0;
-           HashMap<Integer,Integer> first_occ_index = new HashMap<>();
-           first_occ_index.put(0,-1);
+        int n = s.length();
+        int prefixSum = 0;
 
-           int maxLen = 0;
+        int[] first_occ_index = new int[2*n + 1];
 
-           for(int i=0;i<n;i++)
-           {
-               char ch = s.charAt(i);
+        // initialize
+        for(int i = 0; i < 2*n + 1; i++)
+            first_occ_index[i] = Integer.MIN_VALUE;
 
-               if(ch == '1')
-               {
-                  prefixSum += 1;
-                  ones--;
-               }
-               else
-               {
-                  prefixSum += -1;
-                  zeroes--;
-               }
+        // correct base case (prefixSum = 0 → index = n)
+        first_occ_index[n] = -1;
 
-               if(prefixSum == 0)
-               {
-                  maxLen = Math.max(maxLen,i+1);
-                  continue;
-               }
+        int maxLen = 0;
 
-               if(first_occ_index.containsKey(prefixSum-2))
-               {
-                    int foi = first_occ_index.get(prefixSum-2);
-                    int len = i - foi;
-
-                    if(zeroes > 0)
-                    maxLen = Math.max(maxLen,len);
-               }
-
-               if(first_occ_index.containsKey(prefixSum+2))
-               {
-                   int foi = first_occ_index.get(prefixSum+2);
-                   int len = i - foi;
-
-                   if(ones > 0)
-                   maxLen = Math.max(maxLen,len);
-               }
-
-
-               if(first_occ_index.containsKey(prefixSum))
-               {
-                   int foi = first_occ_index.get(prefixSum);
-                   int len = i - foi;
-                   maxLen = Math.max(maxLen,len);
-               }
-               else
-               {
-                  first_occ_index.put(prefixSum,i);
-               }
-
-           }
-
-           return maxLen;
-    }
-
-    String reverse(String s)
-    {
-        StringBuilder rev_s = new StringBuilder();
-
-        for(int i=s.length()-1;i>=0;i--)
+        for(int i = 0; i < n; i++)
         {
-           char ch = s.charAt(i);
-           rev_s.append(ch);
+            char ch = s.charAt(i);
+
+            if(ch == '1')
+            {
+                prefixSum += 1;
+                ones--;
+            }
+            else
+            {
+                prefixSum -= 1;
+                zeroes--;
+            }
+
+            int idx = prefixSum + n;
+
+            // case 1: perfectly balanced
+            if(prefixSum == 0)
+                maxLen = Math.max(maxLen, i + 1);
+
+            // case 2: prefixSum - 2
+            int idxMinus2 = prefixSum - 2 + n;
+            if(idxMinus2 >= 0 && idxMinus2 < first_occ_index.length &&
+               first_occ_index[idxMinus2] != Integer.MIN_VALUE)
+            {
+                int foi = first_occ_index[idxMinus2];
+                int len = i - foi;
+
+                if(zeroes > 0)
+                    maxLen = Math.max(maxLen, len);
+            }
+
+            // case 3: prefixSum + 2
+            int idxPlus2 = prefixSum + 2 + n;
+            if(idxPlus2 >= 0 && idxPlus2 < first_occ_index.length &&
+               first_occ_index[idxPlus2] != Integer.MIN_VALUE)
+            {
+                int foi = first_occ_index[idxPlus2];
+                int len = i - foi;
+
+                if(ones > 0)
+                    maxLen = Math.max(maxLen, len);
+            }
+
+            // case 4: same prefixSum
+            if(first_occ_index[idx] != Integer.MIN_VALUE)
+            {
+                int foi = first_occ_index[idx];
+                int len = i - foi;
+                maxLen = Math.max(maxLen, len);
+            }
+            else
+            {
+                first_occ_index[idx] = i;
+            }
         }
 
-        return rev_s.toString();
+        return maxLen;
     }
-
 
     public int longestBalanced(String s) {
-         
-            int n = s.length();
 
-           int ones = 0;
-           int zeroes = 0;
-           
-           for(int i=0;i<n;i++)
-           {
-              char ch = s.charAt(i);
-                
-                if(ch == '1')
-                ones++;
-                else
-                zeroes++;
-           }
- 
-          int maxLen = getLongestBalancedSubstringLength(s,zeroes,ones);
+        int n = s.length();
 
-          String rev_s = reverse(s);
+        int ones = 0, zeroes = 0;
 
-          maxLen = Math.max(maxLen,getLongestBalancedSubstringLength(rev_s,zeroes,ones));
-
-          return maxLen;
-
+        for(char ch : s.toCharArray())
+        {
+            if(ch == '1') ones++;
+            else zeroes++;
         }
-    }
 
+        int maxLen = getLongestBalancedSubstringLength(s, zeroes, ones);
+
+        // reverse using StringBuilder (O(n))
+        String rev = new StringBuilder(s).reverse().toString();
+
+        maxLen = Math.max(maxLen,
+                getLongestBalancedSubstringLength(rev, zeroes, ones));
+
+        return maxLen;
+    }
+}
