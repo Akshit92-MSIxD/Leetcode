@@ -218,12 +218,141 @@
 
 
 
+// class Solution {
+
+//     int getLongestBalancedSubstringLength(String s, int zeroes, int ones)
+//     {
+//            int n = s.length();
+//            int[] prefix = new int[n];
+//            HashMap<Integer,Integer> first_occ_index = new HashMap<>();
+//            first_occ_index.put(0,-1);
+
+//            int maxLen = 0;
+
+//            for(int i=0;i<n;i++)
+//            {
+//                char ch = s.charAt(i);
+//                if(i==0)
+//                {
+//                   prefix[i] = ((ch == '1') ? 1 : -1);
+
+//                   if(prefix[i] == 1)
+//                   ones--;
+//                   else
+//                   zeroes--;
+
+//                   first_occ_index.put(prefix[i],i);
+//                   continue;
+//                }
+
+//                prefix[i] = prefix[i-1];
+
+//                if(ch == '1')
+//                {
+//                   prefix[i] += 1;
+//                   ones--;
+//                }
+//                else
+//                {
+//                   prefix[i] += -1;
+//                   zeroes--;
+//                }
+
+//                if(prefix[i] == 0)
+//                {
+//                   maxLen = Math.max(maxLen,i+1);
+//                   continue;
+//                }
+
+//                if(first_occ_index.containsKey(prefix[i]-2))
+//                {
+//                     int foi = first_occ_index.get(prefix[i]-2);
+//                     int len = i - foi;
+
+//                     if(zeroes > 0)
+//                     maxLen = Math.max(maxLen,len);
+//                }
+
+//                if(first_occ_index.containsKey(prefix[i]+2))
+//                {
+//                    int foi = first_occ_index.get(prefix[i]+2);
+//                    int len = i - foi;
+
+//                    if(ones > 0)
+//                    maxLen = Math.max(maxLen,len);
+//                }
+
+
+//                if(first_occ_index.containsKey(prefix[i]))
+//                {
+//                    int foi = first_occ_index.get(prefix[i]);
+//                    int len = i - foi;
+//                    maxLen = Math.max(maxLen,len);
+//                }
+//                else
+//                {
+//                   first_occ_index.put(prefix[i],i);
+//                }
+
+//            }
+
+//            return maxLen;
+//     }
+
+//     String reverse(String s)
+//     {
+//         StringBuilder rev_s = new StringBuilder();
+
+//         for(int i=s.length()-1;i>=0;i--)
+//         {
+//            char ch = s.charAt(i);
+//            rev_s.append(ch);
+//         }
+
+//         return rev_s.toString();
+//     }
+
+
+//     public int longestBalanced(String s) {
+         
+//             int n = s.length();
+
+//            int ones = 0;
+//            int zeroes = 0;
+           
+//            for(int i=0;i<n;i++)
+//            {
+//               char ch = s.charAt(i);
+                
+//                 if(ch == '1')
+//                 ones++;
+//                 else
+//                 zeroes++;
+//            }
+ 
+//           int maxLen = getLongestBalancedSubstringLength(s,zeroes,ones);
+
+//           String rev_s = reverse(s);
+
+//           maxLen = Math.max(maxLen,getLongestBalancedSubstringLength(rev_s,zeroes,ones));
+
+//           return maxLen;
+
+//         }
+//     }
+
+
+
+/*-------------------------------------------------------------------------------------------------*/
+
+
+
 class Solution {
 
     int getLongestBalancedSubstringLength(String s, int zeroes, int ones)
     {
            int n = s.length();
-           int[] prefix = new int[n];
+           int prefixSum = 0;
            HashMap<Integer,Integer> first_occ_index = new HashMap<>();
            first_occ_index.put(0,-1);
 
@@ -232,50 +361,36 @@ class Solution {
            for(int i=0;i<n;i++)
            {
                char ch = s.charAt(i);
-               if(i==0)
-               {
-                  prefix[i] = ((ch == '1') ? 1 : -1);
-
-                  if(prefix[i] == 1)
-                  ones--;
-                  else
-                  zeroes--;
-
-                  first_occ_index.put(prefix[i],i);
-                  continue;
-               }
-
-               prefix[i] = prefix[i-1];
 
                if(ch == '1')
                {
-                  prefix[i] += 1;
+                  prefixSum += 1;
                   ones--;
                }
                else
                {
-                  prefix[i] += -1;
+                  prefixSum += -1;
                   zeroes--;
                }
 
-               if(prefix[i] == 0)
+               if(prefixSum == 0)
                {
                   maxLen = Math.max(maxLen,i+1);
                   continue;
                }
 
-               if(first_occ_index.containsKey(prefix[i]-2))
+               if(first_occ_index.containsKey(prefixSum-2))
                {
-                    int foi = first_occ_index.get(prefix[i]-2);
+                    int foi = first_occ_index.get(prefixSum-2);
                     int len = i - foi;
 
                     if(zeroes > 0)
                     maxLen = Math.max(maxLen,len);
                }
 
-               if(first_occ_index.containsKey(prefix[i]+2))
+               if(first_occ_index.containsKey(prefixSum+2))
                {
-                   int foi = first_occ_index.get(prefix[i]+2);
+                   int foi = first_occ_index.get(prefixSum+2);
                    int len = i - foi;
 
                    if(ones > 0)
@@ -283,15 +398,15 @@ class Solution {
                }
 
 
-               if(first_occ_index.containsKey(prefix[i]))
+               if(first_occ_index.containsKey(prefixSum))
                {
-                   int foi = first_occ_index.get(prefix[i]);
+                   int foi = first_occ_index.get(prefixSum);
                    int len = i - foi;
                    maxLen = Math.max(maxLen,len);
                }
                else
                {
-                  first_occ_index.put(prefix[i],i);
+                  first_occ_index.put(prefixSum,i);
                }
 
            }
@@ -340,3 +455,4 @@ class Solution {
 
         }
     }
+
