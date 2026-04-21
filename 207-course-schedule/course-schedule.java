@@ -34,11 +34,7 @@ class Solution {
 
         }
 
-        if(length_topoOrder != n)
-        return false;
-
-
-        return true;
+       return length_topoOrder == n;
 
    }
     public boolean canFinish(int numCourses, int[][] prerequisites) {
