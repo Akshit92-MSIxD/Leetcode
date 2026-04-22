@@ -77,60 +77,147 @@
 // }
 
 
-class Solution {
+
+
+/*--------------------------------------------------------------------------------------------------------------*/
+
+
+
+// class Solution {
     
-    boolean dfs(int[][] graph, int curr_node,boolean[] vis, boolean[] pathVis)
-    {
-          vis[curr_node] = true;
-          pathVis[curr_node] = true;
+//     boolean dfs(int[][] graph, int curr_node,boolean[] vis, boolean[] pathVis)
+//     {
+//           vis[curr_node] = true;
+//           pathVis[curr_node] = true;
 
-          // explore the neighbours
+//           // explore the neighbours
 
-          for(int nbr_node : graph[curr_node])
-          {
-              if(vis[nbr_node])
-              {
-                if(pathVis[nbr_node])
-                    return true;
-              }
-              else
-              {
-                if(dfs(graph,nbr_node,vis,pathVis) == true)
-                return true;
-              }
-          }
+//           for(int nbr_node : graph[curr_node])
+//           {
+//               if(vis[nbr_node])
+//               {
+//                 if(pathVis[nbr_node])
+//                     return true;
+//               }
+//               else
+//               {
+//                 if(dfs(graph,nbr_node,vis,pathVis) == true)
+//                 return true;
+//               }
+//           }
 
          
 
-          pathVis[curr_node] = false;
+//           pathVis[curr_node] = false;
 
-          return false;
+//           return false;
+//     }
+
+//     public List<Integer> eventualSafeNodes(int[][] graph) {
+          
+//           int n = graph.length;
+
+//           boolean[] vis = new boolean[n];
+
+//           boolean[] pathVis = new boolean[n];
+
+
+//           for(int node=0;node<n;node++)
+//           {
+//                if(!vis[node])
+//                 dfs(graph,node,vis,pathVis);
+//           }
+
+//           List<Integer> ans = new ArrayList<>();
+
+//           for(int node=0;node<n;node++)
+//           {
+//             if(pathVis[node] == false)
+//             ans.add(node);
+//           }
+
+//           return ans;
+ 
+//     }
+// }
+
+
+/*----------------------------------------------------------------------------------------------------------------*/
+
+
+
+
+class Solution {
+
+    List<Integer> bfs(List<List<Integer>> graph)
+    {
+        int n = graph.size();
+
+        int[] indegree = new int[n];
+
+        Queue<Integer> q = new ArrayDeque<>();
+
+        for(List<Integer> nodes : graph)
+        {
+            for(int node : nodes)
+                indegree[node]++;
+        }
+
+        for(int node=0;node<n;node++)
+        {
+            if(indegree[node]==0)
+            q.add(node);
+        }
+
+        boolean[] is_safe = new boolean[n];
+
+        while(!q.isEmpty())
+        {
+            int curr_node = q.poll();
+            is_safe[curr_node] = true;
+
+            for(int nbr_node : graph.get(curr_node))
+            {
+                indegree[nbr_node]--;
+
+                if(indegree[nbr_node] == 0)
+                q.add(nbr_node);
+            }
+        }
+
+        List<Integer> safe_nodes = new ArrayList<>();
+
+        for(int node=0;node<n;node++)
+        {
+            if(is_safe[node] == true)
+            safe_nodes.add(node);
+        }
+      
+        return safe_nodes;
     }
 
     public List<Integer> eventualSafeNodes(int[][] graph) {
           
-          int n = graph.length;
+              // reverse the graph
 
-          boolean[] vis = new boolean[n];
+              int n = graph.length;
 
-          boolean[] pathVis = new boolean[n];
+              List<List<Integer>> rev_graph = new ArrayList<>();
 
+              for(int i=0;i<n;i++)
+              rev_graph.add(new ArrayList<>());
 
-          for(int node=0;node<n;node++)
-          {
-               if(!vis[node])
-                dfs(graph,node,vis,pathVis);
-          }
+              for(int i=0;i<n;i++)
+              {
+                  int u = i;
+                 for(int j=0;j<graph[i].length;j++)
+                 {
+                     int v = graph[i][j];
+                     rev_graph.get(v).add(u);
+                 }
+              }
 
-          List<Integer> ans = new ArrayList<>();
-
-          for(int node=0;node<n;node++)
-          {
-            if(pathVis[node] == false)
-            ans.add(node);
-          }
-
-          return ans;
+              return bfs(rev_graph);
  
     }
 }
