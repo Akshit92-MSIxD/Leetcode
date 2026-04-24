@@ -217,7 +217,7 @@
 
 
 
-/*---------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------*/
 
 class Pair{
 
@@ -237,10 +237,14 @@ class Solution {
     void fill_patForWords(String word, HashMap<String,List<String>> words)
     {
          int n = word.length();
+         char[] arr = word.toCharArray();
 
          for(int i=0;i<n;i++)
          {
-             String pattern = word.substring(0,i) + "*" + word.substring(i+1);
+             char org_char = arr[i];
+             arr[i] = '*';
+
+             String pattern = new String(arr);
 
              if(!words.containsKey(pattern))
              {
@@ -251,6 +255,8 @@ class Solution {
              {
                 words.get(pattern).add(word);
              }
+
+             arr[i] = org_char;
 
          }
     }
@@ -286,13 +292,16 @@ class Solution {
             return curr_lvl + 1;
 
           // explore the correct neighbour nodes differ by single letter
-
+         
+          char[] arr = curr_word.toCharArray();
           for(int i=0;i<n;i++)
           {
-             String pattern = curr_word.substring(0,i) + "*" + curr_word.substring(i+1);
+               char org_char = arr[i];
+               arr[i] = '*';
 
-            List<String> neighbours = words.get(pattern);
-                for(String nbr_word : neighbours)
+               String pattern = new String(arr);
+
+                for(String nbr_word : words.get(pattern))
                 {
                     if(!vis.contains(nbr_word))
                     {
@@ -301,7 +310,8 @@ class Solution {
                     }
                 }
 
-            neighbours.clear();
+                words.get(pattern).clear();
+                arr[i] = org_char;
           }
 
        }
@@ -311,6 +321,7 @@ class Solution {
 
     }
 }
+
 
 
 
