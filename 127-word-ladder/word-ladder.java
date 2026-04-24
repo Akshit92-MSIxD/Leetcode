@@ -172,7 +172,6 @@ class Solution {
       for(int i=0;i<wordList.size();i++)
        fill_patForWords(wordList.get(i),words);
 
-       int minWords = Integer.MAX_VALUE;
 
        HashSet<String> vis = new HashSet<>();
 
@@ -188,10 +187,7 @@ class Solution {
           int curr_lvl = front.lvl;
 
           if(curr_word.equals(endWord))
-          {
-            minWords = curr_lvl + 1;
-            break;
-          }
+            return curr_lvl + 1;
 
           // explore the correct neighbour nodes differ by single letter
 
@@ -211,7 +207,7 @@ class Solution {
        }
 
 
-       return (minWords == Integer.MAX_VALUE) ? 0 : minWords;
+       return 0;
 
     }
 }
