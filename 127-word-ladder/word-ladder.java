@@ -163,6 +163,8 @@ class Solution {
 
     public int ladderLength(String beginWord, String endWord, List<String> wordList) {
            
+        if(!wordList.contains(endWord)) return 0;
+        
        int n = beginWord.length();
 
       HashMap<String,List<String>> words = new HashMap<>();
