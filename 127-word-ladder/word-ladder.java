@@ -310,7 +310,7 @@ class Solution {
                     }
                 }
 
-                words.get(pattern).clear();
+                // words.get(pattern).clear();
                 arr[i] = org_char;
           }
 
