@@ -97,8 +97,6 @@ class Solution {
             break;
           }
 
-          vis.add(curr_word);
-
           // explore the correct neighbour nodes differ by single letter
 
           for(String pattern : patterns.get(curr_word))
