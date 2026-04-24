@@ -290,7 +290,9 @@ class Solution {
           for(int i=0;i<n;i++)
           {
              String pattern = curr_word.substring(0,i) + "*" + curr_word.substring(i+1);
-                for(String nbr_word : words.get(pattern))
+
+            List<String> neighbours = words.get(pattern);
+                for(String nbr_word : neighbours)
                 {
                     if(!vis.contains(nbr_word))
                     {
@@ -299,7 +301,7 @@ class Solution {
                     }
                 }
 
-                words.get(pattern).clear();
+            neighbours.clear();
           }
 
        }
