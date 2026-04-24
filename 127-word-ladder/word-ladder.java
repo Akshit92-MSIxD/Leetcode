@@ -125,6 +125,100 @@
 
 
 
+// class Pair{
+
+//  String word;
+//  int lvl;
+
+//   Pair(String word, int lvl)
+//   {
+//     this.word = word;
+//     this.lvl = lvl;
+//   }
+
+// }
+
+// class Solution {
+
+//     void fill_patForWords(String word, HashMap<String,List<String>> words)
+//     {
+//          int n = word.length();
+
+//          for(int i=0;i<n;i++)
+//          {
+//              String pattern = word.substring(0,i) + "*" + word.substring(i+1);
+
+//              if(!words.containsKey(pattern))
+//              {
+//                 words.put(pattern,new ArrayList<>());
+//                 words.get(pattern).add(word);
+//              }
+//              else
+//              {
+//                 words.get(pattern).add(word);
+//              }
+
+//          }
+//     }
+
+//     public int ladderLength(String beginWord, String endWord, List<String> wordList) {
+           
+//         if(!wordList.contains(endWord)) return 0;
+
+//        int n = beginWord.length();
+
+//       HashMap<String,List<String>> words = new HashMap<>();
+
+//       fill_patForWords(beginWord,words);
+
+//       for(int i=0;i<wordList.size();i++)
+//        fill_patForWords(wordList.get(i),words);
+
+
+//        HashSet<String> vis = new HashSet<>();
+
+//        Queue<Pair> q = new ArrayDeque<>();
+//        q.add(new Pair(beginWord,0));
+
+//        vis.add(beginWord);
+
+//        while(!q.isEmpty())
+//        {
+//           Pair front = q.poll();
+//           String curr_word = front.word;
+//           int curr_lvl = front.lvl;
+
+//           if(curr_word.equals(endWord))
+//             return curr_lvl + 1;
+
+//           // explore the correct neighbour nodes differ by single letter
+
+//           for(int i=0;i<n;i++)
+//           {
+//              String pattern = curr_word.substring(0,i) + "*" + curr_word.substring(i+1);
+//                 for(String nbr_word : words.get(pattern))
+//                 {
+//                     if(!vis.contains(nbr_word))
+//                     {
+//                         q.add(new Pair(nbr_word,curr_lvl+1));
+//                         vis.add(nbr_word);
+//                     }
+//                 }
+//           }
+
+//        }
+
+
+//        return 0;
+
+//     }
+// }
+
+
+
+
+/*---------------------------------------------------------------------------------------------*/
+
 class Pair{
 
  String word;
@@ -204,6 +298,8 @@ class Solution {
                         vis.add(nbr_word);
                     }
                 }
+
+                words.get(pattern).clear();
           }
 
        }
