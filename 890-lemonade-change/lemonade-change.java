@@ -1,3 +1,8 @@
+
+// TC : O(n)
+// SC : O(1)
+// Why this problem is greedy ?? --> shopkeeper will first try to give priority to the greater denomination notes and keep the smaller denomination notes for future use !!!
+
 class Solution {
     public boolean lemonadeChange(int[] bills) {
           
