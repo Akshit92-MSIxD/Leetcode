@@ -6,7 +6,7 @@ class Solution {
           int[] dp = new int[n];
 
           for(int i=0;i<n;i++)
-           dp[i] = Integer.MAX_VALUE;
+           dp[i] = 100000;
 
           dp[n-1] = 0;
 
@@ -15,10 +15,7 @@ class Solution {
               int jmpSize = nums[i];
 
               for(int jmp=1;jmp<=jmpSize && (i+jmp)<n;jmp++)
-              {  
-                 if(dp[i+jmp] != Integer.MAX_VALUE)
                  dp[i] = Math.min(dp[i],1 + dp[i+jmp]);
-              }
           }
 
           return dp[0];
