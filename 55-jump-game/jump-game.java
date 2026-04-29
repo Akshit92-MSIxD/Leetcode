@@ -8,14 +8,9 @@ class Solution {
         for(int i=n-1;i>=0;i--)
         {
              int jmpSize = nums[i];
-            for(int jmp=jmpSize;jmp>=0;jmp--)
-            {
-                if(i+jmp == impPosition)
-                {
-                impPosition = i;
-                break;
-                }
-            }
+            
+            if(i + jmpSize >= impPosition)
+            impPosition = i;
         }
 
         if(impPosition != 0)
