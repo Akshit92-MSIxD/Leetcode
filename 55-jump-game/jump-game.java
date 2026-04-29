@@ -4,9 +4,9 @@ class Solution {
          
          int n = nums.length;
 
-         int[] dp = new int[n];
+         boolean[] dp = new boolean[n];
          
-         dp[n-1] = 1;
+         dp[n-1] = true;
 
          for(int i=n-2;i>=0;i--)
          {
@@ -14,15 +14,14 @@ class Solution {
 
             for(int jmp=1;jmp<=jumpSize && (i+jmp)<n;jmp++)
             {
-                dp[i] = Math.max(dp[i],dp[i+jmp]);     
+                dp[i] = dp[i+jmp];
+
+                if(dp[i] == true)
+                break;     
             }
          }
-
-         if(dp[0] == 1)
-         return true;
-
-         return false;
-
+         
+         return dp[0];
 
     }
 }
