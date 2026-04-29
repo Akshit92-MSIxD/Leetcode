@@ -1,3 +1,12 @@
+
+// I have written both greedy and dp approach for this problem below !!!
+
+
+
+// Approach : Greedy (Strivers Approach)
+// Focus on Range(l to r)
+// https://www.youtube.com/watch?v=7SBVnw7GSTk&list=PLgUwDviBIf0rF1w2Koyh78zafB0cz7tea&index=5
+
 class Solution {
     public int jump(int[] nums) {
          
@@ -10,12 +19,12 @@ class Solution {
 
           while(r < n - 1)
           {
-             for(int i=l;i<=r;i++)
+             for(int i=l;i<=r;i++) 
              {
                 int maxJmp = nums[i];
                 farthest = Math.max(farthest,i+maxJmp);
              }
-             l = r+1;
+             l = r+1; // update the range after traversing the previous range
              r = farthest;
              jumps++;
           }
@@ -26,6 +35,9 @@ class Solution {
 }
 
 
+// Approach : DP(tabulation)
+// TC = O(n^2)
+// SC = O(n)
 
 // class Solution {
 //     public int jump(int[] nums) {
