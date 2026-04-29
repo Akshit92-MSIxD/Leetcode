@@ -20,11 +20,7 @@ class Solution {
                  dp[i] = Math.min(dp[i],1 + dp[i+jmp]);
               }
           }
-         
-          for(int i=n-1;i>=0;i--)
-          {
-            System.out.print(dp[i]+" ");
-          }
+
           return dp[0];
 
 
