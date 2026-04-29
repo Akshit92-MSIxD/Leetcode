@@ -4,6 +4,16 @@ class Solution {
          
          int n = nums.length;
 
+         int count_0 = 0;
+
+         for(int i=0;i<n;i++)
+         {
+            if(nums[i] == 0)
+            count_0++;
+         }
+
+         if(count_0 == 0) return true;
+
          boolean[] dp = new boolean[n];
          
          dp[n-1] = true;
@@ -25,7 +35,6 @@ class Solution {
 
     }
 }
-
 
 
 
