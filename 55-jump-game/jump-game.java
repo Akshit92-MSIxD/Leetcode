@@ -1,3 +1,12 @@
+// I have written three approaches for this problem below that includes both Greedy and DP.
+
+
+
+// Approach : Greedy (most optimal for this problem !!!)
+// Hint : Focus on reaching the impPosition ( from where we can definately reach the ending index !!!)
+// TC : O(n)
+// SC : O(1)
+
 class Solution {
 
     public boolean canJump(int[] nums) {
@@ -25,6 +34,13 @@ class Solution {
 
 
 
+/*-----------------------------------------------------------------------------------------------------------------*/
+
+
+
+// Approach : DP (tabulation)(iterative)
+// TC : Average Case ~ O(n) , Worst Case ~ O(n^2) (for test case  : [n-1,n-2,n-3,n-4 ,..........,4,3,2,1,0,0])
+// SC : O(n) [extra dp array space]
 
 // class Solution {
 
@@ -57,7 +73,14 @@ class Solution {
 
 
 
+/*-----------------------------------------------------------------------------------------------------------------*/
 
+
+
+
+// Approach : DP (memoization)(recursive)
+// TC : Average Case ~ O(n) , Worst Case ~ O(n^2) (for test case  : [n-1,n-2,n-3,n-4 ,..........,4,3,2,1,0,0])
+// SC : O(n) [extra dp array space] + O(n) [recursive stack space]
 
 // class Solution {
     
