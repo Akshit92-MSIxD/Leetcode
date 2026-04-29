@@ -2,39 +2,62 @@ class Solution {
 
     public boolean canJump(int[] nums) {
          
-         int n = nums.length;
-
-         int count_0 = 0;
-
-         for(int i=0;i<n;i++)
-         {
-            if(nums[i] == 0)
-            count_0++;
-         }
-
-         if(count_0 == 0) return true;
-
-         boolean[] dp = new boolean[n];
-         
-         dp[n-1] = true;
-
-         for(int i=n-2;i>=0;i--)
-         {
-            int jumpSize = nums[i];
-
-            for(int jmp=1;jmp<=jumpSize && (i+jmp)<n;jmp++)
+          int n = nums.length - 1;
+           int impPosition = nums.length - 1;
+        
+        for(int i=n-1;i>=0;i--)
+        {
+             int jmpSize = nums[i];
+            for(int jmp=jmpSize;jmp>=0;jmp--)
             {
-                dp[i] = dp[i+jmp];
-
-                if(dp[i] == true)
-                break;     
+                if(i+jmp == impPosition)
+                {
+                impPosition = i;
+                break;
+                }
             }
-         }
-         
-         return dp[0];
+        }
 
+        if(impPosition != 0)
+        return false;
+
+        return true;
+
+
+            
     }
 }
+
+
+
+
+// class Solution {
+
+//     public boolean canJump(int[] nums) {
+         
+//          int n = nums.length;
+
+//          boolean[] dp = new boolean[n];
+         
+//          dp[n-1] = true;
+
+//          for(int i=n-2;i>=0;i--)
+//          {
+//             int jumpSize = nums[i];
+
+//             for(int jmp=1;jmp<=jumpSize && (i+jmp)<n;jmp++)
+//             {
+//                 dp[i] = dp[i+jmp];
+
+//                 if(dp[i] == true)
+//                 break;     
+//             }
+//          }
+         
+//          return dp[0];
+
+//     }
+// }
 
 
 
