@@ -49,7 +49,6 @@ class Solution {
 
               if(e2 < e1)
               {
-                st.pop();
                 st.push(in[i]);
               }
           }
