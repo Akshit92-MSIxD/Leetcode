@@ -64,6 +64,44 @@
 // }
 
 
+// class Solution {
+//     public int eraseOverlapIntervals(int[][] intervals) {
+         
+//      int n = intervals.length;
+
+//      Arrays.sort(intervals,(a,b)->Integer.compare(a[0],b[0]));
+
+//      int[] comp = intervals[0];
+//      int minRemovals = 0;
+
+//       for(int i=1;i<n;i++)
+//       {
+//           int s1 = comp[0];
+//           int e1 = comp[1];
+//           int s2 = intervals[i][0];
+//           int e2 = intervals[i][1];
+
+//           if(s2 < e1)
+//           {
+//               minRemovals++;
+
+//               if(e2 < e1)
+//               {
+//                 comp = intervals[i];
+//               }
+//           }
+//           else
+//           {
+//              comp = intervals[i];
+//           }
+//       }
+
+//       return minRemovals;
+           
+//     }
+// }
+
+
 class Solution {
     public int eraseOverlapIntervals(int[][] intervals) {
          
@@ -76,16 +114,11 @@ class Solution {
 
       for(int i=1;i<n;i++)
       {
-          int s1 = comp[0];
-          int e1 = comp[1];
-          int s2 = intervals[i][0];
-          int e2 = intervals[i][1];
-
-          if(s2 < e1)
+          if(intervals[i][0] < comp[1])
           {
               minRemovals++;
 
-              if(e2 < e1)
+              if(intervals[i][1] < comp[1])
               {
                 comp = intervals[i];
               }
