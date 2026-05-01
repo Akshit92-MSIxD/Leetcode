@@ -69,10 +69,7 @@ class Solution {
          
      int n = intervals.length;
 
-     Arrays.sort(intervals,(a,b)->{
-         if(a[0] != b[0]) return Integer.compare(a[0],b[0]);
-         return a[1] - b[1];
-     });
+     Arrays.sort(intervals,(a,b)->Integer.compare(a[0],b[0]));
 
      int[] comp = intervals[0];
      int minRemovals = 0;
