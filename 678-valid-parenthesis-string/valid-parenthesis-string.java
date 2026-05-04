@@ -1,11 +1,15 @@
 class Solution {
     public boolean checkValidString(String s) {
          
+     int n = s.length();
+
      int min = 0;
      int max = 0;
 
-     for(char ch : s.toCharArray())
+     for(int i=0;i<n;i++)
      {
+        char ch = s.charAt(i);
+        
          if(ch == '(')
          { 
              min++;
@@ -29,7 +33,7 @@ class Solution {
          return false;
      }
 
-     if(min <= 0)
+     if(min == 0)
      return true;
 
      return false;
