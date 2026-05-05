@@ -80,9 +80,7 @@ class Solution {
            }
            else if(ch == ')')
            {
-              if(count == 0)
-              dp[i][count] = false;
-              else
+              if(count > 0)
               dp[i][count] = dp[i+1][count-1];
            }
            else
