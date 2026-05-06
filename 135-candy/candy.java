@@ -99,9 +99,6 @@ class Solution {
         int n = ratings.length;
         int[] candy = new int[n];
 
-        if(n == 1)
-        return 1;
-
         candy[0] = 1;       
         for(int i=1;i<n;i++)
         {
