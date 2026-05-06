@@ -68,7 +68,7 @@ class Solution {
            if(i-1>=0)
            {
              if(ratings[i] > ratings[i-1])
-                candy[i] = Math.max(candy[i],candy[i-1]+1);
+                candy[i] = candy[i-1]+1;
              else
                 candy[i] = 1;
            }
@@ -77,15 +77,17 @@ class Solution {
            {
              if(ratings[i] > ratings[i+1])
              {
-                int j = i+1;
+                int j = i+2;
 
                 while(j<n && ratings[j] < ratings[j-1])
                 j++;
 
                 int candies = j - i;
 
-                for(int k=i;k<j;k++)
-                 candy[k] = Math.max(candy[k],candies--);
+                candy[i] = Math.max(candy[i],candies--);
+                 
+                for(int k=i+1;k<j;k++)
+                 candy[k] = candies--;
 
                  i = j - 1;
              }
