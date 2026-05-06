@@ -45,10 +45,7 @@ class Solution {
        int minCandies = 0;
 
        for(int val : candy)
-       {
        minCandies+=val;
-       System.out.print(val+" ");
-       }
 
        return minCandies;
 
