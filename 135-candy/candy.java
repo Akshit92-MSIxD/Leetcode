@@ -127,65 +127,54 @@
 
 
 
-
-
-
 class Solution {
     public int candy(int[] ratings) {
        
         int n = ratings.length;
-        int[] candy = new int[n];
-
-        if(n == 1)
-        return 1;
-
-        int res = 0;
        
-       for(int i=0;i<n;i++)
-       {
+       
+        int i = 1;
+        int sum = 1;   // till index 0
 
-           if(i-1>=0)
-           {
-             if(ratings[i] > ratings[i-1])
-                candy[i] = candy[i-1]+1;
-             else
-                candy[i] = 1;
-           }
+        while(i<n)
+        {
+          while(i<n && ratings[i] == ratings[i-1])
+          {
+            sum += 1;
+            i++;
+            continue;
+          }
 
-           if(i+1<=n-1)
-           {
-             if(ratings[i] > ratings[i+1])
-             {
-                int j = i+2;
+          int peak = 1;
 
-                while(j<n && ratings[j] < ratings[j-1])
-                j++;
+          while(i<n && ratings[i] > ratings[i-1])
+          {
+            peak++;
+            i++;
+            sum += peak;
+          }
 
-                int candies = j - i;
+          int down = 1;
 
-                candy[i] = Math.max(candy[i],candies--);
-                res += candy[i];
-                 
-                for(int k=i+1;k<j;k++)
-                {
-                 candy[k] = candies--;
-                 res += candy[k];
-                }
+          while(i<n && ratings[i] < ratings[i-1])
+          {
+             sum += down;
+             down++;
+             i++;
+          }
 
-                 i = j - 1;
-                 continue;
-             }
-             else
-             {
-                candy[i] = Math.max(candy[i],1);
-             }
-           }
+          if(down > peak)
+          sum = sum + (down - peak); // peak is already included in sum so remove the peak if down is > than peak !!!
 
-           res += candy[i];
-       }
+        }
 
-       return res;
-
+        return sum;
 
     }
 }
+
+
+
+
+
+
