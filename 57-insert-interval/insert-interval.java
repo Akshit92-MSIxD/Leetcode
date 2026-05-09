@@ -1,4 +1,81 @@
-// Please write the optimal approach for this problem !!!
+// Note: I have written two approaches for this problem below !!!
+
+
+
+
+// Approach 2 : Greedy Optimal (By CodeWithMik Sir)
+// Hint : This approach says build the answer along with the traversal of intervals[][] !!!
+// TC : O(n)
+// SC : O(n) [Auxiliary array List<int[]> ]
+
+class Solution {
+    public int[][] insert(int[][] intervals, int[] newInterval) {
+         
+        int n = intervals.length;
+
+        List<int[]> res = new ArrayList<>();
+       
+        int i = 0;
+
+        boolean inserted = false;
+
+    while(i<n)
+    {
+        if(newInterval[0] > intervals[i][1])         // newInterval lies to the left of current interval
+        {
+            res.add(intervals[i]);
+            i++;
+        }
+        else if(newInterval[1] < intervals[i][0])   // newInterval lies to the right of current interval
+        {
+                res.add(newInterval);
+                inserted = true;
+                break;
+        }
+        else                                      // newInterval overlaps with current interval
+        {
+          newInterval[0] = Math.min(newInterval[0],intervals[i][0]);
+          newInterval[1] = Math.max(newInterval[1],intervals[i][1]);
+          i++;
+        }
+    }
+
+    while(i<n)                   // add the remaining untouched intervals
+        res.add(intervals[i++]);
+
+        if(!inserted)                  // if this--> true --> that means newInterval will lie at the extreme end !!!
+            res.add(newInterval);
+
+
+         int[][] ans = new int[res.size()][2];
+
+         for(int idx=0;idx<res.size();idx++)
+         {
+            ans[idx][0] = res.get(idx)[0];
+            ans[idx][1] = res.get(idx)[1];
+         }
+
+         return ans;
+
+
+        
+
+    }
+}
+
+
+
+
+
+/*---------------------------------------------------------------------------------------------------------------*/
+
+
+
+
+// Approach 1 : Greedy Brute Force (List<int[]> + Stack<int[]> Approach Written By Me !!!)
+// Hint : Use the stack to perform the merging process !!!
+// TC : O(3n)
+// SC : O(2n) [Auxiliary List<int[]> + Stack<int[]>]
 
 // class Solution {
 //     public int[][] insert(int[][] intervals, int[] newInterval) {
@@ -79,57 +156,3 @@
 
 
 
-class Solution {
-    public int[][] insert(int[][] intervals, int[] newInterval) {
-         
-        int n = intervals.length;
-
-        List<int[]> res = new ArrayList<>();
-       
-        int i = 0;
-
-        boolean inserted = false;
-
-    while(i<n)
-    {
-        if(newInterval[0] > intervals[i][1])
-        {
-            res.add(intervals[i]);
-            i++;
-        }
-        else if(newInterval[1] < intervals[i][0])
-        {
-                res.add(newInterval);
-                inserted = true;
-                break;
-        }
-        else
-        {
-          newInterval[0] = Math.min(newInterval[0],intervals[i][0]);
-          newInterval[1] = Math.max(newInterval[1],intervals[i][1]);
-          i++;
-        }
-    }
-
-    while(i<n)
-        res.add(intervals[i++]);
-
-        if(!inserted)
-            res.add(newInterval);
-
-
-         int[][] ans = new int[res.size()][2];
-
-         for(int idx=0;idx<res.size();idx++)
-         {
-            ans[idx][0] = res.get(idx)[0];
-            ans[idx][1] = res.get(idx)[1];
-         }
-
-         return ans;
-
-
-        
-
-    }
-}
