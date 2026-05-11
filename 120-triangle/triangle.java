@@ -84,7 +84,6 @@ class Solution {
     public int minimumTotal(List<List<Integer>> triangle) {
           
         int m = triangle.size();
-        int n = triangle.get(m-1).size();
 
         int[] prev = new int[1];
 
@@ -108,7 +107,7 @@ class Solution {
 
         int minPath = Integer.MAX_VALUE;
 
-        for(int j=0;j<n;j++)
+        for(int j=0;j<prev.length;j++)
         {
             if(prev[j] < minPath)
             minPath = prev[j];
