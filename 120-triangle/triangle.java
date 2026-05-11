@@ -39,19 +39,60 @@
 
 
 
+// class Solution {
+//     public int minimumTotal(List<List<Integer>> triangle) {
+          
+//         int m = triangle.size();
+//         int n = triangle.get(m-1).size();
+
+//         int[] prev = new int[n];
+
+//         prev[0] = triangle.get(0).get(0);
+
+//         for(int i=1;i<m;i++)
+//         {
+//                 int[] curr = new int[n];
+//             for(int j=0;j<triangle.get(i).size();j++)
+//             {
+//                if(j==0)
+//                 curr[j] = prev[j] + triangle.get(i).get(j);
+//                else if(j == triangle.get(i).size() - 1)
+//                  curr[j] = prev[j-1] + triangle.get(i).get(j);
+//                else
+//                  curr[j] = Math.min(prev[j],prev[j-1]) + triangle.get(i).get(j);
+//             }
+
+//             prev = curr;
+//         }
+
+//         int minPath = Integer.MAX_VALUE;
+
+//         for(int j=0;j<n;j++)
+//         {
+//             if(prev[j] < minPath)
+//             minPath = prev[j];
+//         }
+
+//         return minPath;
+           
+//     }
+// }
+
+
+
 class Solution {
     public int minimumTotal(List<List<Integer>> triangle) {
           
         int m = triangle.size();
         int n = triangle.get(m-1).size();
 
-        int[] prev = new int[n];
+        int[] prev = new int[1];
 
         prev[0] = triangle.get(0).get(0);
 
         for(int i=1;i<m;i++)
         {
-                int[] curr = new int[n];
+                int[] curr = new int[i+1];
             for(int j=0;j<triangle.get(i).size();j++)
             {
                if(j==0)
