@@ -131,7 +131,6 @@ class Solution {
 
         for(int i=1;i<m;i++)
         {
-                int[] curr = new int[i+1];
             for(int j = triangle.get(i).size() - 1;j>=0;j--)
             {
                if(j==0)
