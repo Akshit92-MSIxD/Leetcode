@@ -24,7 +24,7 @@ class Solution {
                   {
                      for(int mv2 : moveOprs)
                      {
-                         if(j1+mv1 >=0 && j1+mv1 < cols && j2+mv2 >= 0 && j2+mv2 < cols)
+                         if(j1+mv1 >=0 && j1+mv1 < cols && j2+mv2 >= 0 && j2+mv2 < cols && j1+mv1 < j2+mv2)
                          dp[i][j1][j2] = Math.max(dp[i][j1][j2],dp[i+1][j1+mv1][j2+mv2]);
                      }
                   }
