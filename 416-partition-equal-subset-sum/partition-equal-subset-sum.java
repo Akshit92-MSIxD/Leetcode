@@ -65,8 +65,6 @@ class Solution {
          {
             for(int j=target;j>=0;j--)
             {
-                dp[j] = dp[j]; // notPick;
-
                 if(nums[i]<=j)
                 dp[j] = dp[j] || dp[j-nums[i]];  // Pick
             }
