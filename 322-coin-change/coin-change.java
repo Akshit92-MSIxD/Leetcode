@@ -20,9 +20,6 @@ class Solution {
                 if(coins[i] <= j) dp[j] = Math.min(dp[j],1 + dp[j-coins[i]]);
 
 
-         if(dp[amount] == (int)1e6)
-         return -1;
-
-         return dp[amount];
+         return (dp[amount] == (int)1e6) ? -1 : dp[amount];
     }
 }
