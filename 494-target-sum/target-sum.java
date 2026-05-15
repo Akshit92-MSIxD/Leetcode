@@ -1,3 +1,13 @@
+// Note : This problem can be converted into "Count Partitions With Given Difference" Problem where S1 - S2 = Diff.
+// Problem Link : https://www.geeksforgeeks.org/problems/partitions-with-given-difference/1
+
+
+
+// Approach : Space Optmized DP Tabulation(Rolling DP)
+// Prerequisite : https://www.geeksforgeeks.org/problems/partitions-with-given-difference/1 (Count Partitions With Given Difference)
+// TC : O(n*sum) , where sum = sum of elements of the array !!!
+// SC : O(sum)
+
 class Solution {
     public int findTargetSumWays(int[] nums, int target) {
           
@@ -7,7 +17,7 @@ class Solution {
            for(int val : nums)
            sum += val;
 
-          int dp[] = new int[sum+1];
+          int dp[] = new int[sum+1];  // dp[j] --> total no. of subsets or ways to achieve target/sum j from curr index to end index of array!!!
 
           if(nums[n-1] == 0)
           dp[0] = 2;
