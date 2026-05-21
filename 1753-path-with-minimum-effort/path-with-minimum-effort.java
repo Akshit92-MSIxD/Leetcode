@@ -52,8 +52,6 @@ class Solution {
          int cc = top.j;
          int cEffort = top.effort;
 
-         if(cEffort > minEffort[cr][cc]) continue;
-
          if(cr == heights.length-1 && cc == heights[0].length-1) break;
 
          // explore neighbours
