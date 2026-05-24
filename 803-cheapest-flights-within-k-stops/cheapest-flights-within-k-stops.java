@@ -25,99 +25,99 @@
 // smaller stop paths are processed before larger stop paths.
 // Because of this, we do not need a min heap based on stops.
 
-// class Solution {
+class Solution {
 
-//     class Node{
-//         int v;
-//         int price;  // total cost required to reach this node from source node
-//         int stopsSoFar;  // how many stops we have used to reach this node from source node
+    class Path{
+        int v;
+        int price;  // total cost required to reach this node from source node
+        int stopsSoFar;  // how many stops we have used to reach this node from source node
 
-//         Node(int v, int stopsSoFar , int price)
-//         {
-//             this.v = v;
-//             this.stopsSoFar = stopsSoFar;
-//             this.price = price;
-//         }
-//     }
+        Path(int v, int stopsSoFar , int price)
+        {
+            this.v = v;
+            this.stopsSoFar = stopsSoFar;
+            this.price = price;
+        }
+    }
 
-//     int getMinimumPrice(ArrayList<ArrayList<int[]>> graph, int src, int dest, int k)
-//     {
+    int getMinimumPrice(ArrayList<ArrayList<int[]>> graph, int src, int dest, int k)
+    {
    
-//          Queue<Node> pq = new ArrayDeque<>();
+         Queue<Path> pq = new ArrayDeque<>();
 
-//          // Start from source node
-//         // stops = -1 because the first move will make it 0
-//          pq.add(new Node(src,-1,0));
+         // Start from source node
+        // stops = -1 because the first move will make it 0
+         pq.add(new Path(src,-1,0));
          
-//     // minPrice[i] stores the minimum price found so far to reach node i from source node within k stops !!!
-//         int[] minPrice = new int[graph.size()];
+    // minPrice[i] stores the minimum price found so far to reach node i from source node within k stops !!!
+        int[] minPrice = new int[graph.size()];
         
-//         for(int i=0;i<minPrice.length;i++)
-//           minPrice[i] = Integer.MAX_VALUE;
+        for(int i=0;i<minPrice.length;i++)
+          minPrice[i] = Integer.MAX_VALUE;
          
-//          // Cost to reach source is 0
-//          minPrice[src] = 0;
+         // Cost to reach source is 0
+         minPrice[src] = 0;
 
-//          while(!pq.isEmpty())
-//          {
-//              Node top = pq.poll(); // get node having smallest price
-//              int cV = top.v; // current vertex
-//              int cPrice = top.price;
-//              int cStopsSoFar = top.stopsSoFar; // stops used so far
+         while(!pq.isEmpty())
+         {
+             Path top = pq.poll(); // get path having smallest price
+             int cV = top.v; // current vertex
+             int cPrice = top.price;
+             int cStopsSoFar = top.stopsSoFar; // stops used so far
               
 
-//             // If we already used k stops, we cannot continue further
-//              // because the problem allows at most k stops
-//             if(cStopsSoFar == k) continue;
+            // If we already used k stops, we cannot continue further
+             // because the problem allows at most k stops
+            if(cStopsSoFar == k) continue;
              
-//              // Explore all neighbours of current node
-//              for(int[] nbr : graph.get(cV))
-//              {
-//                 int nbrV = nbr[0];
-//                 int nbrPrice = cPrice + nbr[1];// cost to reach nbr node from source node within k stops!!
-//                 int nbrStopsSoFar = cStopsSoFar + 1; // increase stop count
+             // Explore all neighbours of current node
+             for(int[] nbr : graph.get(cV))
+             {
+                int nbrV = nbr[0];
+                int nbrPrice = cPrice + nbr[1];// cost to reach nbr node from source node within k stops!!
+                int nbrStopsSoFar = cStopsSoFar + 1; // increase stop count
                   
-//                      if(nbrPrice < minPrice[nbrV])
-//                      {
-//                      minPrice[nbrV] = nbrPrice;
-//                      pq.add(new Node(nbrV,nbrStopsSoFar,nbrPrice));
-//                      }
+                     if(nbrPrice < minPrice[nbrV])
+                     {
+                     minPrice[nbrV] = nbrPrice;
+                     pq.add(new Path(nbrV,nbrStopsSoFar,nbrPrice));
+                     }
 
                     
-//                  }
-//              }
+                 }
+             }
 
-//             // If destination was never reached, return -1
-//           // otherwise return the minimum price found 
-//          return (minPrice[dest] == Integer.MAX_VALUE) ? -1 : minPrice[dest] ;
-//          }
+            // If destination was never reached, return -1
+          // otherwise return the minimum price found 
+         return (minPrice[dest] == Integer.MAX_VALUE) ? -1 : minPrice[dest] ;
+         }
 
-//     public int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {
+    public int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {
 
-//          // create an adjacency list first
-//         ArrayList<ArrayList<int[]>> graph = new ArrayList<>();
+         // create an adjacency list first
+        ArrayList<ArrayList<int[]>> graph = new ArrayList<>();
 
-//         for(int i=0;i<n;i++)
-//         {
-//             graph.add(new ArrayList<>());
-//         }
+        for(int i=0;i<n;i++)
+        {
+            graph.add(new ArrayList<>());
+        }
 
-//         for(int i=0;i<flights.length;i++)
-//         {
-//              int v1 = flights[i][0];
-//              int v2 = flights[i][1];
-//              int price = flights[i][2];
+        for(int i=0;i<flights.length;i++)
+        {
+             int v1 = flights[i][0];
+             int v2 = flights[i][1];
+             int price = flights[i][2];
 
-//              graph.get(v1).add(new int[]{v2,price});
-//         }
+             graph.get(v1).add(new int[]{v2,price});
+        }
 
-//          int minPrice = getMinimumPrice(graph,src,dst,k);
+         int minPrice = getMinimumPrice(graph,src,dst,k);
 
 
 
-//          return minPrice;
-//     } 
-//     }
+         return minPrice;
+    } 
+    }
 
 
 
@@ -127,145 +127,145 @@
 
 
 
-// Approach 2 : Using Dijkstra (Modified Version of Approach 1 — No TLE)
+// // Approach 2 : Using Dijkstra (Modified Version of Approach 1 — No TLE)
 
-// Main Idea:
-// This approach is an improvement over Approach 1.
-// The main difference is that we now store both:
-// 1) Minimum price
-// 2) Minimum stops
-// for each node.
+// // Main Idea:
+// // This approach is an improvement over Approach 1.
+// // The main difference is that we now store both:
+// // 1) Minimum price
+// // 2) Minimum stops
+// // for each node.
 
-// Why this works better:
-// In Approach 1 we only stored the minimum price for each node.
-// That caused us to insert too many useless states into the priority queue,
-// which eventually caused TLE.
+// // Why this works better:
+// // In Approach 1 we only stored the minimum price for each node.
+// // That caused us to insert too many useless states into the priority queue,
+// // which eventually caused TLE.
 
-// In this improved approach we store two values for each node:
-// minPrice[node][0] → minimum price found so far
-// minPrice[node][1] → minimum stops used to reach that node
+// // In this improved approach we store two values for each node:
+// // minPrice[node][0] → minimum price found so far
+// // minPrice[node][1] → minimum stops used to reach that node
 
-// Now we only push a new state into the PQ if:
-// 1) We found a cheaper price
-// OR
-// 2) We found a path that uses fewer stops
+// // Now we only push a new state into the PQ if:
+// // 1) We found a cheaper price
+// // OR
+// // 2) We found a path that uses fewer stops
 
-// This helps us avoid inserting many useless states into the PQ,
-// which keeps the algorithm efficient.
+// // This helps us avoid inserting many useless states into the PQ,
+// // which keeps the algorithm efficient.
 
-class Node{
+// class Node{
 
-    int v;
-    int wt;
+//     int v;
+//     int wt;
 
-    Node(int v, int wt)
-    {
-        this.v = v;
-        this.wt = wt;
-    }
-}
+//     Node(int v, int wt)
+//     {
+//         this.v = v;
+//         this.wt = wt;
+//     }
+// }
 
-class Path{
+// class Path{
   
-   int v;
-   int price;
-   int stops;
+//    int v;
+//    int price;
+//    int stops;
 
-   Path(int v, int price, int stops)
-   {
-    this.v = v;
-    this.price = price;
-    this.stops = stops;
-   }
+//    Path(int v, int price, int stops)
+//    {
+//     this.v = v;
+//     this.price = price;
+//     this.stops = stops;
+//    }
 
-}
+// }
 
-class Solution {
+// class Solution {
   
-    int dijkstra(List<List<Node>> graph, int src_v, int dest_v, int k)
-    {
-       int n = graph.size();
+//     int dijkstra(List<List<Node>> graph, int src_v, int dest_v, int k)
+//     {
+//        int n = graph.size();
 
-     PriorityQueue<Path> pq = new PriorityQueue<>((a,b)->Integer.compare(a.price,b.price));
+//      PriorityQueue<Path> pq = new PriorityQueue<>((a,b)->Integer.compare(a.price,b.price));
 
-     int[][] minPrice = new int[n][2]; // minPrice[i][0] -> minPrice , minPrice[i][1] -> corrStops
+//      int[][] minPrice = new int[n][2]; // minPrice[i][0] -> minPrice , minPrice[i][1] -> corrStops
 
-     for(int i=0;i<n;i++)
-         minPrice[i][0] = minPrice[i][1] = Integer.MAX_VALUE;
+//      for(int i=0;i<n;i++)
+//          minPrice[i][0] = minPrice[i][1] = Integer.MAX_VALUE;
 
 
-        pq.add(new Path(src_v,0,-1));
+//         pq.add(new Path(src_v,0,-1));
 
-        while(!pq.isEmpty())
-        {
-            Path p =  pq.poll();
+//         while(!pq.isEmpty())
+//         {
+//             Path p =  pq.poll();
 
-            int curr_v = p.v;
-            int curr_price = p.price;
-            int curr_stop = p.stops;
+//             int curr_v = p.v;
+//             int curr_price = p.price;
+//             int curr_stop = p.stops;
             
-            // explore the neighbours
+//             // explore the neighbours
 
-            if(curr_v == dest_v)
-            {
-                break;
-            }
+//             if(curr_v == dest_v)
+//             {
+//                 break;
+//             }
 
-            for(Node nbr : graph.get(curr_v))
-            {
-                int nbr_v = nbr.v;
-                int nbr_wt = nbr.wt;
-                int nbr_price = curr_price + nbr_wt;
-                int nbr_stop = curr_stop + 1;
+//             for(Node nbr : graph.get(curr_v))
+//             {
+//                 int nbr_v = nbr.v;
+//                 int nbr_wt = nbr.wt;
+//                 int nbr_price = curr_price + nbr_wt;
+//                 int nbr_stop = curr_stop + 1;
 
-                if(nbr_price < minPrice[nbr_v][0] && nbr_stop <= k)
-                {
-                    minPrice[nbr_v][0] = nbr_price;
-                    minPrice[nbr_v][1] = nbr_stop;
-                    pq.add(new Path(nbr_v,nbr_price,nbr_stop));
-                }
-                else if(nbr_stop < minPrice[nbr_v][1] && nbr_stop <= k)
-                {
-                    pq.add(new Path(nbr_v,nbr_price,nbr_stop));
-                }
-            }
-        }
+//                 if(nbr_price < minPrice[nbr_v][0] && nbr_stop <= k)
+//                 {
+//                     minPrice[nbr_v][0] = nbr_price;
+//                     minPrice[nbr_v][1] = nbr_stop;
+//                     pq.add(new Path(nbr_v,nbr_price,nbr_stop));
+//                 }
+//                 else if(nbr_stop < minPrice[nbr_v][1] && nbr_stop <= k)
+//                 {
+//                     pq.add(new Path(nbr_v,nbr_price,nbr_stop));
+//                 }
+//             }
+//         }
 
 
 
-        if(minPrice[dest_v][0] == Integer.MAX_VALUE)
-        return -1;
+//         if(minPrice[dest_v][0] == Integer.MAX_VALUE)
+//         return -1;
 
-        return minPrice[dest_v][0];
+//         return minPrice[dest_v][0];
 
-    }
-    public int findCheapestPrice(int n, int[][] flights, int src_v, int dest_v, int k) {
+//     }
+//     public int findCheapestPrice(int n, int[][] flights, int src_v, int dest_v, int k) {
          
 
-          // first create the adjacency list
+//           // first create the adjacency list
 
-          List<List<Node>> graph = new ArrayList<>();
-
-
-          for(int i=0;i<n;i++)
-            graph.add(new ArrayList<>());
+//           List<List<Node>> graph = new ArrayList<>();
 
 
-          for(int i=0;i<flights.length;i++)
-          {
-             int u = flights[i][0];
-             int v = flights[i][1];
-             int wt = flights[i][2];
-
-             graph.get(u).add(new Node(v,wt));   
-          }
-
-          return dijkstra(graph,src_v,dest_v,k);
+//           for(int i=0;i<n;i++)
+//             graph.add(new ArrayList<>());
 
 
+//           for(int i=0;i<flights.length;i++)
+//           {
+//              int u = flights[i][0];
+//              int v = flights[i][1];
+//              int wt = flights[i][2];
 
-    }
-}
+//              graph.get(u).add(new Node(v,wt));   
+//           }
+
+//           return dijkstra(graph,src_v,dest_v,k);
+
+
+
+//     }
+// }
 
 
 
@@ -315,7 +315,7 @@ class Solution {
 
 // class Solution {
 
-//     class Node{
+//     class Path{
 //         int v;
 //         int price;  // total cost required to reach this node from source node
 //         int stopsSoFar;  // how many stops we have used to reach this node from source node
@@ -332,7 +332,7 @@ class Solution {
 //     {
 //          // Priority Queue (Min Heap)
 //          // Nodes with smaller price are processed first (Dijkstra behaviour)
-//          PriorityQueue<Node> pq = new PriorityQueue<>((a,b) -> Integer.compare(a.price,b.price));
+//          PriorityQueue<Path> pq = new PriorityQueue<>((a,b) -> Integer.compare(a.price,b.price));
 
 //          // Start from source node
 //         // stops = -1 because the first move will make it 0
