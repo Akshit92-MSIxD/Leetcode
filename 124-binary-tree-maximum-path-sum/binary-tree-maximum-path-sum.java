@@ -13,6 +13,8 @@
  *     }
  * }
  */
+
+ // Prerequisite : Diameter of a tree problem (concept of comparision for each node)
 class Solution {
     
     int maxSum = Integer.MIN_VALUE;
@@ -25,8 +27,6 @@ class Solution {
 
        int left = getMaxRootToLeafSum(root.left);
        int right = getMaxRootToLeafSum(root.right);
-
-    //    System.out.println("root : "+root.val+" and left : "+left+" , right : "+right);
 
        if(left < 0 && right < 0)
        {
@@ -44,9 +44,9 @@ class Solution {
          return root.val + left;
        }
 
-       maxSum = Math.max(maxSum,root.val + left + right);
+       maxSum = Math.max(maxSum,root.val + left + right); 
 
-       return root.val+Math.max(left,right);
+       return root.val+Math.max(left,right);   // return only the bigger path made either out of left or right
     }
 
     public int maxPathSum(TreeNode root) {
