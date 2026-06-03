@@ -22,11 +22,7 @@ class Solution {
           if(p == null && q == null)
           return true;
 
-          boolean left = isSameTree(p.left,q.left);
-          if(!left) return false;
-          boolean right = isSameTree(p.right,q.right);
-          if(!right) return false;
+          return isSameTree(p.left,q.left) && isSameTree(p.right,q.right);
 
-          return true;
     }
 }
