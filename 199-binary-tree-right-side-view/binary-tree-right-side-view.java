@@ -24,68 +24,68 @@
 // TC : O(n)
 // Auxiliary SC : O(n)   [extra hashmap space + queue]
 
-class Pair{
+// class Pair{
  
-  TreeNode curr;
-  int lvl;
+//   TreeNode curr;
+//   int lvl;
 
-  Pair(TreeNode curr,int lvl)
-  {
-    this.curr = curr;
-    this.lvl = lvl;
-  }
-}
+//   Pair(TreeNode curr,int lvl)
+//   {
+//     this.curr = curr;
+//     this.lvl = lvl;
+//   }
+// }
 
-class Solution {
+// class Solution {
     
-    List<Integer> bfs(TreeNode root)
-    {
+//     List<Integer> bfs(TreeNode root)
+//     {
      
-      HashMap<Integer,Integer> mp = new HashMap<>();
+//       HashMap<Integer,Integer> mp = new HashMap<>();
 
-      Queue<Pair> q = new ArrayDeque<>();
+//       Queue<Pair> q = new ArrayDeque<>();
 
-      q.add(new Pair(root,0));
+//       q.add(new Pair(root,0));
       
-      while(!q.isEmpty())
-      {
-         Pair top = q.poll();
+//       while(!q.isEmpty())
+//       {
+//          Pair top = q.poll();
 
-         TreeNode curr = top.curr;
-         int lvl = top.lvl;
+//          TreeNode curr = top.curr;
+//          int lvl = top.lvl;
 
-         mp.put(lvl,curr.val);
+//          mp.put(lvl,curr.val);
 
-         // explore the childrens
+//          // explore the childrens
 
-         if(curr.left != null)
-         q.add(new Pair(curr.left,lvl+1));
+//          if(curr.left != null)
+//          q.add(new Pair(curr.left,lvl+1));
 
-         if(curr.right != null)
-         q.add(new Pair(curr.right,lvl+1));
-      }
+//          if(curr.right != null)
+//          q.add(new Pair(curr.right,lvl+1));
+//       }
 
-      int maxLevel = Integer.MIN_VALUE;
+//       int maxLevel = Integer.MIN_VALUE;
 
-      for(int lvl : mp.keySet())
-      maxLevel = Math.max(maxLevel,lvl);
+//       for(int lvl : mp.keySet())
+//       maxLevel = Math.max(maxLevel,lvl);
 
-      List<Integer> rightView = new ArrayList<>();
+//       List<Integer> rightView = new ArrayList<>();
 
-      for(int level = 0;level<=maxLevel;level++)
-      rightView.add(mp.get(level));
+//       for(int level = 0;level<=maxLevel;level++)
+//       rightView.add(mp.get(level));
 
 
-      return rightView;
+//       return rightView;
 
-    }
-    public List<Integer> rightSideView(TreeNode root) {
+//     }
+//     public List<Integer> rightSideView(TreeNode root) {
           
-          if(root == null) return new ArrayList<>();
+//           if(root == null) return new ArrayList<>();
 
-          return bfs(root);
-    }
-}
+//           return bfs(root);
+//     }
+// }
 
 
 
@@ -101,49 +101,49 @@ class Solution {
 // TC : O(n)
 // Auxiliary SC : O(n)   [queue space]
 
-// class Solution {
+class Solution {
     
-//     List<Integer> bfs(TreeNode root)
-//     {
-//       Queue<TreeNode> q = new ArrayDeque<>();
+    List<Integer> bfs(TreeNode root)
+    {
+      Queue<TreeNode> q = new ArrayDeque<>();
 
-//       q.add(root);
+      q.add(root);
 
-//       List<Integer> rightView = new ArrayList<>();
+      List<Integer> rightView = new ArrayList<>();
       
-//       while(!q.isEmpty())
-//       {
-//          int size = q.size();
+      while(!q.isEmpty())
+      {
+         int size = q.size();
 
-//          while(size-- > 1)
-//          {
-//             TreeNode curr = q.poll();
+         while(size-- > 1)
+         {
+            TreeNode curr = q.poll();
             
-//             if(curr.left != null)
-//             q.add(curr.left);
+            if(curr.left != null)
+            q.add(curr.left);
 
-//             if(curr.right != null)
-//             q.add(curr.right);
-//          }
+            if(curr.right != null)
+            q.add(curr.right);
+         }
 
-//          TreeNode curr = q.poll();  // last node of current Level
-//          rightView.add(curr.val); // only last node of current level is a part of right view !!!
+         TreeNode last = q.poll();  // last node of current Level
+         rightView.add(last.val); // only last node of current level is a part of right view !!!
 
-//          if(curr.left != null)
-//          q.add(curr.left);
+         if(last.left != null)
+         q.add(last.left);
 
-//          if(curr.right != null)
-//          q.add(curr.right);
-//       }
+         if(last.right != null)
+         q.add(last.right);
+      }
 
-//       return rightView;
+      return rightView;
 
       
-//     }
-//     public List<Integer> rightSideView(TreeNode root) {
+    }
+    public List<Integer> rightSideView(TreeNode root) {
           
-//           if(root == null) return new ArrayList<>();
+          if(root == null) return new ArrayList<>();
 
-//           return bfs(root);
-//     }
-// }
+          return bfs(root);
+    }
+}
