@@ -14,6 +14,11 @@
  * }
  */
 
+
+
+// Approach : Normal DFS + Sorting using custom comparator
+// Hint : Use coordinate system(x,y) for each node in a tree !!!
+
 class Pair{
  
    int val;
@@ -26,9 +31,7 @@ class Pair{
     this.x = x;
     this.y = y;
    }
-
 }
-
 
 class Solution {
 
@@ -70,7 +73,6 @@ class Solution {
                 suborder.add(ls.get(i).val);
                 i++;
             }
-
             order.add(suborder);
         }
 
