@@ -13,6 +13,11 @@
  *     }
  * }
  */
+
+ // Approach 1 : Using DFS
+ // TC : O(n)
+ // SC : O(n) [recursive stack space]
+ 
 class Solution {
     public boolean isSameTree(TreeNode p, TreeNode q) {
          
