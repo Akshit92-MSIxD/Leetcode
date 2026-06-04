@@ -13,39 +13,70 @@
  *     }
  * }
  */
+// class Solution {
+    
+//     void dfs(TreeNode root, StringBuilder pathSoFar,List<String> paths)
+//     {    
+//         if(root == null)
+//         return;
+
+//         int len = pathSoFar.length();
+
+//         if(root.left == null && root.right == null)
+//         {
+//             pathSoFar.append(root.val);
+//             String validPath = new String(pathSoFar);
+//             paths.add(validPath);
+           
+//             pathSoFar.setLength(len);
+//             return;
+//         }
+
+//           pathSoFar.append(root.val+"->");
+ 
+//         dfs(root.left,pathSoFar,paths);
+//         dfs(root.right,pathSoFar,paths);
+
+//         pathSoFar.setLength(len);
+
+//     }
+
+
+//     public List<String> binaryTreePaths(TreeNode root) {
+           
+//            List<String> paths = new ArrayList<>();
+//            dfs(root,new StringBuilder(),paths);
+
+//            return paths;      
+//     }
+// }
+
+
+
 class Solution {
     
-    void dfs(TreeNode root, StringBuilder pathSoFar,List<String> paths)
+    void dfs(TreeNode root, String pathSoFar,List<String> paths)
     {    
         if(root == null)
         return;
 
-        int len = pathSoFar.length();
+          pathSoFar += root.val;
 
         if(root.left == null && root.right == null)
         {
-            pathSoFar.append(root.val);
-            String validPath = new String(pathSoFar);
-            paths.add(validPath);
-           
-            pathSoFar.setLength(len);
+            paths.add(pathSoFar);
             return;
         }
-
-          pathSoFar.append(root.val+"->");
  
-        dfs(root.left,pathSoFar,paths);
-        dfs(root.right,pathSoFar,paths);
-
-        pathSoFar.setLength(len);
-
+        dfs(root.left,pathSoFar+"->",paths);
+        dfs(root.right,pathSoFar+"->",paths);
     }
 
 
     public List<String> binaryTreePaths(TreeNode root) {
            
            List<String> paths = new ArrayList<>();
-           dfs(root,new StringBuilder(),paths);
+           dfs(root,new String(),paths);
 
            return paths;      
     }
