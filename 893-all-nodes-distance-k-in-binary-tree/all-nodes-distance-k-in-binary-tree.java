@@ -87,17 +87,17 @@ class Solution {
 
     public List<Integer> distanceK(TreeNode root, TreeNode target, int k) {
             
-            if(root.left == null && root.right == null)
-            {
-                if(k == 0 && target == root)
-                {
-                    List<Integer> res = new ArrayList<>();
-                    res.contains(root);
-                    return res;
-                }
+            // if(root.left == null && root.right == null)
+            // {
+            //     if(k == 0 && target == root)
+            //     {
+            //         List<Integer> res = new ArrayList<>();
+            //         res.add(root);
+            //         return res;
+            //     }
 
-                return new ArrayList<>();
-            } 
+            //     return new ArrayList<>();
+            // } 
 
            HashMap<TreeNode,TreeNode> parentMp = new HashMap<>();
 
