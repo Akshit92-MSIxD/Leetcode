@@ -14,6 +14,11 @@
  * }
  */
 
+ 
+// Approach 1 : BFS + Binary Tree Indexing Concept in 1D Array
+// TC : O(n)
+// SC : O(n/2) [in case of Perfect Binary Tree last level has around n/2 nodes in the last level]
+
 class Pair{
  
   TreeNode curr;
@@ -30,7 +35,8 @@ class Solution {
     
     int bfs(TreeNode root)
     {
-        Deque<Pair> q = new ArrayDeque<>();
+        Deque<Pair> q = new ArrayDeque<>(); // Deque extends queue in Java so it has all methods of queue + special methods like addFirst(),addLast(),pollFirst(),pollLast(),peekFirst() and peekLast()
+        
         q.add(new Pair(root,0)); // since root TreeNode is always placed on index 0 in 1D array !!!
 
         int maxWidth = Integer.MIN_VALUE;
