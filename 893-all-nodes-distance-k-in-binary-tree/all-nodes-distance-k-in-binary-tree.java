@@ -41,17 +41,19 @@ class Solution {
            int lvl = top.lvl;
 
            if(lvl == k)
+           {
            res.add(curr.val);
-
-           if(lvl > k)
-           break;
+           continue;
+           }
 
            //explore the parent
 
-           if(parentMp.get(curr) != null && !vis.contains(parentMp.get(curr)))
+           TreeNode parent = parentMp.get(curr);
+
+           if(parent != null && !vis.contains(parent))
            {
-            q.add(new Pair(parentMp.get(curr),lvl+1));
-            vis.add(parentMp.get(curr));
+            q.add(new Pair(parent,lvl+1));
+            vis.add(parent);
            }
 
            // explore the left children
@@ -87,17 +89,6 @@ class Solution {
 
     public List<Integer> distanceK(TreeNode root, TreeNode target, int k) {
             
-            // if(root.left == null && root.right == null)
-            // {
-            //     if(k == 0 && target == root)
-            //     {
-            //         List<Integer> res = new ArrayList<>();
-            //         res.add(root);
-            //         return res;
-            //     }
-
-            //     return new ArrayList<>();
-            // } 
 
            HashMap<TreeNode,TreeNode> parentMp = new HashMap<>();
 
