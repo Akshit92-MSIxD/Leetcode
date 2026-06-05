@@ -14,8 +14,8 @@
  * }
  */
 
- 
-// Approach 1 : BFS + Binary Tree Indexing Concept in 1D Array
+
+// Approach 1 : BFS + Binary Tree Indexing Concept in 1D Array + Deque 
 // TC : O(n)
 // SC : O(n/2) [in case of Perfect Binary Tree last level has around n/2 nodes in the last level]
 
