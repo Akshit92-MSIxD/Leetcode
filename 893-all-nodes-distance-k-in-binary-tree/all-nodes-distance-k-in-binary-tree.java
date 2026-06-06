@@ -8,138 +8,92 @@
  * }
  */
 
-// class Pair{
+// Note : I have written two approaches for this problem below. Please read both the approacches !!!
+
+
+
+// Approach 1 : Using DFS + BFS
+// Concept : Convert the tree problem into undirected graph by storing the parent of  each TreeNode in parentMp using HashMap , then apply bfs on the graph !!!
+// TC : O(n)
+// O(n) [queue space + HashSet]
+
+class Pair{
   
-//   TreeNode curr;
-//   int lvl;
+  TreeNode curr;
+  int lvl;
 
-//   Pair(TreeNode curr,int lvl)
-//   {
-//     this.curr = curr;
-//     this.lvl = lvl;
-//   }
+  Pair(TreeNode curr,int lvl)
+  {
+    this.curr = curr;
+    this.lvl = lvl;
+  }
 
-// }
-
-// class Solution {
-
-//     List<Integer> bfs(TreeNode start, int k, HashMap<TreeNode,TreeNode> parentMp)
-//     {
-//          List<Integer> res = new ArrayList<>();
-
-//          Queue<Pair> q = new ArrayDeque<>();
-//          HashSet<TreeNode> vis = new HashSet<>();
-
-//          q.add(new Pair(start,0));
-//          vis.add(start);
-
-//          while(!q.isEmpty())
-//          {
-//            Pair top = q.poll();
-
-//            TreeNode curr = top.curr;
-//            int lvl = top.lvl;
-
-//            if(lvl == k)
-//            {
-//            res.add(curr.val);
-//            continue;
-//            }
-
-//            //explore the parent
-
-//            TreeNode parent = parentMp.get(curr);
-
-//            if(parent != null && !vis.contains(parent))
-//            {
-//             q.add(new Pair(parent,lvl+1));
-//             vis.add(parent);
-//            }
-
-//            // explore the left children
-
-//            if(curr.left != null && !vis.contains(curr.left))
-//            {
-//             q.add(new Pair(curr.left,lvl+1));
-//             vis.add(curr.left);
-//            }
-
-//            //explore the right children
-
-//            if(curr.right != null && !vis.contains(curr.right))
-//            {
-//             q.add(new Pair(curr.right,lvl+1));
-//             vis.add(curr.right);
-//            }
-//          }
-
-//          return res;  
-//     }
-
-//     void dfs(TreeNode root, TreeNode parent, HashMap<TreeNode,TreeNode> parentMp)
-//     {
-//         if(root == null)
-//         return;
-
-//         parentMp.put(root,parent);
-
-//         dfs(root.left,root,parentMp);
-//         dfs(root.right,root,parentMp);     
-//     }
-
-//     public List<Integer> distanceK(TreeNode root, TreeNode target, int k) {
-            
-
-//            HashMap<TreeNode,TreeNode> parentMp = new HashMap<>();
-
-//            dfs(root,null,parentMp);
-
-//            return bfs(target,k,parentMp);
-
-//     }
-// }
-
-
+}
 
 class Solution {
 
-    void dfs2(TreeNode curr,TreeNode prev, int curr_lvl , int k, HashMap<TreeNode,TreeNode> parentMp, List<Integer> res)
+    List<Integer> bfs(TreeNode start, int k, HashMap<TreeNode,TreeNode> parentMp)
     {
-         if(curr == null)
-         return;
+         List<Integer> res = new ArrayList<>();
 
-         if(curr_lvl == k)
+         Queue<Pair> q = new ArrayDeque<>();
+         HashSet<TreeNode> vis = new HashSet<>();
+
+         q.add(new Pair(start,0));
+         vis.add(start);
+
+         while(!q.isEmpty())
          {
-            res.add(curr.val);
-            return;
+           Pair top = q.poll();
+
+           TreeNode curr = top.curr;
+           int lvl = top.lvl;
+
+           if(lvl == k)
+           {
+           res.add(curr.val);
+           continue;
+           }
+
+           //explore the parent
+
+           TreeNode parent = parentMp.get(curr);
+
+           if(parent != null && !vis.contains(parent))
+           {
+            q.add(new Pair(parent,lvl+1));
+            vis.add(parent);
+           }
+
+           // explore the left children
+
+           if(curr.left != null && !vis.contains(curr.left))
+           {
+            q.add(new Pair(curr.left,lvl+1));
+            vis.add(curr.left);
+           }
+
+           //explore the right children
+
+           if(curr.right != null && !vis.contains(curr.right))
+           {
+            q.add(new Pair(curr.right,lvl+1));
+            vis.add(curr.right);
+           }
          }
 
-         // explore the neighbours
-
-         TreeNode parent = parentMp.get(curr);
-
-         if(parent != prev)
-         dfs2(parent,curr,curr_lvl+1,k,parentMp,res);
-
-         if(curr.left != prev)
-         dfs2(curr.left,curr,curr_lvl+1,k,parentMp,res);
-
-         if(curr.right != prev)
-         dfs2(curr.right,curr,curr_lvl+1,k,parentMp,res);
-
-         return;
-
+         return res;  
     }
 
-    void dfs1(TreeNode root, TreeNode parent, HashMap<TreeNode,TreeNode> parentMp)
+    void dfs(TreeNode root, TreeNode parent, HashMap<TreeNode,TreeNode> parentMp)
     {
         if(root == null)
         return;
 
         parentMp.put(root,parent);
 
-        dfs1(root.left,root,parentMp);
-        dfs1(root.right,root,parentMp);     
+        dfs(root.left,root,parentMp);
+        dfs(root.right,root,parentMp);     
     }
 
     public List<Integer> distanceK(TreeNode root, TreeNode target, int k) {
@@ -147,12 +101,80 @@ class Solution {
 
            HashMap<TreeNode,TreeNode> parentMp = new HashMap<>();
 
-           dfs1(root,null,parentMp);
-           
-           List<Integer> res = new ArrayList<>();
-           dfs2(target,null,0,k,parentMp,res);
+           dfs(root,null,parentMp);
 
-           return res;
+           return bfs(target,k,parentMp);
 
     }
 }
+
+
+
+
+
+/*-----------------------------------------------------------------------------------------------------------------*/
+
+
+
+
+
+// // Approach 2 : DFS + DFS (less commonly used for these kind of problems)
+// // Concept : use of prev variable is main concept here !!!
+// // TC : O(n)
+// // SC : O(n) [recursive stack space or height of the tree in case of degenerate binary tree]
+
+// class Solution {
+
+//     void dfs2(TreeNode curr,TreeNode prev, int curr_lvl , int k, HashMap<TreeNode,TreeNode> parentMp, List<Integer> res)
+//     {
+//          if(curr == null)
+//          return;
+
+//          if(curr_lvl == k)
+//          {
+//             res.add(curr.val);
+//             return;
+//          }
+
+//          // explore the neighbours
+
+//          TreeNode parent = parentMp.get(curr);
+
+//          if(parent != prev)
+//          dfs2(parent,curr,curr_lvl+1,k,parentMp,res);
+
+//          if(curr.left != prev)
+//          dfs2(curr.left,curr,curr_lvl+1,k,parentMp,res);
+
+//          if(curr.right != prev)
+//          dfs2(curr.right,curr,curr_lvl+1,k,parentMp,res);
+
+//          return;
+
+//     }
+
+//     void dfs1(TreeNode root, TreeNode parent, HashMap<TreeNode,TreeNode> parentMp)
+//     {
+//         if(root == null)
+//         return;
+
+//         parentMp.put(root,parent);
+
+//         dfs1(root.left,root,parentMp);
+//         dfs1(root.right,root,parentMp);     
+//     }
+
+//     public List<Integer> distanceK(TreeNode root, TreeNode target, int k) {
+            
+
+//            HashMap<TreeNode,TreeNode> parentMp = new HashMap<>();
+
+//            dfs1(root,null,parentMp);
+           
+//            List<Integer> res = new ArrayList<>();
+//            dfs2(target,null,0,k,parentMp,res);
+
+//            return res;
+
+//     }
+// }
