@@ -22,20 +22,19 @@ class Solution {
         return null;
 
         TreeNode root = new TreeNode(preorder[idx]);
+        idx++;
         
         int pos = -1;
 
         for(int i=s;i<=e;i++)
         {
-            if(inorder[i] == preorder[idx])
+            if(inorder[i] == root.val)
             {
                 pos = i;
                 break;
             }
 
         }
-        
-        idx++;
 
         root.left = createBTree(s,pos-1,inorder,preorder);
         root.right = createBTree(pos+1,e,inorder,preorder);
