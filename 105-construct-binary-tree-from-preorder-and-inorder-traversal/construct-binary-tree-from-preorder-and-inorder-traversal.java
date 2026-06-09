@@ -13,10 +13,46 @@
  *     }
  * }
  */
+// class Solution {
+//     int idx = 0 ; // it is created to iterate over preorder[] only 
+
+//     TreeNode createBTree(int s, int e, int[] inorder, int[] preorder)
+//     {
+//         if(s > e)
+//         return null;
+
+//         TreeNode root = new TreeNode(preorder[idx]);
+//         idx++;
+        
+//         int pos = -1;
+
+//         for(int i=s;i<=e;i++)
+//         {
+//             if(inorder[i] == root.val)
+//             {
+//                 pos = i;
+//                 break;
+//             }
+
+//         }
+
+//         root.left = createBTree(s,pos-1,inorder,preorder);
+//         root.right = createBTree(pos+1,e,inorder,preorder);
+
+//         return root;
+//     }
+
+//     public TreeNode buildTree(int[] preorder, int[] inorder) {
+           
+//            return createBTree(0,inorder.length-1,inorder,preorder);
+//     }
+// }
+
+
 class Solution {
     int idx = 0 ; // it is created to iterate over preorder[] only 
 
-    TreeNode createBTree(int s, int e, int[] inorder, int[] preorder)
+    TreeNode createBTree(int s, int e, int[] inorder, int[] preorder, HashMap<Integer,Integer> indexMp)
     {
         if(s > e)
         return null;
@@ -24,26 +60,21 @@ class Solution {
         TreeNode root = new TreeNode(preorder[idx]);
         idx++;
         
-        int pos = -1;
+        int pos = indexMp.get(root.val);
 
-        for(int i=s;i<=e;i++)
-        {
-            if(inorder[i] == root.val)
-            {
-                pos = i;
-                break;
-            }
-
-        }
-
-        root.left = createBTree(s,pos-1,inorder,preorder);
-        root.right = createBTree(pos+1,e,inorder,preorder);
+        root.left = createBTree(s,pos-1,inorder,preorder,indexMp);
+        root.right = createBTree(pos+1,e,inorder,preorder,indexMp);
 
         return root;
     }
 
     public TreeNode buildTree(int[] preorder, int[] inorder) {
-           
-           return createBTree(0,inorder.length-1,inorder,preorder);
+            
+           HashMap<Integer,Integer> indexMp = new HashMap<>();
+
+           for(int i=0;i<inorder.length;i++)
+           indexMp.put(inorder[i],i); 
+
+           return createBTree(0,inorder.length-1,inorder,preorder,indexMp);
     }
 }
