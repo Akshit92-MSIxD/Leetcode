@@ -154,8 +154,6 @@ class Solution {
 
          int rootPos = indexMp.get(root.val);
 
-         int rightLength = inEnd - rootPos;
-
          root.right = createBTree(postOrder,inOrder,rootPos+1,inEnd);
          root.left = createBTree(postOrder,inOrder,inStart,rootPos-1);
 
