@@ -63,7 +63,7 @@ public class Codec {
 
           int i = 1;
 
-          while(!q.isEmpty())
+          while(!q.isEmpty() && i<res.length)
           {
               TreeNode curr = q.poll();
 
