@@ -39,9 +39,7 @@ public class Codec {
               }
         }
 
-          res.setLength(res.length()-1); // remove the last trailing comma
-
-          System.out.println(res);
+          res.setLength(res.length()-1); // remove the last trailing commas
 
           return res.toString();
 
@@ -50,7 +48,7 @@ public class Codec {
     // Decodes your encoded data to tree.
     public TreeNode deserialize(String data) {
 
-        if(data.length()==0)
+        if(data.isEmpty())
         return null;
          
           String[] res = data.split(",");
@@ -67,30 +65,22 @@ public class Codec {
           {
               TreeNode curr = q.poll();
 
-              TreeNode left = null;
-              TreeNode right = null;
-
               if(!res[i].equals("#"))
               {
-                left = new TreeNode(Integer.parseInt(res[i]));
-                q.add(left);
+                curr.left = new TreeNode(Integer.parseInt(res[i]));
+                q.add(curr.left);
               }
                
                i++;
 
               if(!res[i].equals("#"))
               {
-                right = new TreeNode(Integer.parseInt(res[i]));
-                q.add(right);
+                curr.right = new TreeNode(Integer.parseInt(res[i]));
+                q.add(curr.right);
               }
 
               i++;
-
-              curr.left = left;
-              curr.right = right;
           }
-           
-          i++;
 
           return root;
 
