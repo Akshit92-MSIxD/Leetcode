@@ -7,91 +7,112 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
-// public class Codec {
 
-//     // Encodes a tree to a single string.
-//     public String serialize(TreeNode root) {
+  
+ // Note : I have written three approaches for this problem below. Please read all three approaches !!!
+ // *** Please solve this problem once again !!!
+ // This problem is a good mix of String Concepts + Tree Concepts
+
+
+
+
+ // Approach 1 : BFS (for serialize) + BFS(deserialize)
+ // Concept : Here we serialize Binary Tree in form of Level Order Traversal representation including null ("#") like leetcode generally used for representing binary trees in every tree problem !!!
+
+ // TC : O(n) [for serialize] + O(n) [for deserialize]
+ // SC : O(n) [includes recursive stack + extra string array]
+
+public class Codec {
+
+    // Encodes a tree to a single string.
+    public String serialize(TreeNode root) {
          
-//          if(root == null)
-//          return "";
+         if(root == null)
+         return "";
 
-//         Queue<TreeNode> q = new LinkedList<>();
+        Queue<TreeNode> q = new LinkedList<>();
 
-//         q.add(root); 
+        q.add(root); 
 
-//         StringBuilder res = new StringBuilder();
+        StringBuilder res = new StringBuilder();
 
-//         while(!q.isEmpty())
-//         {
-//             TreeNode curr = q.poll();
+        while(!q.isEmpty())
+        {
+            TreeNode curr = q.poll();
             
-//             if(curr == null)
-//             res.append("#");
-//             else
-//             res.append(curr.val);
+            if(curr == null)
+            res.append("#");
+            else
+            res.append(curr.val);
      
-//               res.append(",");
+              res.append(",");
 
-//               if(curr != null)
-//               {
-//                  q.add(curr.left);
-//                  q.add(curr.right);
-//               }
-//         }
+              if(curr != null)
+              {
+                 q.add(curr.left);
+                 q.add(curr.right);
+              }
+        }
 
-//           res.setLength(res.length()-1); // remove the last trailing commas
+          res.setLength(res.length()-1); // remove the last trailing commas
 
-//           return res.toString();
+          return res.toString();
 
-//     }
+    }
 
-//     // Decodes your encoded data to tree.
-//     public TreeNode deserialize(String data) {
+    // Decodes your encoded data to tree.
+    public TreeNode deserialize(String data) {
 
-//         if(data.isEmpty())
-//         return null;
+        if(data.isEmpty())
+        return null;
          
-//           String[] res = data.split(",");
+          String[] res = data.split(",");
 
-//           TreeNode root = new TreeNode(Integer.parseInt(res[0]));
+          TreeNode root = new TreeNode(Integer.parseInt(res[0]));
 
-//           Queue<TreeNode> q = new ArrayDeque<>();
+          Queue<TreeNode> q = new ArrayDeque<>();
 
-//           q.add(root);
+          q.add(root);
 
-//           int i = 1;
+          int i = 1;
 
-//           while(!q.isEmpty() && i<res.length)
-//           {
-//               TreeNode curr = q.poll();
+          while(!q.isEmpty() && i<res.length)
+          {
+              TreeNode curr = q.poll();
 
-//               if(!res[i].equals("#"))
-//               {
-//                 curr.left = new TreeNode(Integer.parseInt(res[i]));
-//                 q.add(curr.left);
-//               }
+              if(!res[i].equals("#"))
+              {
+                curr.left = new TreeNode(Integer.parseInt(res[i]));
+                q.add(curr.left);
+              }
                
-//                i++;
+               i++;
 
-//               if(!res[i].equals("#"))
-//               {
-//                 curr.right = new TreeNode(Integer.parseInt(res[i]));
-//                 q.add(curr.right);
-//               }
+              if(!res[i].equals("#"))
+              {
+                curr.right = new TreeNode(Integer.parseInt(res[i]));
+                q.add(curr.right);
+              }
 
-//               i++;
-//           }
+              i++;
+          }
 
-//           return root;
+          return root;
 
-//     }
-// }
+    }
+}
+
 
 
 
 
 /*------------------------------------------------------------------------------------------------------------*/
 
+
+
+// Approach 2 : DFS(for serialize) + Iterative-DFS using State Concept(for deserialize)
+// TC : O(n) [for serialize] + O(n) [for deserialize]
+// SC : O(n) [includes recursive stack + extra string array]
 
 // class Pair{
 
@@ -186,69 +207,77 @@
 
 
 
-public class Codec {
+/*------------------------------------------------------------------------------------------------------------*/
+
+
+
+// Approach 3 : DFS(for serialize) + DFS using global-index(for deserialize)
+// TC : O(n) [for serialize] + O(n) [for deserialize]
+// SC : O(n) [mostly recursive stack space + extra string array]
+
+// public class Codec {
     
-     int idx = 0; // global index used in deserialize build() function to iterate over the preOrder[] (of type String[])
+//      int idx = 0; // global index used in deserialize build() function to iterate over the preOrder[] (of type String[])
 
-    void dfs(TreeNode root, StringBuilder preOrder)
-    {
-         if(root == null)
-         {
-         preOrder.append("#,");
-         return;
-         }
+//     void dfs(TreeNode root, StringBuilder preOrder)
+//     {
+//          if(root == null)
+//          {
+//          preOrder.append("#,");
+//          return;
+//          }
 
-         preOrder.append(root.val+",");
+//          preOrder.append(root.val+",");
 
-         dfs(root.left,preOrder);
-         dfs(root.right,preOrder);
-    }
+//          dfs(root.left,preOrder);
+//          dfs(root.right,preOrder);
+//     }
 
-    // Encodes a tree to a single string.
-    public String serialize(TreeNode root) {
+//     // Encodes a tree to a single string.
+//     public String serialize(TreeNode root) {
 
-         if(root == null)
-         return "";
+//          if(root == null)
+//          return "";
          
-         StringBuilder preOrder = new StringBuilder();
+//          StringBuilder preOrder = new StringBuilder();
 
-         dfs(root,preOrder);
+//          dfs(root,preOrder);
 
-         preOrder.setLength(preOrder.length()-1);
+//          preOrder.setLength(preOrder.length()-1);
 
-         return preOrder.toString();
+//          return preOrder.toString();
           
-    }
+//     }
 
-    TreeNode build(String[] preOrder)
-    {
-        if(preOrder[idx].equals("#"))
-        {
-         idx++;
-         return null;
-        }
+//     TreeNode build(String[] preOrder)
+//     {
+//         if(preOrder[idx].equals("#"))
+//         {
+//          idx++;
+//          return null;
+//         }
 
-        TreeNode root = new TreeNode(Integer.parseInt(preOrder[idx]));
-        idx++;
+//         TreeNode root = new TreeNode(Integer.parseInt(preOrder[idx]));
+//         idx++;
 
-        root.left = build(preOrder);
-        root.right = build(preOrder);
+//         root.left = build(preOrder);
+//         root.right = build(preOrder);
 
-        return root;
-    }
+//         return root;
+//     }
 
-    // Decodes your encoded data to tree.
-    public TreeNode deserialize(String data) {
+//     // Decodes your encoded data to tree.
+//     public TreeNode deserialize(String data) {
         
-        if(data.isEmpty())
-        return null;
+//         if(data.isEmpty())
+//         return null;
 
-        String[] preOrder = data.split(",");
+//         String[] preOrder = data.split(",");
         
-        return build(preOrder);
+//         return build(preOrder);
  
-    }
-}
+//     }
+// }
 
 
 
