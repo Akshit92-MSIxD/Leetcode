@@ -93,19 +93,102 @@
 /*------------------------------------------------------------------------------------------------------------*/
 
 
-class Pair{
+// class Pair{
 
-    TreeNode curr;
-    int state;
+//     TreeNode curr;
+//     int state;
 
-    Pair(TreeNode curr, int state)
-    {
-        this.curr = curr;
-        this.state = state;
-    }
-} 
+//     Pair(TreeNode curr, int state)
+//     {
+//         this.curr = curr;
+//         this.state = state;
+//     }
+// } 
+
+// public class Codec {
+
+//     void dfs(TreeNode root, StringBuilder preOrder)
+//     {
+//          if(root == null)
+//          {
+//          preOrder.append("#,");
+//          return;
+//          }
+
+//          preOrder.append(root.val+",");
+
+//          dfs(root.left,preOrder);
+//          dfs(root.right,preOrder);
+//     }
+
+//     // Encodes a tree to a single string.
+//     public String serialize(TreeNode root) {
+
+//          if(root == null)
+//          return "";
+         
+//          StringBuilder preOrder = new StringBuilder();
+
+//          dfs(root,preOrder);
+
+//          preOrder.setLength(preOrder.length()-1);
+
+//          return preOrder.toString();
+          
+//     }
+
+//     // Decodes your encoded data to tree.
+//     public TreeNode deserialize(String data) {
+        
+//         if(data.isEmpty())
+//         return null;
+
+//         String[] preOrder = data.split(",");
+
+//         Stack<Pair> st = new Stack<>();
+
+//         TreeNode root = new TreeNode(Integer.parseInt(preOrder[0]));
+
+//         st.push(new Pair(root,0));
+
+//         int i = 1;
+
+//         while(!st.empty())
+//         {
+
+//             TreeNode newNode = null;
+
+//             if(!preOrder[i].equals("#"))
+//             newNode = new TreeNode(Integer.parseInt(preOrder[i]));
+
+//             if(st.peek().state == 0)
+//             {
+//                 st.peek().curr.left = newNode;
+//                 st.peek().state += 1;
+//             }
+//             else
+//             {
+//                  st.peek().curr.right = newNode;
+//                  st.pop();
+//             }
+             
+//              if(newNode != null)
+//              st.push(new Pair(newNode,0));
+
+//            i++;
+//         }
+
+//         return root;
+ 
+//     }
+// }
+
+
+
 
 public class Codec {
+    
+     int idx = 0; // global index used in deserialize build() function to iterate over the preOrder[] (of type String[])
 
     void dfs(TreeNode root, StringBuilder preOrder)
     {
@@ -137,6 +220,23 @@ public class Codec {
           
     }
 
+    TreeNode build(String[] preOrder)
+    {
+        if(preOrder[idx].equals("#"))
+        {
+         idx++;
+         return null;
+        }
+
+        TreeNode root = new TreeNode(Integer.parseInt(preOrder[idx]));
+        idx++;
+
+        root.left = build(preOrder);
+        root.right = build(preOrder);
+
+        return root;
+    }
+
     // Decodes your encoded data to tree.
     public TreeNode deserialize(String data) {
         
@@ -144,41 +244,8 @@ public class Codec {
         return null;
 
         String[] preOrder = data.split(",");
-
-        Stack<Pair> st = new Stack<>();
-
-        TreeNode root = new TreeNode(Integer.parseInt(preOrder[0]));
-
-        st.push(new Pair(root,0));
-
-        int i = 1;
-
-        while(!st.empty())
-        {
-
-            TreeNode newNode = null;
-
-            if(!preOrder[i].equals("#"))
-            newNode = new TreeNode(Integer.parseInt(preOrder[i]));
-
-            if(st.peek().state == 0)
-            {
-                st.peek().curr.left = newNode;
-                st.peek().state += 1;
-            }
-            else
-            {
-                 st.peek().curr.right = newNode;
-                 st.pop();
-            }
-             
-             if(newNode != null)
-             st.push(new Pair(newNode,0));
-
-           i++;
-        }
-
-        return root;
+        
+        return build(preOrder);
  
     }
 }
