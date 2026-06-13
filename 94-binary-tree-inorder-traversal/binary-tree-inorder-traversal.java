@@ -14,6 +14,30 @@
  * }
  */
 
+// Note : I have written approaches for this problem below i.e "Destructive Morris Traversal" and "Standard Morris Traversal"
+
+// *** Note : Please dry run this algo first on pen and paper using "Example 2" in description section !!!
+
+// *** Note : Please dry run the "Destructive Morris Traversal" first then only dry run the "Standard Morris Traversal"
+
+// *** Note : "Standard Morris Traversal" is little tricky than "Destructive Morris Traversal" !!!
+
+
+
+
+
+
+
+// Approach 1 : "Destructive Morris Traversal" (Here once the links or threads are created , they are permanent and not changed till the end of the program and preFormed links between parent and children are broken down to perform this algorithm efficiently) (CodeWithMik Approach !!!!)
+
+// Watch this video : https://www.youtube.com/watch?v=Wq3ibaP4dJY
+
+// Note : This approach permanently modify the original binary tree input !!!
+
+// Concept : It is used to find inorder of the given tree in O(1) extra space(no recursive stack and iterative stack)
+
+// TC : O(n)
+// SC : O(1)
 
 class Solution {
     public List<Integer> inorderTraversal(TreeNode root) {
@@ -28,15 +52,15 @@ class Solution {
           while(curr != null)
           {
 
-             if(curr.left == null)
+             if(curr.left == null)  // since left is null so process curr and move to right children
              {
-                inorder.add(curr.val);
+                inorder.add(curr.val); //In : Left Root Right (since left is null so process the curr)
                 curr = curr.right;
              }
              else
              {
               
-              TreeNode pred = curr.left;
+              TreeNode pred = curr.left;  // pred : this is inorder predecessor of curr !!!
 
              while(pred.right != null)
              pred = pred.right;
@@ -57,6 +81,23 @@ class Solution {
 
 
 
+
+/*-----------------------------------------------------------------------------------------------------*/
+
+
+
+
+
+
+// Approach 2 : "Standard Morris Traversal" (Here the new links or threads being created , they are not permanent  till the end of the program and preFormed links between parent and children are broken down but later new links are broken down again and preFormed links would get restored !!!)
+
+// Note : This approach temporarily modify the given input binary tree but "restores" the "original" input binary tree!!!
+
+// Concept : It is used to find inorder of the given tree in O(1) extra space(no recursive stack and iterative stack)
+
+// TC : O(n)
+// SC : O(1)
+
 // class Solution {
 //     public List<Integer> inorderTraversal(TreeNode root) {
            
@@ -66,14 +107,14 @@ class Solution {
 
 //         while(curr != null)
 //         {
-//             if(curr.left == null)
+//             if(curr.left == null)  // since left is null so process curr and move to right children
 //             {
-//                 inOrder.add(curr.val);
+//                 inOrder.add(curr.val); //In : Left Root Right (since left is null so process the curr)
 //                 curr = curr.right;
 //             }
-//             else
+//             else       
 //             {
-//                 TreeNode pred = curr.left;   // inorder predecessor of curr 
+//                 TreeNode pred = curr.left;    // pred : this is inorder predecessor of curr !!!
 
 //                 while(pred.right != null && pred.right != curr) 
 //                 pred = pred.right;
@@ -83,10 +124,10 @@ class Solution {
 //                 pred.right = curr;
 //                 curr = curr.left;
 //                 }
-//                 else                // break the thread or link in case this condition is true !!!
+//                 else       // break the created thread or link in case this condition is true !!!
 //                 {
 //                     pred.right = null;
-//                     inOrder.add(curr.val);
+//                     inOrder.add(curr.val); 
 //                     curr = curr.right;
 //                 }
 //             }
