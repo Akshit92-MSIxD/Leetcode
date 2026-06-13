@@ -13,39 +13,83 @@
  *     }
  * }
  */
+
+
+// class Solution {
+//     public List<Integer> inorderTraversal(TreeNode root) {
+          
+//           if(root == null)
+//           return new ArrayList<>();
+
+//           List<Integer> inorder = new ArrayList<>();
+
+//           TreeNode curr = root;
+
+//           while(curr != null)
+//           {
+//              TreeNode temp = curr.left;
+
+//              if(temp == null)
+//              {
+//                 inorder.add(curr.val);
+//                 curr = curr.right;
+//                 continue;
+//              }
+
+//              while(temp.right != null)
+//              temp = temp.right;
+
+//              temp.right = curr;
+
+//              TreeNode nextNode = curr.left;
+
+//              curr.left = null;
+
+//              curr = nextNode;
+//           }
+
+//           return inorder;
+//     }
+// }
+
+
+
 class Solution {
     public List<Integer> inorderTraversal(TreeNode root) {
-          
-          if(root == null)
-          return new ArrayList<>();
+           
+        List<Integer> inOrder = new ArrayList<>();
 
-          List<Integer> inorder = new ArrayList<>();
+        TreeNode curr = root;
 
-          TreeNode curr = root;
-
-          while(curr != null)
-          {
-             TreeNode temp = curr.left;
-
-             if(temp == null)
-             {
-                inorder.add(curr.val);
+        while(curr != null)
+        {
+            if(curr.left == null)
+            {
+                inOrder.add(curr.val);
                 curr = curr.right;
-                continue;
-             }
+            }
+            else
+            {
+                TreeNode pred = curr.left;   // inorder predecessor of curr 
 
-             while(temp.right != null)
-             temp = temp.right;
+                while(pred.right != null && pred.right != curr)
+                pred = pred.right;
 
-             temp.right = curr;
+                if(pred.right == null)
+                {
+                pred.right = curr;
+                curr = curr.left;
+                }
+                else
+                {
+                    pred.right = null;
+                    inOrder.add(curr.val);
+                    curr = curr.right;
+                }
+            }
+        }
 
-             TreeNode nextNode = curr.left;
-
-             curr.left = null;
-
-             curr = nextNode;
-          }
-
-          return inorder;
+        return inOrder;
+          
     }
 }
