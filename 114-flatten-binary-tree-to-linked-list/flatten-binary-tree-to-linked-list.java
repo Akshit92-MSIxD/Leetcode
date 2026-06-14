@@ -52,19 +52,55 @@
 
 
 
+// class Solution {
+     
+//      TreeNode prev = null;
+//     public void flatten(TreeNode root) {
+            
+//         if(root == null)
+//         return;
+
+//         flatten(root.right);
+//         flatten(root.left);
+
+//         root.right = prev;
+//         root.left = null;
+//         prev = root;
+//     }
+// }
+
+
 class Solution {
      
-     TreeNode prev = null;
+  
     public void flatten(TreeNode root) {
+
+            if(root == null)
+            return;
             
-        if(root == null)
-        return;
+            TreeNode dummyNode = new TreeNode(-9999,null,null);
+            TreeNode tail = dummyNode;
 
-        flatten(root.right);
-        flatten(root.left);
+            Stack<TreeNode> st = new Stack<>();
 
-        root.right = prev;
-        root.left = null;
-        prev = root;
+            st.push(root);
+
+            while(!st.empty())
+            {
+                TreeNode curr = st.pop();
+
+                if(curr.right != null)
+                st.push(curr.right);
+
+                if(curr.left != null)
+                st.push(curr.left);
+
+                tail.right = curr;
+                tail = tail.right;
+                tail.left = null;
+                tail.right = null;
+            }
+
+           dummyNode = null;
     }
 }
