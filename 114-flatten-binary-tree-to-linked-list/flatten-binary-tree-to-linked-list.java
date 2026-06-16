@@ -13,44 +13,66 @@
  *     }
  * }
  */
-// class Solution {
 
-//     TreeNode dfs(TreeNode root)
-//     {    
-//           if(root == null)
-//           return null;
+// Note: I have written three approaches for this below . Please read all of them are important !!!
 
-//           if(root.left == null && root.right == null)
-//           return root;
 
-//           TreeNode leftBottom = dfs(root.left);
-//           TreeNode rightBottom = dfs(root.right);
 
-//           if(leftBottom == null)
-//           return rightBottom;
 
-//           if(rightBottom == null)
-//           {
-//             root.right = root.left;
-//             root.left = null;
-//             return leftBottom;
-//           }
 
-//           leftBottom.right = root.right;
-//           TreeNode temp = root.left;
-//           root.left = null;
-//           root.right = temp;
 
-//           return rightBottom;
-//     }
+ // Approach 1 : Expectation + Faith DFS
+ // TC : O(n)
+ // SC : O(n) [in case of degenerate binary tree]
 
-//     public void flatten(TreeNode root) {
+class Solution {
+
+    TreeNode dfs(TreeNode root)
+    {    
+          if(root == null)
+          return null;
+
+          if(root.left == null && root.right == null)
+          return root;
+
+          TreeNode leftBottom = dfs(root.left);
+          TreeNode rightBottom = dfs(root.right);
+
+          if(leftBottom == null)
+          return rightBottom;
+
+          if(rightBottom == null)
+          {
+            root.right = root.left;
+            root.left = null;
+            return leftBottom;
+          }
+
+          leftBottom.right = root.right;
+          TreeNode temp = root.left;
+          root.left = null;
+          root.right = temp;
+
+          return rightBottom;
+    }
+
+    public void flatten(TreeNode root) {
            
-//             dfs(root);
-//     }
-// }
+            dfs(root);
+    }
+}
 
 
+
+
+/*----------------------------------------------------------------------------------------------------------------*/
+
+
+
+
+// Approach 2 : DFS(Reverse Postorder) + Prev (By striver !!!)
+// TC : O(n)
+// SC : O(n)
 
 // class Solution {
      
@@ -70,37 +92,49 @@
 // }
 
 
-class Solution {
+
+
+/*---------------------------------------------------------------------------------------------------------------*/
+
+
+
+
+
+// Approach 3 : Iterative Preorder using Stack
+// TC : O(n)
+// SC : O(n/2) [ in case of perfect or complete binary tree]
+
+// class Solution {
      
   
-    public void flatten(TreeNode root) {
+//     public void flatten(TreeNode root) {
 
-            if(root == null)
-            return;
+//             if(root == null)
+//             return;
             
-            TreeNode dummyNode = new TreeNode(-9999,null,null);
-            TreeNode tail = dummyNode;
+//             TreeNode dummyNode = new TreeNode(-9999,null,null);
+//             TreeNode tail = dummyNode;
 
-            Stack<TreeNode> st = new Stack<>();
+//             Stack<TreeNode> st = new Stack<>();
 
-            st.push(root);
+//             st.push(root);
 
-            while(!st.empty())
-            {
-                TreeNode curr = st.pop();
+//             while(!st.empty())
+//             {
+//                 TreeNode curr = st.pop();
 
-                if(curr.right != null)
-                st.push(curr.right);
+//                 if(curr.right != null)
+//                 st.push(curr.right);
 
-                if(curr.left != null)
-                st.push(curr.left);
+//                 if(curr.left != null)
+//                 st.push(curr.left);
 
-                tail.right = curr;
-                tail = tail.right;
-                tail.left = null;
-                tail.right = null;
-            }
+//                 tail.right = curr;
+//                 tail = tail.right;
+//                 tail.left = null;
+//                 tail.right = null;
+//             }
 
-           dummyNode = null;
-    }
-}
+//            dummyNode = null;
+//     }
+// }
