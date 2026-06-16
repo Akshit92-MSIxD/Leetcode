@@ -13,6 +13,11 @@
  *     }
  * }
  */
+
+ // Approach : Normal Iterative Approach
+ // TC : O(logn) [ in case of CBT or PBT]
+ // SC : O(1)
+ 
 class Solution {
     public TreeNode searchBST(TreeNode root, int val) {
            
