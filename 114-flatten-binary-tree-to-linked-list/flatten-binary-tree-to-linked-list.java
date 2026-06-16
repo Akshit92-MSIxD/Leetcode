@@ -14,7 +14,7 @@
  * }
  */
 
-// Note: I have written three approaches for this below . Please read all of them are important !!!
+// Note: I have written four approaches for this below . Please read all of them are important !!!
 
 
 
@@ -25,42 +25,42 @@
  // TC : O(n)
  // SC : O(n) [in case of degenerate binary tree]
 
-class Solution {
+// class Solution {
 
-    TreeNode dfs(TreeNode root)
-    {    
-          if(root == null)
-          return null;
+//     TreeNode dfs(TreeNode root)
+//     {    
+//           if(root == null)
+//           return null;
 
-          if(root.left == null && root.right == null)
-          return root;
+//           if(root.left == null && root.right == null)
+//           return root;
 
-          TreeNode leftBottom = dfs(root.left);
-          TreeNode rightBottom = dfs(root.right);
+//           TreeNode leftBottom = dfs(root.left);
+//           TreeNode rightBottom = dfs(root.right);
 
-          if(leftBottom == null)
-          return rightBottom;
+//           if(leftBottom == null)
+//           return rightBottom;
 
-          if(rightBottom == null)
-          {
-            root.right = root.left;
-            root.left = null;
-            return leftBottom;
-          }
+//           if(rightBottom == null)
+//           {
+//             root.right = root.left;
+//             root.left = null;
+//             return leftBottom;
+//           }
 
-          leftBottom.right = root.right;
-          TreeNode temp = root.left;
-          root.left = null;
-          root.right = temp;
+//           leftBottom.right = root.right;
+//           TreeNode temp = root.left;
+//           root.left = null;
+//           root.right = temp;
 
-          return rightBottom;
-    }
+//           return rightBottom;
+//     }
 
-    public void flatten(TreeNode root) {
+//     public void flatten(TreeNode root) {
            
-            dfs(root);
-    }
-}
+//             dfs(root);
+//     }
+// }
 
 
 
@@ -138,3 +138,50 @@ class Solution {
 //            dummyNode = null;
 //     }
 // }
+
+
+
+
+/*-------------------------------------------------------------------------------------------------------------*/
+
+
+
+
+class Solution {
+
+
+    public void flatten(TreeNode root) {
+           
+           if(root == null)
+           return;
+
+           TreeNode curr = root;
+
+           while(curr != null)
+           {
+             if(curr.left == null)
+             {
+                curr = curr.right;
+             }
+             else
+             {
+
+             TreeNode succ = curr.left;
+
+             while(succ.right != null)
+             succ = succ.right;
+
+             succ.right = curr.right;
+             curr.right = null;
+             curr.right = curr.left;
+             curr.left = null;
+             curr = curr.right;
+
+             }
+
+           }
+
+           return;
+           
+    }
+}
