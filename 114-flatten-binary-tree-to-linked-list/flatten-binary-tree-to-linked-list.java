@@ -16,6 +16,8 @@
 
 // Note: I have written four approaches for this below . Please read all of them are important !!!
 
+// ***Note : Approach 4 is most optimal (taking O(1) extra space :) !!!
+
 
 
 
@@ -25,42 +27,42 @@
  // TC : O(n)
  // SC : O(n) [in case of degenerate binary tree]
 
-// class Solution {
+class Solution {
 
-//     TreeNode dfs(TreeNode root)
-//     {    
-//           if(root == null)
-//           return null;
+    TreeNode dfs(TreeNode root)
+    {    
+          if(root == null)
+          return null;
 
-//           if(root.left == null && root.right == null)
-//           return root;
+          if(root.left == null && root.right == null)
+          return root;
 
-//           TreeNode leftBottom = dfs(root.left);
-//           TreeNode rightBottom = dfs(root.right);
+          TreeNode leftBottom = dfs(root.left);
+          TreeNode rightBottom = dfs(root.right);
 
-//           if(leftBottom == null)
-//           return rightBottom;
+          if(leftBottom == null)
+          return rightBottom;
 
-//           if(rightBottom == null)
-//           {
-//             root.right = root.left;
-//             root.left = null;
-//             return leftBottom;
-//           }
+          if(rightBottom == null)
+          {
+            root.right = root.left;
+            root.left = null;
+            return leftBottom;
+          }
 
-//           leftBottom.right = root.right;
-//           TreeNode temp = root.left;
-//           root.left = null;
-//           root.right = temp;
+          leftBottom.right = root.right;
+          TreeNode temp = root.left;
+          root.left = null;
+          root.right = temp;
 
-//           return rightBottom;
-//     }
+          return rightBottom;
+    }
 
-//     public void flatten(TreeNode root) {
+    public void flatten(TreeNode root) {
            
-//             dfs(root);
-//     }
-// }
+            dfs(root);
+    }
+}
 
 
 
@@ -147,41 +149,44 @@
 
 
 
-class Solution {
+// Approach 4 : Iterative Approach Inspired from "Morris Traversal"
+// TC : O(n)
+// SC : O(1)
 
+// class Solution {
 
-    public void flatten(TreeNode root) {
+//     public void flatten(TreeNode root) {
            
-           if(root == null)
-           return;
+//            if(root == null)
+//            return;
 
-           TreeNode curr = root;
+//            TreeNode curr = root;
 
-           while(curr != null)
-           {
-             if(curr.left == null)
-             {
-                curr = curr.right;
-             }
-             else
-             {
+//            while(curr != null)
+//            {
+//              if(curr.left == null)
+//              {
+//                 curr = curr.right;
+//              }
+//              else
+//              {
 
-             TreeNode succ = curr.left;
+//              TreeNode succ = curr.left;
 
-             while(succ.right != null)
-             succ = succ.right;
+//              while(succ.right != null)
+//              succ = succ.right;
 
-             succ.right = curr.right;
-             curr.right = null;
-             curr.right = curr.left;
-             curr.left = null;
-             curr = curr.right;
+//              succ.right = curr.right;    // creating thread with the right child of the curr (not the curr !!!)
+//              curr.right = null;          // breaking the connection between right child and curr
+//              curr.right = curr.left;     // now update the right child to left child
+//              curr.left = null;           // break the connection with left child
+//              curr = curr.right;          // go to the new right child
 
-             }
+//              }
 
-           }
+//            }
 
-           return;
+//            return;
            
-    }
-}
+//     }
+// }
