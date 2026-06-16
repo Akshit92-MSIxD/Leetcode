@@ -183,6 +183,10 @@
 // }
 
 
+
+/*--------------------------------------------------------------------------------------------------------------*/
+
+
 class Solution {
 
     void dfs(TreeNode root,List<Integer> inOrder)
@@ -215,14 +219,16 @@ class Solution {
                     {
                         int mid = low + (high - low)/2;
 
-                        if(inOrder.get(mid) > k)
+                        int val = inOrder.get(mid);
+
+                        if(val > k)
                         {
-                            ceil = inOrder.get(mid);
+                            ceil = val;
                             high = mid - 1;
                         }
-                        else if(inOrder.get(mid) < k)
+                        else if(val < k)
                         {
-                            floor = inOrder.get(mid);
+                            floor = val;
                             low = mid + 1;
                         }
                         else
