@@ -103,7 +103,7 @@ class Solution {
 
              if(inOrder.get(mid) <= k)
              {
-                 floor = Math.max(floor,inOrder.get(mid));
+                 floor = inOrder.get(mid);
                  low = mid + 1;
              }
              else
@@ -132,7 +132,7 @@ class Solution {
 
               if(inOrder.get(mid) >= k)
               {
-                 ceil = Math.min(ceil,inOrder.get(mid));
+                 ceil = inOrder.get(mid);
                  high = mid - 1;
               }
               else
