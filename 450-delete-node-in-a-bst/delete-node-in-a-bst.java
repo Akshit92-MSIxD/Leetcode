@@ -13,78 +13,90 @@
  *     }
  * }
  */
+class Solution {
+    public TreeNode deleteNode(TreeNode root, int key) {
+            
+            if(root == null)
+            return null;
+
+            TreeNode keyNode = null;
+            
+            TreeNode prev = null;
+            TreeNode curr = root;
+
+            while(curr != null)
+            {
+                if(key == curr.val)
+                {
+                    keyNode = curr;
+                    break;
+                }
+                else if(key < curr.val)
+                {
+                    prev = curr;
+                    curr = curr.left;
+                }
+                else
+                {
+                    prev = curr;
+                    curr = curr.right;
+                }
+            }
+
+            if(keyNode == null)
+            return root;
+
+
+            TreeNode leftPart = keyNode.left;
+            TreeNode rightPart = keyNode.right;
+
+            curr = leftPart;
+
+            while(curr != null && curr.right != null)
+            curr = curr.right;
+
+            if(curr != null)
+            curr.right = rightPart;
+
+
+            if(prev == null)
+            {
+                keyNode.left = keyNode.right = null;
+                return (leftPart == null) ? rightPart : leftPart;
+            }
+
+
+            if(prev.left == keyNode)
+            {
+                keyNode.left = keyNode.right = null;
+                prev.left = (leftPart == null) ? rightPart : leftPart;
+            }
+            else
+            {
+                keyNode.right = keyNode.left = null;
+                prev.right = (leftPart == null) ? rightPart : leftPart;
+            }
+
+            return root;
+    }
+}
+
+
+
+
 // class Solution {
 //     public TreeNode deleteNode(TreeNode root, int key) {
             
-//             if(root == null)
-//             return null;
- 
-//             TreeNode prev = null;
-//             TreeNode curr = root;
-
-//             while(curr != null)
-//             {
-//                 if(key < curr.val)
-//                 {
-//                     prev = curr;
-//                     curr = curr.left;
-//                 }
-//                 else if(key > curr.val)
-//                 {
-//                     prev = curr;
-//                     curr = curr.right;
-//                 }
-//                 else
-//                 {
-//                     break;
-//                 }
-//             }
+//           if(root == null)
+//           return null;
 
 
-//             if(curr == null)
-//             return root;
+//           if(root.val == key)
+//           {
+//              TreeNode leftPart = root.left;
+//              TreeNode rightPart = root.right;
 
-//             TreeNode rightPart = curr.right;
-//             TreeNode leftPart = curr.left;
-
-//             curr.left = null;
-//             curr.right = null;
-           
-//              if(prev != null)
-//              {
-               
-//                if(prev.left == curr)
-//                {
-//                    prev.left = leftPart;
-
-//                    curr = leftPart;
-
-//                    while(curr != null && curr.right != null)
-//                    curr = curr.right;
-                  
-//                    if(curr != null)
-//                    curr.right = rightPart;
-
-//                    return root;
-//                }
-//                else
-//                {
-//                    prev.right = rightPart;
-
-//                    curr = rightPart;
-
-//                    while(curr != null && curr.left != null)
-//                    curr = curr.left;
-                  
-//                   if(curr != null)
-//                    curr.left = leftPart;
-
-//                    return root;
-//                }
-//              }
-
-
-//              curr = leftPart;
+//              TreeNode curr = leftPart;
 
 //              while(curr != null && curr.right != null)
 //              curr = curr.right;
@@ -92,53 +104,20 @@
 //              if(curr != null)
 //              curr.right = rightPart;
 
+//              root.left = root.right = null;
 
-//              if(leftPart == null)
-//              return rightPart;
+//              return (leftPart == null) ? rightPart : leftPart;
+//           }
+//           else if(root.val > key)
+//           {
+//             root.left = deleteNode(root.left,key);
+//           }
+//           else
+//           {
+//             root.right = deleteNode(root.right,key);
+//           }
 
-//              return leftPart;
-
+//           return root;
 
 //     }
 // }
-
-
-
-
-class Solution {
-    public TreeNode deleteNode(TreeNode root, int key) {
-            
-          if(root == null)
-          return null;
-
-
-          if(root.val == key)
-          {
-             TreeNode leftPart = root.left;
-             TreeNode rightPart = root.right;
-
-             TreeNode curr = leftPart;
-
-             while(curr != null && curr.right != null)
-             curr = curr.right;
-
-             if(curr != null)
-             curr.right = rightPart;
-
-             root.left = root.right = null;
-
-             return (leftPart == null) ? rightPart : leftPart;
-          }
-          else if(root.val > key)
-          {
-            root.left = deleteNode(root.left,key);
-          }
-          else
-          {
-          root.right = deleteNode(root.right,key);
-          }
-
-          return root;
-
-    }
-}
