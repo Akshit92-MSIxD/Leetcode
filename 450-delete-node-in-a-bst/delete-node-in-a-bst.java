@@ -125,15 +125,18 @@ class Solution {
              if(curr != null)
              curr.right = rightPart;
 
+             root.left = root.right = null;
+
              return (leftPart == null) ? rightPart : leftPart;
           }
           else if(root.val > key)
           {
             root.left = deleteNode(root.left,key);
-            return root;
           }
-
+          else
+          {
           root.right = deleteNode(root.right,key);
+          }
 
           return root;
 
