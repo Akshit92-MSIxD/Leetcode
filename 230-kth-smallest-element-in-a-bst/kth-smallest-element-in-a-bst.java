@@ -94,98 +94,101 @@
 // SC : O(n) [height in case of degenerated BST]
 
 
-// class Solution {
+class Solution {
 
-//     int idx = -1;
-//     int ans = -1;
+    int count = 0;
+    int ans = -1;
     
-//     void dfs(TreeNode root , int k)
-//     {
-//         if(root == null)
-//         return;
+    void dfs(TreeNode root , int k)
+    {
+        if(root == null)
+        return;
 
-//         if(ans != -1)
-//         return;
+        if(ans != -1)
+        return;
          
  
-//         dfs(root.left,k);
+        dfs(root.left,k);
          
-//          idx++;
+         count++;
 
-//          if(idx == k-1)
-//          ans = root.val;
+         if(count == k)
+         ans = root.val;
 
-//         dfs(root.right,k);
-//     }
+        dfs(root.right,k);
+    }
 
-//     public int kthSmallest(TreeNode root, int k) {
+    public int kthSmallest(TreeNode root, int k) {
            
-//            dfs(root,k);
-//            return ans;
-//     }
-// }
+           dfs(root,k);
+           return ans;
+    }
+}
 
 
 
 /*---------------------------------------------------------------------------------------------------------------*/
 
 
+// Approach 4 : Morris Traversal for Inorder + (count + ans) Approach!!!
+// TC : O(n) [in case of degenerated BST]
+// SC : O(1) [no extra space]
 
-class Solution {
+// class Solution {
 
-    public int kthSmallest(TreeNode root, int k) {
+//     public int kthSmallest(TreeNode root, int k) {
            
              
-            TreeNode curr = root;
+//             TreeNode curr = root;
 
-            int count = 0;
-            int ans = -1;
+//             int count = 0;
+//             int ans = -1;
 
 
-            while(curr != null)
-            {
-                if(curr.left == null)
-                {
-                    count++;
+//             while(curr != null)
+//             {
+//                 if(curr.left == null)
+//                 {
+//                     count++;
 
-                    if(count == k)
-                    {
-                        ans = curr.val;
-                        break;
-                    }
+//                     if(count == k)
+//                     {
+//                         ans = curr.val;
+//                         break;
+//                     }
 
-                    curr = curr.right;
-                }
-                else
-                {
+//                     curr = curr.right;
+//                 }
+//                 else
+//                 {
                   
-                   TreeNode pred = curr.left;
+//                    TreeNode pred = curr.left;
 
-                   while(pred.right != null && pred.right != curr)
-                   pred = pred.right;
+//                    while(pred.right != null && pred.right != curr)
+//                    pred = pred.right;
 
-                   if(pred.right == null)
-                   {
-                     pred.right = curr;
-                     curr = curr.left;
-                   }
-                   else
-                   {
-                     count++;
+//                    if(pred.right == null)
+//                    {
+//                      pred.right = curr;
+//                      curr = curr.left;
+//                    }
+//                    else
+//                    {
+//                      count++;
 
-                     if(count == k)
-                     {
-                        ans = curr.val;
-                        break;
-                     }
+//                      if(count == k)
+//                      {
+//                         ans = curr.val;
+//                         break;
+//                      }
 
-                     pred.right = null;
-                     curr = curr.right;
-                   }
-                }
-            }
+//                      pred.right = null;
+//                      curr = curr.right;
+//                    }
+//                 }
+//             }
 
 
-            return ans;
-    }
-}
+//             return ans;
+//     }
+// }
