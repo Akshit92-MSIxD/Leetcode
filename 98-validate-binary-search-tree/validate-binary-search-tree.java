@@ -24,17 +24,10 @@ class Solution {
             {
                 if(curr.left == null)
                 {
-                    if(lastElmOfIn != null)
-                    {
-                       if(curr.val <= lastElmOfIn.val)
-                          return false;
-
-                       lastElmOfIn = curr;
-                    }
-                    else
-                    {
-                        lastElmOfIn = curr;
-                    }
+                    if(lastElmOfIn != null && curr.val <= lastElmOfIn.val)
+                    return false;
+                        
+                    lastElmOfIn = curr;
 
                     curr = curr.right;
                 }
