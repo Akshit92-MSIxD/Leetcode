@@ -13,24 +13,59 @@
  *     }
  * }
  */
+// class Solution {
+    
+//     void dfs(TreeNode root, List<Integer> inOrder)
+//     {
+//         if(root == null)
+//         return;
+
+//         dfs(root.left,inOrder);
+//         inOrder.add(root.val);
+//         dfs(root.right,inOrder);
+//     }
+
+//     public int kthSmallest(TreeNode root, int k) {
+        
+//            List<Integer> inOrder = new ArrayList<>();
+
+//            dfs(root,inOrder);
+
+//            return inOrder.get(k-1);
+//     }
+// }
+
+
 class Solution {
     
-    void dfs(TreeNode root, List<Integer> inOrder)
+    void dfs(TreeNode root, PriorityQueue<Integer> pq , int k)
     {
         if(root == null)
         return;
+         
+         if(pq.size() != k)
+         {
+            pq.add(root.val);
+         }
+         else
+         {
+            if(root.val < pq.peek())
+            {
+            pq.poll();
+            pq.add(root.val);
+            }
+         }
 
-        dfs(root.left,inOrder);
-        inOrder.add(root.val);
-        dfs(root.right,inOrder);
+        dfs(root.left,pq,k);
+        dfs(root.right,pq,k);
     }
 
     public int kthSmallest(TreeNode root, int k) {
         
-           List<Integer> inOrder = new ArrayList<>();
+           PriorityQueue<Integer> pq = new PriorityQueue<>((a,b)->Integer.compare(b,a));
 
-           dfs(root,inOrder);
+           dfs(root,pq,k);
 
-           return inOrder.get(k-1);
+           return pq.peek();
     }
 }
