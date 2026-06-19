@@ -13,6 +13,11 @@
  *     }
  * }
  */
+
+// Approach 1 : Recursive Inorder DFS to Find Inorder(Sorted Array)
+// TC : O(n) [in case of degenerated BST]
+// SC : O(n) [extra inorder[] space] + O(n) [height in case of degenerated BST]
+
 // class Solution {
     
 //     void dfs(TreeNode root, List<Integer> inOrder)
@@ -38,6 +43,9 @@
 
 /*---------------------------------------------------------------------------------------------------------------*/
 
+// Approach 2 : Recursive Inorder DFS + PriorityQueue to find kth smallest element
+// TC : O(n) [in case of degenerated BST]
+// SC : O(k) [extra PriorityQueue space] + O(n) [height in case of degenerated BST]
 
 // class Solution {
     
@@ -75,36 +83,109 @@
 
 
 
+
 /*--------------------------------------------------------------------------------------------------------------*/
+
+
+
+
+// Approach 3 : Recursive Inorder DFS + two variables(idx and ans)
+// TC : O(n) [in case of degenerated BST]
+// SC : O(n) [height in case of degenerated BST]
+
+
+// class Solution {
+
+//     int idx = -1;
+//     int ans = -1;
+    
+//     void dfs(TreeNode root , int k)
+//     {
+//         if(root == null)
+//         return;
+
+//         if(ans != -1)
+//         return;
+         
+ 
+//         dfs(root.left,k);
+         
+//          idx++;
+
+//          if(idx == k-1)
+//          ans = root.val;
+
+//         dfs(root.right,k);
+//     }
+
+//     public int kthSmallest(TreeNode root, int k) {
+           
+//            dfs(root,k);
+//            return ans;
+//     }
+// }
+
+
+
+/*---------------------------------------------------------------------------------------------------------------*/
+
 
 
 class Solution {
 
-    int idx = -1;
-    int ans = -1;
-    
-    void dfs(TreeNode root , int k)
-    {
-        if(root == null)
-        return;
-
-        if(ans != -1)
-        return;
-         
- 
-        dfs(root.left,k);
-         
-         idx++;
-
-         if(idx == k-1)
-         ans = root.val;
-
-        dfs(root.right,k);
-    }
-
     public int kthSmallest(TreeNode root, int k) {
            
-           dfs(root,k);
-           return ans;
+             
+            TreeNode curr = root;
+
+            int count = 0;
+            int ans = -1;
+
+
+            while(curr != null)
+            {
+                if(curr.left == null)
+                {
+                    count++;
+
+                    if(count == k)
+                    {
+                        ans = curr.val;
+                        break;
+                    }
+
+                    curr = curr.right;
+                }
+                else
+                {
+                  
+                   TreeNode pred = curr.left;
+
+                   while(pred.right != null && pred.right != curr)
+                   pred = pred.right;
+
+                   if(pred.right == null)
+                   {
+                     pred.right = curr;
+                     curr = curr.left;
+                   }
+                   else
+                   {
+                     count++;
+
+                     if(count == k)
+                     {
+                        ans = curr.val;
+                        break;
+                     }
+
+                     pred.right = null;
+                     curr = curr.right;
+                   }
+                }
+            }
+
+
+            return ans;
     }
 }
