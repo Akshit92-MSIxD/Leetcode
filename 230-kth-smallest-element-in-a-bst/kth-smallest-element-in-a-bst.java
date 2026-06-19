@@ -36,36 +36,75 @@
 // }
 
 
-class Solution {
+/*---------------------------------------------------------------------------------------------------------------*/
+
+
+// class Solution {
     
-    void dfs(TreeNode root, PriorityQueue<Integer> pq , int k)
+//     void dfs(TreeNode root, PriorityQueue<Integer> pq , int k)
+//     {
+//         if(root == null)
+//         return;
+         
+//          if(pq.size() != k)
+//          {
+//             pq.add(root.val);
+//          }
+//          else
+//          {
+//             if(root.val < pq.peek())
+//             {
+//             pq.poll();
+//             pq.add(root.val);
+//             }
+//          }
+
+//         dfs(root.left,pq,k);
+//         dfs(root.right,pq,k);
+//     }
+
+//     public int kthSmallest(TreeNode root, int k) {
+        
+//            PriorityQueue<Integer> pq = new PriorityQueue<>((a,b)->Integer.compare(b,a));
+
+//            dfs(root,pq,k);
+
+//            return pq.peek();
+//     }
+// }
+
+
+
+/*--------------------------------------------------------------------------------------------------------------*/
+
+
+class Solution {
+
+    int idx = -1;
+    int ans = -1;
+    
+    void dfs(TreeNode root , int k)
     {
         if(root == null)
         return;
-         
-         if(pq.size() != k)
-         {
-            pq.add(root.val);
-         }
-         else
-         {
-            if(root.val < pq.peek())
-            {
-            pq.poll();
-            pq.add(root.val);
-            }
-         }
 
-        dfs(root.left,pq,k);
-        dfs(root.right,pq,k);
+        if(ans != -1)
+        return;
+         
+ 
+        dfs(root.left,k);
+         
+         idx++;
+
+         if(idx == k-1)
+         ans = root.val;
+
+        dfs(root.right,k);
     }
 
     public int kthSmallest(TreeNode root, int k) {
-        
-           PriorityQueue<Integer> pq = new PriorityQueue<>((a,b)->Integer.compare(b,a));
-
-           dfs(root,pq,k);
-
-           return pq.peek();
+           
+           dfs(root,k);
+           return ans;
     }
 }
