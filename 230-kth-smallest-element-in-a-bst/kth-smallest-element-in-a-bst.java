@@ -14,34 +14,46 @@
  * }
  */
 
+// Note : I have written 4 approches for this problem below. Please read all of them specially Approach 3 and 4 (very Imp !!!!)
+
+
+
+
+
 // Approach 1 : Recursive Inorder DFS to Find Inorder(Sorted Array)
 // TC : O(n) [in case of degenerated BST]
 // SC : O(n) [extra inorder[] space] + O(n) [height in case of degenerated BST]
 
-// class Solution {
+class Solution {
     
-//     void dfs(TreeNode root, List<Integer> inOrder)
-//     {
-//         if(root == null)
-//         return;
+    void dfs(TreeNode root, List<Integer> inOrder)
+    {
+        if(root == null)
+        return;
 
-//         dfs(root.left,inOrder);
-//         inOrder.add(root.val);
-//         dfs(root.right,inOrder);
-//     }
+        dfs(root.left,inOrder);
+        inOrder.add(root.val);
+        dfs(root.right,inOrder);
+    }
 
-//     public int kthSmallest(TreeNode root, int k) {
+    public int kthSmallest(TreeNode root, int k) {
         
-//            List<Integer> inOrder = new ArrayList<>();
+           List<Integer> inOrder = new ArrayList<>();
 
-//            dfs(root,inOrder);
+           dfs(root,inOrder);
 
-//            return inOrder.get(k-1);
-//     }
-// }
+           return inOrder.get(k-1);
+    }
+}
+
+
 
 
 /*---------------------------------------------------------------------------------------------------------------*/
+
+
+
+
 
 // Approach 2 : Recursive Inorder DFS + PriorityQueue to find kth smallest element
 // TC : O(n) [in case of degenerated BST]
@@ -89,48 +101,53 @@
 
 
 
-// Approach 3 : Recursive Inorder DFS + two variables(idx and ans)
+// Approach 3 : Recursive Inorder DFS + two variables(count and ans)
 // TC : O(n) [in case of degenerated BST]
 // SC : O(n) [height in case of degenerated BST]
 
 
-class Solution {
+// class Solution {
 
-    int count = 0;
-    int ans = -1;
+//     int count = 0;
+//     int ans = -1;
     
-    void dfs(TreeNode root , int k)
-    {
-        if(root == null)
-        return;
+//     void dfs(TreeNode root , int k)
+//     {
+//         if(root == null)
+//         return;
 
-        if(ans != -1)
-        return;
+//         if(ans != -1)
+//         return;
          
  
-        dfs(root.left,k);
+//         dfs(root.left,k);
          
-         count++;
+//          count++;
 
-         if(count == k)
-         ans = root.val;
+//          if(count == k)
+//          ans = root.val;
 
-        dfs(root.right,k);
-    }
+//         dfs(root.right,k);
+//     }
 
-    public int kthSmallest(TreeNode root, int k) {
+//     public int kthSmallest(TreeNode root, int k) {
            
-           dfs(root,k);
-           return ans;
-    }
-}
+//            dfs(root,k);
+//            return ans;
+//     }
+// }
+
+
 
 
 
 /*---------------------------------------------------------------------------------------------------------------*/
 
 
-// Approach 4 : Morris Traversal for Inorder + (count + ans) Approach!!!
+
+
+
+// Approach 4 : Morris Traversal for Inorder(Sorted Array In case of BST) + (count + ans) Approach!!!
 // TC : O(n) [in case of degenerated BST]
 // SC : O(1) [no extra space]
 
