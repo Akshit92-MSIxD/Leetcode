@@ -66,29 +66,61 @@
 
 
 
+
 /*-------------------------------------------------------------------------------------------------------------*/
 
+
+
+
+// class Solution {
+   
+//     int idx = 0;
+
+//     TreeNode createBST(int[] preorder, int upperBound)
+//     {
+//           if(idx == preorder.length ||  preorder[idx] > upperBound)
+//           return null;
+
+//           TreeNode root = new TreeNode(preorder[idx++]);
+
+//           root.left = createBST(preorder,root.val);
+//           root.right = createBST(preorder,upperBound);
+
+//           return root;
+//     }
+//     public TreeNode bstFromPreorder(int[] preorder) {
+           
+//            return createBST(preorder,Integer.MAX_VALUE);
+
+//     }
+// }
+
+
+
+/*-------------------------------------------------------------------------------------------------------------------*/
 
 
 class Solution {
    
     int idx = 0;
 
-    TreeNode createBST(int[] preorder, int upperBound)
+    TreeNode createBST(int[] preorder, int lowerBound, int upperBound)
     {
-          if(idx == preorder.length ||  preorder[idx] > upperBound)
+          if(idx == preorder.length || preorder[idx] < lowerBound || preorder[idx] > upperBound)
           return null;
 
-          TreeNode root = new TreeNode(preorder[idx++]);
+          TreeNode root = new TreeNode(preorder[idx]);
+          idx++;
 
-          root.left = createBST(preorder,root.val);
-          root.right = createBST(preorder,upperBound);
+          root.left = createBST(preorder,lowerBound,root.val);
+          root.right = createBST(preorder,root.val,upperBound);
 
           return root;
+
     }
     public TreeNode bstFromPreorder(int[] preorder) {
            
-           return createBST(preorder,Integer.MAX_VALUE);
+           return createBST(preorder,Integer.MIN_VALUE,Integer.MAX_VALUE);
 
     }
 }
