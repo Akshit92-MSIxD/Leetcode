@@ -15,6 +15,17 @@
 //  */
 
 
+// Note : I have 4 approaches for this problem below. Please read all of them !!!
+// ***Note : Approach 3/4 are most optimal !!!
+
+
+
+
+// Approach 1 : Brute Force Insert into BST one by one !!!
+// Prerequisite : Insert into BST problem in Leetcode !!!
+// TC : O(n^2) [ in case of degenerate BST]
+// SC : O(1) [no extra space]
+
 class Solution {
 
     void insertIntoBST(TreeNode root,int key)
