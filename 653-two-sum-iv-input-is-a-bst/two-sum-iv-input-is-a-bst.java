@@ -88,8 +88,7 @@ class Solution {
 
     int next()
     {
-        TreeNode top = ltrStack.peek();
-        ltrStack.pop();
+        TreeNode top = ltrStack.pop();
 
         int nextElm = top.val;
 
@@ -106,8 +105,7 @@ class Solution {
 
     int before()
     {
-        TreeNode top = rtlStack.peek();
-        rtlStack.pop();
+        TreeNode top = rtlStack.pop();
 
         int beforeElm = top.val;
 
