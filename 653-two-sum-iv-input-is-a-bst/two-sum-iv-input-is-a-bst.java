@@ -13,40 +13,136 @@
  *     }
  * }
  */
+
+
+// class Solution {
+
+//     void dfs(TreeNode root,List<Integer> inorder)
+//     {
+//         if(root == null)
+//         return;
+
+//         dfs(root.left,inorder);
+//         inorder.add(root.val);
+//         dfs(root.right,inorder);
+//     }
+
+//     public boolean findTarget(TreeNode root, int k) {
+        
+//        List<Integer> inorder = new ArrayList<>();
+        
+//           dfs(root,inorder); 
+
+//         int left = 0;
+//         int right = inorder.size() - 1;
+
+//         while(left < right)
+//         {
+//             int pairSum = inorder.get(left) + inorder.get(right);
+
+//             if(pairSum == k)
+//                 return true;
+//             else if(pairSum > k)
+//                 right--;
+//             else
+//                 left++;
+//         }
+
+//         return false;
+
+//     }
+// }
+
+
+
+
+/*------------------------------------------------------------------------------------------------------*/
+
+
+
+
+
 class Solution {
+    
+    Stack<TreeNode> ltrStack = new Stack<>();   // gives inorder in this fashion (Left To Right) in ascending order
+    Stack<TreeNode> rtlStack = new Stack<>();  // gives inorder in this fashion ( Right to Left) in descending order
+    
 
-    void dfs(TreeNode root,List<Integer> inorder)
+    void initialize(TreeNode root,Stack<TreeNode> lrtStack, Stack<TreeNode> rtlStack)
     {
-        if(root == null)
-        return;
+           TreeNode curr1 = root;
+           TreeNode curr2 = root;
 
-        dfs(root.left,inorder);
-        inorder.add(root.val);
-        dfs(root.right,inorder);
+           while(curr1 != null)
+           {
+             ltrStack.add(curr1);
+             curr1 = curr1.left;
+           }
+
+           while(curr2 != null)
+           {
+             rtlStack.add(curr2);
+             curr2 = curr2.right;
+           }
     }
 
-    public boolean findTarget(TreeNode root, int k) {
-        
-       List<Integer> inorder = new ArrayList<>();
-        
-          dfs(root,inorder); 
+    int next()
+    {
+        TreeNode top = ltrStack.peek();
+        ltrStack.pop();
 
-        int left = 0;
-        int right = inorder.size() - 1;
+        int nextElm = top.val;
 
-        while(left < right)
+        TreeNode curr = top.right;
+
+        while(curr != null)
         {
-            int pairSum = inorder.get(left) + inorder.get(right);
-
-            if(pairSum == k)
-                return true;
-            else if(pairSum > k)
-                right--;
-            else
-                left++;
+            ltrStack.push(curr);
+            curr = curr.left;
         }
 
-        return false;
+        return nextElm;
+    }
+
+    int before()
+    {
+        TreeNode top = rtlStack.peek();
+        rtlStack.pop();
+
+        int beforeElm = top.val;
+
+        TreeNode curr = top.left;
+
+        while(curr != null)
+        {
+            rtlStack.push(curr);
+            curr = curr.right;
+        }
+
+        return beforeElm;
+    }
+
+
+    public boolean findTarget(TreeNode root, int k) {
+         
+        initialize(root,ltrStack,rtlStack);
+         
+         int left = next();
+         int right = before();
+
+         while(left < right)
+         {
+             int pairSum = left + right;
+
+             if(pairSum == k)
+               return true;
+             else if(pairSum > k)
+             right = before();
+             else
+             left = next();
+         }
+
+         return false;
 
     }
 }
