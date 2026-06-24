@@ -68,7 +68,7 @@ class Solution {
     Stack<TreeNode> rtlStack = new Stack<>();  // gives inorder in this fashion ( Right to Left) in descending order
     
 
-    void initialize(TreeNode root,Stack<TreeNode> lrtStack, Stack<TreeNode> rtlStack)
+    void initializeBothStacks(TreeNode root)
     {
            TreeNode curr1 = root;
            TreeNode curr2 = root;
@@ -125,7 +125,7 @@ class Solution {
 
     public boolean findTarget(TreeNode root, int k) {
          
-        initialize(root,ltrStack,rtlStack);
+        initializeBothStacks(root);
          
          int left = next();
          int right = before();
