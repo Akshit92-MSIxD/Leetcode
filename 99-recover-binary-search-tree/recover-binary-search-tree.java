@@ -14,6 +14,10 @@
  * }
  */
 
+// Note : I have written three approaches for this problem below . Approach 2 and 3 are most imp !!!
+// *** Note : Please understand and dry run Approach 2 fully before implementing Approach 3 !!! 
+
+
  // Approach 1 : Brute Force (Find Inorder Array -> Sort that Array -> Fill Sorted Values into the Tree)
  // TC : O(n) [find inorder array] + O(nlogn) [sort the inorder array] + O(n) [fill sorted values into the tree]
  // SC : O(h) [recursive stack space or height of the BST in dfs1()] + O(h) [recusive stack space taken by dfs2()]
