@@ -1,4 +1,75 @@
+
+// // Approach 1 : Using three Binary Search (one to find the target if present-> second one to find the first occ of target and last one to find the last occ of target !!)
+
+// // TC : logn
+// // SC : O(1)
+
 // class Solution {
+
+//     int getFirstOccurrence(int[] nums, int mid)
+//     {
+//          int target = nums[mid];
+//          int first = mid;
+
+//          int low = 0;
+//          int high = mid - 1;
+
+//          while(low <= high)
+//          {
+//             int new_mid = low + (high - low)/2;
+
+//             if(nums[new_mid] == target)
+//             {
+//                 first = new_mid;
+//                 high = new_mid - 1;
+//             }
+//             else if(nums[new_mid] > target)
+//             {
+//                high = new_mid - 1;
+//             }
+//             else
+//             {
+//                 low = new_mid + 1;
+//             }
+//          }
+
+//          return first;
+
+//     }
+
+//     int getLastOccurrence(int[] nums, int mid)
+//     {
+//          int target = nums[mid];
+//          int last = mid;
+
+//          int low = mid + 1;
+//          int high = nums.length - 1;
+
+//          while(low <= high)
+//          {
+//             int new_mid = low + (high - low)/2;
+
+//             if(nums[new_mid] == target)
+//             {
+//                 last = new_mid;
+//                 low = new_mid + 1;
+//             }
+//             else if(nums[new_mid] > target)
+//             {
+//                high = new_mid - 1;
+//             }
+//             else
+//             {
+//                 low = new_mid + 1;
+//             }
+//          }
+
+//          return last;
+//     }
+
+
+
+
 //     public int[] searchRange(int[] nums, int target) {
 
 //          if(nums.length == 0)
@@ -23,52 +94,8 @@
 //          if(low>high)
 //          return new int[]{-1,-1};
 
-//          int first = mid;
-//          int last = mid;
-
-//          low = 0;
-//          high = mid - 1;
-
-//          while(low <= high)
-//          {
-//             int new_mid_1 = low + (high - low)/2;
-
-//             if(nums[new_mid_1] == target)
-//             {
-//                 first = new_mid_1;
-//                 high = new_mid_1 - 1;
-//             }
-//             else if(nums[new_mid_1] > target)
-//             {
-//                high = new_mid_1 - 1;
-//             }
-//             else
-//             {
-//                 low = new_mid_1 + 1;
-//             }
-//          }
-
-//          low = mid + 1;
-//          high = nums.length - 1;
-
-//          while(low <= high)
-//          {
-//             int new_mid_2 = low + (high - low)/2;
-
-//             if(nums[new_mid_2] == target)
-//             {
-//                 last = new_mid_2;
-//                 low = new_mid_2 + 1;
-//             }
-//             else if(nums[new_mid_2] > target)
-//             {
-//                high = new_mid_2 - 1;
-//             }
-//             else
-//             {
-//                 low = new_mid_2 + 1;
-//             }
-//          }
+//          int first = getFirstOccurrence(nums,mid);
+//          int last =  getLastOccurrence(nums,mid);
 
 
 //          return new int[]{first,last};
@@ -77,101 +104,67 @@
 // }
 
 
+
+
+// Approach 2 : Using two Binary Search (one to find the first occ of target and second one to find the last occ of target !!)
+
+// TC : logn
+// SC : O(1)
+
 class Solution {
-
-    int getFirstOccurrence(int[] nums, int mid)
-    {
-         int target = nums[mid];
-         int first = mid;
-
-         int low = 0;
-         int high = mid - 1;
-
-         while(low <= high)
-         {
-            int new_mid = low + (high - low)/2;
-
-            if(nums[new_mid] == target)
-            {
-                first = new_mid;
-                high = new_mid - 1;
-            }
-            else if(nums[new_mid] > target)
-            {
-               high = new_mid - 1;
-            }
-            else
-            {
-                low = new_mid + 1;
-            }
-         }
-
-         return first;
-
-    }
-
-    int getLastOccurrence(int[] nums, int mid)
-    {
-         int target = nums[mid];
-         int last = mid;
-
-         int low = mid + 1;
-         int high = nums.length - 1;
-
-         while(low <= high)
-         {
-            int new_mid = low + (high - low)/2;
-
-            if(nums[new_mid] == target)
-            {
-                last = new_mid;
-                low = new_mid + 1;
-            }
-            else if(nums[new_mid] > target)
-            {
-               high = new_mid - 1;
-            }
-            else
-            {
-                low = new_mid + 1;
-            }
-         }
-
-         return last;
-    }
-
-
-
 
     public int[] searchRange(int[] nums, int target) {
 
-         if(nums.length == 0)
-         return new int[]{-1,-1};
-        
-         int low = 0;
-         int high = nums.length - 1;
-         int mid = -1;
+          int low = 0;
+          int high = nums.length - 1;
 
-         while(low <= high)
-         {
-           mid = low + (high - low)/2;
+          int first = -1;
 
-            if(nums[mid] == target)
-            break;
-            else if(nums[mid] < target)
-            low = mid + 1;
-            else
-            high = mid - 1;
-         }
+          while(low<=high)
+          {
+             int mid = low + (high - low)/2;
 
-         if(low>high)
-         return new int[]{-1,-1};
+             if(nums[mid] == target)
+             {
+                first = mid;
+                high = mid - 1;
+             }
+             else if(nums[mid] > target)
+             {
+                high = mid - 1;
+             }
+             else
+             {
+                low = mid + 1;
+             }
+          }
 
-         int first = getFirstOccurrence(nums,mid);
-         int last =  getLastOccurrence(nums,mid);
+          
+          low = 0;
+          high = nums.length - 1;
 
+          int last = -1;
 
-         return new int[]{first,last};
+          while(low<=high)
+          {
+             int mid = low + (high - low)/2;
+
+             if(nums[mid] == target)
+             {
+                last = mid;
+                low = mid + 1;
+             }
+             else if(nums[mid] < target)
+             {
+                low = mid + 1;
+             }
+             else
+             {
+                high = mid - 1;
+             }
+          }
+
+          return new int[]{first,last};
 
     }
 }
