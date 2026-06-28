@@ -1,3 +1,8 @@
+
+// Approach : Binary Search
+// TC  : O(logn) , where base of log is 2
+// SC : O(1)
+
 class Solution {
     public int searchInsert(int[] nums, int target) {
         
