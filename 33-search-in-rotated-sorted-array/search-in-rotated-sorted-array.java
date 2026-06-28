@@ -1,3 +1,11 @@
+
+
+
+// Approach 1 : Using Binary Search
+// Hint : Find the sorted region first -> then check if target lies in that region or not !!!
+// TC : O(logn)
+// SC : O(1)
+
 class Solution {
     public int search(int[] nums, int target) {
 
@@ -12,7 +20,7 @@ class Solution {
              {
                 return mid;
              }
-             else
+             else   // Find the sorted region first -> then check if target lies in that sorted region or not!!! -> if yes -> then search the target in the sorted region , if no -> then it is surely present in non sorted region so search the target in that non sorted region !!!
              {
                 if(nums[high] > nums[mid])
                 {
@@ -24,19 +32,13 @@ class Solution {
                 else
                 {
                     if(target >= nums[low] && target < nums[mid])
-                    {
                         high = mid - 1;
-                    }
                     else
-                    {
                         low = mid + 1;
-                    }
                 }
-                
              }
           }
 
           return -1;
-        
     }
 }
