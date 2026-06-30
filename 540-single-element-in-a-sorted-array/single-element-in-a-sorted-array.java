@@ -6,9 +6,9 @@ class Solution {
 
           int i=0;
 
-          while(i<nums.length)
+          while(i<nums.length-1)
           {
-             if(i+1 < nums.length && nums[i] != nums[i+1])
+             if(nums[i] != nums[i+1])
              return nums[i];
              i+=2;
           }
