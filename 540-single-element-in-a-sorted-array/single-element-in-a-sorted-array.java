@@ -80,17 +80,12 @@ class Solution {
              int low = 1;
              int high = n-2;
 
-             int singleElm = -1;
-
              while(low<=high)
              {
                 int mid = low + (high - low)/2;
 
                 if(nums[mid-1] != nums[mid]  && nums[mid] != nums[mid+1])
-                {
-                    singleElm = nums[mid];
-                    break;
-                }
+                return nums[mid];
 
                 if(mid%2==1 && nums[mid] == nums[mid-1] || mid%2==0 && nums[mid] == nums[mid+1])
                    low = mid + 1;
@@ -98,6 +93,6 @@ class Solution {
                    high = mid - 1;
              }
 
-             return singleElm;
+             return -1;   // dummy return statement
     }
 }
