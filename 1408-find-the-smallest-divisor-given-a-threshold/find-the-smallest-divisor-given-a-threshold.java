@@ -1,3 +1,9 @@
+
+
+// Approach : Using Binary Search on Answers
+// TC : O(n*logmax)
+// SC : O(1)
+
 class Solution {
 
     int getRequiredSum(int div, int[] nums,int threshold)
