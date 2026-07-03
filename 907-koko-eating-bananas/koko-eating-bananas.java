@@ -13,9 +13,9 @@
 
 class Solution {
 
-    long getTotalHours(int mid, int[] piles, int h)
+    int getTotalHours(int mid, int[] piles, int h)
     {
-        long totalHours = 0;
+        int totalHours = 0;
 
         for(int val : piles)
         {
@@ -48,7 +48,7 @@ class Solution {
           {
               int mid = low + (high-low)/2;
 
-              long totalHours = getTotalHours(mid,piles,h);
+              int totalHours = getTotalHours(mid,piles,h);
 
               if(totalHours > h)
               {
