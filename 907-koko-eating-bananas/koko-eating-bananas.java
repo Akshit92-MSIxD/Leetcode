@@ -1,7 +1,19 @@
+
+// Note : This problem is based on a pattern i.e Binary Search on Answers !!!
+
+
+
+
+// Approach : Using Binary Search + Linear Search to calculate totalHours taken to eat every pile of bananas for different banana eating speed k !!
+
+// *** Pattern : Binary Search on Answers !!! (since answer can lie from 1 to maxBanana in a particular pile) !!!
+// https://www.youtube.com/watch?v=qyfekrNni90&list=PLgUwDviBIf0pMFMWuuvDNMAkoQFi-h0ZF&index=13
+// TC : O(n*logmax) , where n is the length of the pile !!!
+// SC : O(1)
+
 class Solution {
 
-    long
-     getTotalHours(int mid, int[] piles, int h)
+    long getTotalHours(int mid, int[] piles, int h)
     {
         long totalHours = 0;
 
@@ -30,7 +42,7 @@ class Solution {
           int low = 1;
           int high = max;
 
-          int k = Integer.MAX_VALUE;
+          int k = Integer.MAX_VALUE;   // banana eating speed per hour
 
           while(low<=high)
           {
@@ -49,7 +61,7 @@ class Solution {
               }
           }
 
-          return k;
+          return k;   // we can also return low in place of k
         
     }
 }
