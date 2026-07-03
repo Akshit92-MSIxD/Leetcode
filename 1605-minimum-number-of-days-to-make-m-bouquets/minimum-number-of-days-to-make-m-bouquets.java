@@ -41,7 +41,7 @@ class Solution {
             
                int n = bloomDay.length;
 
-               if(m*k > n)return -1;
+               if((long)m*k > n)return -1;
 
 
                int minDay = Integer.MAX_VALUE;
@@ -59,8 +59,6 @@ class Solution {
                int low = minDay;
                int high = maxDay;
 
-               int ans = -1;
-
 
                while(low<=high)
                {
@@ -70,7 +68,6 @@ class Solution {
 
                  if(is_possible == true)
                  {
-                   ans = mid;
                    high = mid - 1;
                  }
                  else
@@ -79,6 +76,6 @@ class Solution {
                  }
                }
 
-               return ans;
+               return low;
     }
 }
