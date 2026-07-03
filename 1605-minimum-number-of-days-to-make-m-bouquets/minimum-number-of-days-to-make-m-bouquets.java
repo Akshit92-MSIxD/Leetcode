@@ -47,18 +47,15 @@ class Solution {
                int minDay = Integer.MAX_VALUE;
                int maxDay = Integer.MIN_VALUE;
 
-                for(int day : bloomDay)
-                minDay = Math.min(minDay,day);
-
                for(int day : bloomDay)
+               {
+               minDay = Math.min(minDay,day);
                maxDay = Math.max(maxDay,day);
-
-               
-
+               }
+            
 
                int low = minDay;
                int high = maxDay;
-
 
                while(low<=high)
                {
@@ -67,13 +64,9 @@ class Solution {
                  boolean is_possible = isMakingAllBouquetsPossible(bloomDay,mid,m,k);
 
                  if(is_possible == true)
-                 {
                    high = mid - 1;
-                 }
                  else
-                 {
                     low = mid + 1;
-                 }
                }
 
                return low;
