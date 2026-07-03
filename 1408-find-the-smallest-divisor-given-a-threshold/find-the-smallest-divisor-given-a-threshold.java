@@ -1,6 +1,7 @@
 
 
 // Approach : Using Binary Search on Answers
+// Prerequisite Problem : https://leetcode.com/problems/koko-eating-bananas/description/
 // TC : O(n*logmax)
 // SC : O(1)
 
