@@ -1,3 +1,8 @@
+
+// Approach : Using Binary Search on Answers !!!
+// TC : O(n*log(maxDay-minDay+1))
+// SC : O(1)
+
 class Solution {
 
     boolean isMakingAllBouquetsPossible(int[] bloomDay,int day, int m, int k)
