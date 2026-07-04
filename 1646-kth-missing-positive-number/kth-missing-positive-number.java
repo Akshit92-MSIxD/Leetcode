@@ -1,28 +1,46 @@
+// class Solution {
+//     public int findKthPositive(int[] arr, int k) {
+           
+//             HashSet<Integer> set = new HashSet<>();
+
+//             for(int val : arr)
+//             set.add(val);
+
+//             int missing = 0;
+
+//             int num = 1;
+
+//             while(true)
+//             {
+//                 if(!set.contains(num))
+//                 {
+//                     missing++;
+
+//                     if(missing == k)
+//                     break;
+//                 }
+
+//                 num++;
+//             }
+
+//             return num;    
+//     }
+// }
+
+
 class Solution {
     public int findKthPositive(int[] arr, int k) {
-           
-            HashSet<Integer> set = new HashSet<>();
+              
+            int kthMissingNumber = k; // consider all numbers are missing in the beginning
 
-            for(int val : arr)
-            set.add(val);
-
-            int missing = 0;
-
-            int num = 1;
-
-            while(true)
+            for(int num : arr)
             {
-                if(!set.contains(num))
-                {
-                    missing++;
-
-                    if(missing == k)
-                    break;
-                }
-
-                num++;
+                if(num <= kthMissingNumber)
+                    kthMissingNumber++;
+                else
+                   break;
             }
 
-            return num;    
+            return kthMissingNumber;
     }
 }
