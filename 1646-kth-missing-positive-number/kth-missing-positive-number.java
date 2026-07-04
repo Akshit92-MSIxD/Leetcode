@@ -28,19 +28,64 @@
 // }
 
 
+
+/*-----------------------------------------------------------------------------------------------------------*/
+
+
+
+// class Solution {
+//     public int findKthPositive(int[] arr, int k) {
+              
+//             int kthMissingNumber = k; // consider all numbers are missing in the beginning
+
+//             for(int num : arr)
+//             {
+//                 if(num <= kthMissingNumber)
+//                     kthMissingNumber++;
+//                 else
+//                    break;
+//             }
+
+//             return kthMissingNumber;
+//     }
+// }
+
+
+/*-----------------------------------------------------------------------------------------------------------*/
+
+
 class Solution {
     public int findKthPositive(int[] arr, int k) {
               
             int kthMissingNumber = k; // consider all numbers are missing in the beginning
 
-            for(int num : arr)
+            int low = 0;
+            int high = arr.length-1;
+
+            while(low<=high)
             {
-                if(num <= kthMissingNumber)
-                    kthMissingNumber++;
+                int mid = low + (high-low)/2;
+
+                if(arr[mid]<=kthMissingNumber)
+                {
+                kthMissingNumber += (mid-low+1);
+                low = mid + 1;
+                }
                 else
-                   break;
+                {
+                    high = mid - 1;
+                }
+                
+            }
+
+            while(low < arr.length && arr[low]<=kthMissingNumber)
+            {
+                kthMissingNumber++;
+                low++;
             }
 
             return kthMissingNumber;
     }
 }
+
+
