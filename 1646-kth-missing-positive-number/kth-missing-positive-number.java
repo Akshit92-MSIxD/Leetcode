@@ -57,34 +57,22 @@
 class Solution {
     public int findKthPositive(int[] arr, int k) {
               
-            int kthMissingNumber = k; // consider all numbers are missing in the beginning
+          int low = 0;
+          int high = arr.length-1;
 
-            int low = 0;
-            int high = arr.length-1;
+          while(low<=high)
+          {
+            int mid = low + (high-low)/2;
 
-            while(low<=high)
-            {
-                int mid = low + (high-low)/2;
+            int leftMissing = arr[mid] - (mid+1);
 
-                if(arr[mid]<=kthMissingNumber)
-                {
-                kthMissingNumber += (mid-low+1);
+            if(leftMissing < k)
                 low = mid + 1;
-                }
-                else
-                {
-                    high = mid - 1;
-                }
-                
-            }
+            else
+                high = mid - 1;
+          }
 
-            while(low < arr.length && arr[low]<=kthMissingNumber)
-            {
-                kthMissingNumber++;
-                low++;
-            }
-
-            return kthMissingNumber;
+          return k+low;
     }
 }
 
