@@ -74,8 +74,8 @@ class Solution {
             }
 
             if((m+n)%2==0)
-            return curr + (prev-curr)/2.0;
+            return prev + (curr-prev)/2.0;
 
-            return curr+0.00;
+            return curr + 0.00;
     }
 }
