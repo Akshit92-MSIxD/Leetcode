@@ -7,7 +7,7 @@ class Solution {
              int cr = 0;
              int cc = cols - 1;
 
-             while(cr >= 0 && cr < rows && cc >= 0 && cc < cols)
+             while(cr < rows && cc >= 0)
              {
                  if(matrix[cr][cc] == target)
                   return true;
