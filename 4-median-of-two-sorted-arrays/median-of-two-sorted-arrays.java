@@ -113,7 +113,7 @@ class Solution {
 // Approach 3 : Partition Binary Search (Strivers Approach !!!) 
 // Concept : Think in terms of how much elements you would pick from array1 for the left partition and that would become your search space for binary search !!!
 
-// Note : left partition and right partition have almost same size !!!
+// Note : left partition has a size of (n1+n2)/2 and right partition has almost same or one size greater or smaller !!!
 
 // TC : O(log(min(n,m))
 // Auxiliary SC : O(1)
@@ -131,9 +131,9 @@ class Solution {
 //         int high = n1;
 
 //         while (low <= high) {
-//             int mid1 = low + (high - low) / 2; // mid1 represent two things -> no. of elements to pick for left partition from smaller array n1 / index that is just one step ahead of left partition boundary in array n1
+//             int mid1 = low + (high - low) / 2; // mid1 represent two things -> no. of elements to pick for left partition from smaller array n1 / index that is just one step ahead of left partition ending in smaller array n1
 
-//             int mid2 = (n1 + n2) / 2 - mid1; // mid2 represent two things -> no. of elements to pick for left partition from larger array n2 / index that is just one step ahead of left partition boundary in array n2
+//             int mid2 = (n1 + n2) / 2 - mid1; // mid2 represent two things -> no. of elements to pick for left partition from larger array n2 / index that is just one step ahead of left partition ending in larger array n2
 
 //             int l1 = (mid1 == 0) ? Integer.MIN_VALUE : nums1[mid1 - 1]; // possible ending value of left partition of the merged array 
 //             int l2 = (mid2 == 0) ? Integer.MIN_VALUE : nums2[mid2 - 1]; // possible ending value of left partition of the  merged array (out of l1 or l2 only one is going to become the ending value of left partion of the  merged array !!!)
