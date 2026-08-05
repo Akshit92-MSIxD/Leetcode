@@ -113,7 +113,7 @@ class Solution {
 // Approach 3 : Partition Binary Search (Strivers Approach !!!) 
 // Concept : Think in terms of how much elements you would pick from array1 for the left partition and that would become your search space for binary search !!!
 
-// Note : left partition has a size of (n1+n2)/2 and right partition has almost same or one size greater or smaller !!!
+// Note : left partition has a size of (n1+n2)/2 and right partition has almost same or one size greater or smaller size !!!
 
 // TC : O(log(min(n,m))
 // Auxiliary SC : O(1)
