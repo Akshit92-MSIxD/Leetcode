@@ -1,3 +1,45 @@
+// class Solution {
+//     public int lengthOfLongestSubstring(String s) {
+
+//           int n = s.length();
+
+//           if(n == 0)
+//           return 0;
+        
+//           Set<Character> set = new HashSet<>();
+
+//           int l = 0;
+//           int r = 0;
+
+//           int maxLen = 1;
+
+//           while(r < n)
+//           {
+//              if(!set.contains(s.charAt(r)))
+//               {
+//                   set.add(s.charAt(r));
+//                   maxLen = Math.max(maxLen,r - l + 1);
+//               }
+//              else
+//              {
+//                   while(set.contains(s.charAt(r)))
+//                   {
+//                       set.remove(s.charAt(l));
+//                       l++;
+//                   }
+
+//                   set.add(s.charAt(r));
+//              }
+
+//               r++;
+//           }
+
+//           return maxLen;
+//     }
+// }
+
+
+
 class Solution {
     public int lengthOfLongestSubstring(String s) {
 
@@ -6,7 +48,7 @@ class Solution {
           if(n == 0)
           return 0;
         
-          Set<Character> set = new HashSet<>();
+          Map<Character,Integer> mp = new HashMap<>();
 
           int l = 0;
           int r = 0;
@@ -15,20 +57,20 @@ class Solution {
 
           while(r < n)
           {
-             if(!set.contains(s.charAt(r)))
+             if(!mp.containsKey(s.charAt(r)) || mp.get(s.charAt(r)) == 0)
               {
-                  set.add(s.charAt(r));
+                  mp.put(s.charAt(r),1);
                   maxLen = Math.max(maxLen,r - l + 1);
               }
              else
              {
-                  while(set.contains(s.charAt(r)))
+                  while(mp.get(s.charAt(r)) != 0)
                   {
-                      set.remove(s.charAt(l));
+                     mp.put(s.charAt(l),0);
                       l++;
                   }
 
-                  set.add(s.charAt(r));
+                  mp.put(s.charAt(r),1);
              }
 
               r++;
