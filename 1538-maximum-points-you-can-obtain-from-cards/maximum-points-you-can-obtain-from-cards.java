@@ -1,37 +1,35 @@
+
+
+// Approach 1 : Sliding Window
+// Hint : Use two windows i.e left and right window separately !!!
+// TC : O(k) [expansion of left window] + O(k) [shrinking left window and expanding right window]
+// SC : O(1)
+
+
 class Solution {
     public int maxScore(int[] cardPoints, int k) {
 
-         
          int n = cardPoints.length;
 
-         int currRightWindowScore = 0;
+         int lsum = 0;  // lsum represents  left window
+         int rsum = 0;  // rsum represents right window
 
-         for(int i=n-1;i>=n-k;i--)
-         currRightWindowScore += cardPoints[i];
+         for(int i=0;i<k;i++)    // expansion of left window
+         lsum += cardPoints[i];
 
-         int rightWindowEndingIndex = n-k;
+         int rindex = n-1;
 
-         int currLeftWindowScore = 0;
+         int maxSum = lsum;
 
-         int leftWindowEndingIndex = -1;
-
-         int maxScore = Integer.MIN_VALUE;
-
-         while(leftWindowEndingIndex < k)
+         for(int i=k-1;i>=0;i--)    // shrink the left window and expand the right window  both from right to left
          {
-             maxScore = Math.max(maxScore,currLeftWindowScore + currRightWindowScore);
-             leftWindowEndingIndex++;
+              lsum -= cardPoints[i];
+              rsum += cardPoints[rindex];
+              rindex--;
 
-             if(leftWindowEndingIndex == k)
-             break;
-
-             currLeftWindowScore += cardPoints[leftWindowEndingIndex];
-
-             currRightWindowScore -= cardPoints[rightWindowEndingIndex];
-             rightWindowEndingIndex++;
+              maxSum = Math.max(lsum + rsum,maxSum);
          }
 
-         return maxScore;
-             
+         return maxSum;        
     }
 }
