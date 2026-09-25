@@ -1,45 +1,3 @@
-// class Solution {
-//     public int lengthOfLongestSubstring(String s) {
-
-//           int n = s.length();
-
-//           if(n == 0)
-//           return 0;
-        
-//           Set<Character> set = new HashSet<>();
-
-//           int l = 0;
-//           int r = 0;
-
-//           int maxLen = 1;
-
-//           while(r < n)
-//           {
-//              if(!set.contains(s.charAt(r)))
-//               {
-//                   set.add(s.charAt(r));
-//                   maxLen = Math.max(maxLen,r - l + 1);
-//               }
-//              else
-//              {
-//                   while(set.contains(s.charAt(r)))
-//                   {
-//                       set.remove(s.charAt(l));
-//                       l++;
-//                   }
-
-//                   set.add(s.charAt(r));
-//              }
-
-//               r++;
-//           }
-
-//           return maxLen;
-//     }
-// }
-
-
-
 class Solution {
     public int lengthOfLongestSubstring(String s) {
 
@@ -48,7 +6,7 @@ class Solution {
           if(n == 0)
           return 0;
         
-          Map<Character,Integer> mp = new HashMap<>();
+          Set<Character> set = new HashSet<>();
 
           int l = 0;
           int r = 0;
@@ -57,20 +15,21 @@ class Solution {
 
           while(r < n)
           {
-             if(!mp.containsKey(s.charAt(r)) || mp.get(s.charAt(r)) == 0)
+             char new_char = s.charAt(r);
+             if(!set.contains(new_char))
               {
-                  mp.put(s.charAt(r),1);
+                  set.add(new_char);
                   maxLen = Math.max(maxLen,r - l + 1);
               }
              else
              {
-                  while(mp.get(s.charAt(r)) != 0)
+                  while(set.contains(new_char))
                   {
-                     mp.put(s.charAt(l),0);
+                      set.remove(s.charAt(l));
                       l++;
                   }
 
-                  mp.put(s.charAt(r),1);
+                  set.add(new_char);
              }
 
               r++;
@@ -79,3 +38,45 @@ class Solution {
           return maxLen;
     }
 }
+
+
+
+// class Solution {
+//     public int lengthOfLongestSubstring(String s) {
+
+//           int n = s.length();
+
+//           if(n == 0)
+//           return 0;
+        
+//           Map<Character,Integer> mp = new HashMap<>();
+
+//           int l = 0;
+//           int r = 0;
+
+//           int maxLen = 1;
+
+//           while(r < n)
+//           {
+//              if(!mp.containsKey(s.charAt(r)) || mp.get(s.charAt(r)) == 0)
+//               {
+//                   mp.put(s.charAt(r),1);
+//                   maxLen = Math.max(maxLen,r - l + 1);
+//               }
+//              else
+//              {
+//                   while(mp.get(s.charAt(r)) != 0)
+//                   {
+//                      mp.put(s.charAt(l),0);
+//                       l++;
+//                   }
+
+//                   mp.put(s.charAt(r),1);
+//              }
+
+//               r++;
+//           }
+
+//           return maxLen;
+//     }
+// }
