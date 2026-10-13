@@ -100,8 +100,8 @@ class Solution {
 
               if(mp.containsKey(ch) && mp.get(ch) >= l)
                 l = mp.get(ch) + 1;
-              else
-                 maxLen = Math.max(maxLen,r-l+1);
+            
+                maxLen = Math.max(maxLen,r-l+1);
     
                 mp.put(ch,r);
                 r++;
