@@ -11,46 +11,46 @@
 // TC : O(n+n) [expansion + shrinkage of window]
 // SC : O(min(n,charset size) [HashSet stores distinct characters present in the current window]
 
-class Solution {
-    public int lengthOfLongestSubstring(String s) {
+// class Solution {
+//     public int lengthOfLongestSubstring(String s) {
 
-          int n = s.length();
+//           int n = s.length();
 
-          if(n == 0)
-          return 0;
+//           if(n == 0)
+//           return 0;
         
-          Set<Character> set = new HashSet<>();
+//           Set<Character> set = new HashSet<>();
 
-          int l = 0;
-          int r = 0;
+//           int l = 0;
+//           int r = 0;
 
-          int maxLen = 1;
+//           int maxLen = 1;
 
-          while(r < n)
-          {
-             char new_char = s.charAt(r);
-             if(!set.contains(new_char))
-              {
-                  set.add(new_char);
-                  maxLen = Math.max(maxLen,r - l + 1);
-              }
-             else
-             {
-                  while(set.contains(new_char))
-                  {
-                      set.remove(s.charAt(l));
-                      l++;
-                  }
+//           while(r < n)
+//           {
+//              char new_char = s.charAt(r);
+//              if(!set.contains(new_char))
+//               {
+//                   set.add(new_char);
+//                   maxLen = Math.max(maxLen,r - l + 1);
+//               }
+//              else
+//              {
+//                   while(set.contains(new_char))
+//                   {
+//                       set.remove(s.charAt(l));
+//                       l++;
+//                   }
 
-                  set.add(new_char);
-             }
+//                   set.add(new_char);
+//              }
 
-              r++;
-          }
+//               r++;
+//           }
 
-          return maxLen;
-    }
-}
+//           return maxLen;
+//     }
+// }
 
 
 
@@ -93,3 +93,39 @@ class Solution {
 //         return maxLen;
 //     }
 // }
+
+
+
+
+/*------------------------------------------------------------------------------------------------------------------*/
+
+
+
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+
+        int n = s.length();
+
+        int[] hash = new int[256];
+        Arrays.fill(hash, -1);
+
+        int l = 0;
+        int r = 0;
+
+        int maxLen = 0;
+
+        while (r < n) {
+            char ch = s.charAt(r);
+
+            if (hash[ch] >= l)
+                l = hash[ch] + 1;
+
+            maxLen = Math.max(maxLen, r - l + 1);
+
+            hash[ch] = r;
+            r++;
+        }
+
+        return maxLen;
+    }
+}
