@@ -1,6 +1,9 @@
 // Note : I have written two approaches for this problem below. Both of them are important !!!
 
-// *** Approach 2 is slightly faster and optimal than Approach 1 because in Approach 1 shrinking of window takes time whereas in Approach 2 shrinking is done directly by moving the left pointer one position ahead of duplicate's previous occurrence !!!
+// *** Approach 2 and 3 is slightly faster and optimal than Approach 1 because in Approach 1 shrinking of window takes time whereas in Approach 2 shrinking is done directly by moving the left pointer one position ahead of duplicate's previous occurrence using the help of hashmap/hashArray!!!
+
+
+// *** Approach 3 is the most optimal !!!!
 
 
 
@@ -11,46 +14,46 @@
 // TC : O(n+n) [expansion + shrinkage of window]
 // SC : O(min(n,charset size) [HashSet stores distinct characters present in the current window]
 
-// class Solution {
-//     public int lengthOfLongestSubstring(String s) {
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
 
-//           int n = s.length();
+          int n = s.length();
 
-//           if(n == 0)
-//           return 0;
+          if(n == 0)
+          return 0;
         
-//           Set<Character> set = new HashSet<>();
+          Set<Character> set = new HashSet<>();
 
-//           int l = 0;
-//           int r = 0;
+          int l = 0;
+          int r = 0;
 
-//           int maxLen = 1;
+          int maxLen = 1;
 
-//           while(r < n)
-//           {
-//              char new_char = s.charAt(r);
-//              if(!set.contains(new_char))
-//               {
-//                   set.add(new_char);
-//                   maxLen = Math.max(maxLen,r - l + 1);
-//               }
-//              else
-//              {
-//                   while(set.contains(new_char))
-//                   {
-//                       set.remove(s.charAt(l));
-//                       l++;
-//                   }
+          while(r < n)
+          {
+             char new_char = s.charAt(r);
+             if(!set.contains(new_char))
+              {
+                  set.add(new_char);
+                  maxLen = Math.max(maxLen,r - l + 1);
+              }
+             else
+             {
+                  while(set.contains(new_char))
+                  {
+                      set.remove(s.charAt(l));
+                      l++;
+                  }
 
-//                   set.add(new_char);
-//              }
+                  set.add(new_char);
+             }
 
-//               r++;
-//           }
+              r++;
+          }
 
-//           return maxLen;
-//     }
-// }
+          return maxLen;
+    }
+}
 
 
 
@@ -101,31 +104,43 @@
 
 
 
-class Solution {
-    public int lengthOfLongestSubstring(String s) {
+/*
+Approach 3: Sliding Window using a Hash Array.
+Same logic as Approach 2, but use an array instead of a
+HashMap to store the last seen index of each character.
+Initialize all entries to -1 to indicate unseen characters.
 
-        int n = s.length();
+TC: O(n) [each character is processed once; array accesses
+take O(1) time]
 
-        int[] hash = new int[256];
-        Arrays.fill(hash, -1);
+SC: O(256) = O(1) [fixed-size hash array]
+*/
 
-        int l = 0;
-        int r = 0;
+// class Solution {
+//     public int lengthOfLongestSubstring(String s) {
 
-        int maxLen = 0;
+//         int n = s.length();
 
-        while (r < n) {
-            char ch = s.charAt(r);
+//         int[] hash = new int[256];
+//         Arrays.fill(hash, -1);
 
-            if (hash[ch] >= l)
-                l = hash[ch] + 1;
+//         int l = 0;
+//         int r = 0;
 
-            maxLen = Math.max(maxLen, r - l + 1);
+//         int maxLen = 0;
 
-            hash[ch] = r;
-            r++;
-        }
+//         while (r < n) {
+//             char ch = s.charAt(r);
 
-        return maxLen;
-    }
-}
+//             if (hash[ch] >= l)
+//                 l = hash[ch] + 1;
+
+//             maxLen = Math.max(maxLen, r - l + 1);
+
+//             hash[ch] = r;
+//             r++;
+//         }
+
+//         return maxLen;
+//     }
+// }
