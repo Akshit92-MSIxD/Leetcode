@@ -1,47 +1,25 @@
-// class Solution {
-//     public int numberOfSubstrings(String s) {
-        
-//             int n = s.length();
 
-//             int count_sub = 0;
+// I have written two approaches for this problem below . Please read both of them !!!
 
-//             int l = 0;
-//             int r = 0;
-
-//             Map<Character,Integer> mp = new HashMap<>();
-
-//             while(r<n)
-//             {
-//                 char ch = s.charAt(r);
-
-//                 if(!mp.containsKey(ch))
-//                  mp.put(ch,1);
-//                  else
-//                  mp.put(ch,mp.get(ch)+1);
+// Approach 2 is slightly faster than Approach 1 in practical, but not asymptotically (theoretical tc is the same as Approach 1).
 
 
-//                 while(mp.size() == 3)
-//                 {
-//                     count_sub = count_sub + n - r;
-
-//                     char temp_ch = s.charAt(l);
-
-//                     mp.put(temp_ch,mp.get(temp_ch)-1);
-
-//                     if(mp.get(temp_ch) == 0)
-//                       mp.remove(temp_ch);
-
-//                     l++;
-//                 }
-
-//                 r++;
-//             }
-
-//             return count_sub;     
-//     }
-// }
 
 
+/*
+Approach 1: Sliding Window using Two Pointers + HashMap.
+Expand the window by moving r and maintain the frequency
+of each character. While the window contains all three
+distinct characters ('a', 'b', and 'c'), count the valid
+substrings starting at l and ending at r or any index
+after r. Then shrink the window from the left.
+
+TC: O(n) [r traverses the string exactly n times, while l
+advances at most n times in total across all iterations]
+
+SC: O(1) [HashMap stores at most three distinct characters,
+since the string contains only 'a', 'b', and 'c']
+*/
 
 class Solution {
     public int numberOfSubstrings(String s) {
@@ -53,22 +31,28 @@ class Solution {
             int l = 0;
             int r = 0;
 
-            int[] freq = new int[3];
-            Arrays.fill(freq,0);
+            Map<Character,Integer> mp = new HashMap<>();
 
             while(r<n)
             {
                 char ch = s.charAt(r);
 
-                freq[ch-'a']++;
+                if(!mp.containsKey(ch))
+                 mp.put(ch,1);
+                 else
+                 mp.put(ch,mp.get(ch)+1);
 
-                while(freq[0] > 0 && freq[1] > 0 && freq[2] > 0)
+
+                while(mp.size() == 3)
                 {
-                    count_sub = count_sub + n - r;
+                    count_sub = count_sub + n - r;  // this will count all possible valid substring starting from particular l till n !!!
 
                     char temp_ch = s.charAt(l);
 
-                     freq[temp_ch-'a']--;
+                    mp.put(temp_ch,mp.get(temp_ch)-1);
+
+                    if(mp.get(temp_ch) == 0)
+                      mp.remove(temp_ch);
 
                     l++;
                 }
@@ -79,6 +63,69 @@ class Solution {
             return count_sub;     
     }
 }
+
+
+
+
+
+/*--------------------------------------------------------------------------------------------------------------------*/
+
+
+
+
+/*
+Approach 2: Sliding Window using Two Pointers + Frequency Array.
+Same logic as Approach 1, but use an array of size 3 instead
+of a HashMap to store the frequencies of 'a', 'b', and 'c'.
+While all three characters are present in the window, count
+the valid substrings and shrink the window from the left.
+
+TC: O(n) [r traverses the string exactly n times, while l
+advances at most n times in total across all iterations]
+
+SC: O(1) [fixed-size frequency array of size 3]
+
+Note: Approach 2 may have lower constant-factor overhead
+because array accesses avoid HashMap operations, but both
+approaches have the same asymptotic time and space complexity.
+*/
+
+// class Solution {
+//     public int numberOfSubstrings(String s) {
+        
+//             int n = s.length();
+
+//             int count_sub = 0;
+
+//             int l = 0;
+//             int r = 0;
+
+//             int[] freq = new int[3];
+//             Arrays.fill(freq,0);
+
+//             while(r<n)
+//             {
+//                 char ch = s.charAt(r);
+
+//                 freq[ch-'a']++;
+
+//                 while(freq[0] > 0 && freq[1] > 0 && freq[2] > 0)
+//                 {
+//                     count_sub = count_sub + n - r; // this will count all possible valid substring starting from particular l till n !!!
+
+//                     char temp_ch = s.charAt(l);
+
+//                      freq[temp_ch-'a']--;
+
+//                     l++;
+//                 }
+
+//                 r++;
+//             }
+
+//             return count_sub;     
+//     }
+// }
 
 
 
