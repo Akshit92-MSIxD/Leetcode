@@ -130,72 +130,59 @@ approaches have the same asymptotic time and space complexity.
 
 
 
+/*--------------------------------------------------------------------------------------------------------------------*/
 
 
+/*
+Approach 3: Using Last-Seen Indices.
+Maintain an array to store the most recent index of each
+character ('a', 'b', and 'c'), initialized to -1 to indicate
+that the character has not been encountered yet.
 
-// class Solution {
-//     public int numberOfSubstrings(String s) {
-        
-//             int n = s.length();
+Traverse the string from left to right. At each index i,
+update the last-seen index of the current character. If all
+three characters have been encountered, count the valid
+substrings ending at i using:
+1 + minimum of the three last-seen indices.
 
-//             int[] lastSeenIndex = new int[3];
+TC: O(n) [traverse the string exactly n times; each iteration
+performs a constant number of operations]
 
-//             Arrays.fill(lastSeenIndex,-1);
-
-//             int i=0;
-
-//             int ans = 0;
-
-//             while(i < n)
-//             {
-//                 char ch = s.charAt(i);
-//                 lastSeenIndex[ch-'a']=i;
-
-//                 if(lastSeenIndex[0] != -1 && lastSeenIndex[1] != -1 && lastSeenIndex[2] != -1)
-//                     ans = ans + (1 + Math.min(lastSeenIndex[0],Math.min(lastSeenIndex[1],lastSeenIndex[2])));
-
-//                 i++;
-//             }
-
-//             return ans;
-
-//     }
-// }
-
+SC: O(1) [fixed-size array of size 3]
+*/
 
 class Solution {
     public int numberOfSubstrings(String s) {
-        
-            int n = s.length();
 
-            int[] lastSeenIndex = new int[3];
+        int n = s.length();
 
-            Arrays.fill(lastSeenIndex,-1);
+        int[] lastSeenIndex = new int[3];
+        Arrays.fill(lastSeenIndex, -1);
 
-            int i=0;
+        int i = 0;
+        int ans = 0;
 
-            int ans = 0;
+        while (i < n) {
+            char ch = s.charAt(i);
+            lastSeenIndex[ch - 'a'] = i;
+            
+            // count the total  no. of valid substrings ending at index i
 
-            while(i < n)
-            {
-                char ch = s.charAt(i);
-                lastSeenIndex[ch-'a']=i;
+            if (lastSeenIndex[0] != -1 &&
+                lastSeenIndex[1] != -1 &&
+                lastSeenIndex[2] != -1) {
 
-                ans = ans + (1 + Math.min(lastSeenIndex[0],Math.min(lastSeenIndex[1],lastSeenIndex[2])));
-
-                i++;
+                ans += 1 + Math.min(
+                    lastSeenIndex[0],
+                    Math.min(lastSeenIndex[1], lastSeenIndex[2])
+                );
             }
 
-            return ans;
+            i++;
+        }
 
+        return ans;
     }
 }
-
-
-
-
-
-
-
 
 
