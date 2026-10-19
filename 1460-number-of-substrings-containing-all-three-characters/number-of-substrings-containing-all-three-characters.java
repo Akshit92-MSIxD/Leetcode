@@ -133,6 +133,36 @@ approaches have the same asymptotic time and space complexity.
 
 
 
+// class Solution {
+//     public int numberOfSubstrings(String s) {
+        
+//             int n = s.length();
+
+//             int[] lastSeenIndex = new int[3];
+
+//             Arrays.fill(lastSeenIndex,-1);
+
+//             int i=0;
+
+//             int ans = 0;
+
+//             while(i < n)
+//             {
+//                 char ch = s.charAt(i);
+//                 lastSeenIndex[ch-'a']=i;
+
+//                 if(lastSeenIndex[0] != -1 && lastSeenIndex[1] != -1 && lastSeenIndex[2] != -1)
+//                     ans = ans + (1 + Math.min(lastSeenIndex[0],Math.min(lastSeenIndex[1],lastSeenIndex[2])));
+
+//                 i++;
+//             }
+
+//             return ans;
+
+//     }
+// }
+
+
 class Solution {
     public int numberOfSubstrings(String s) {
         
@@ -151,8 +181,7 @@ class Solution {
                 char ch = s.charAt(i);
                 lastSeenIndex[ch-'a']=i;
 
-                if(lastSeenIndex[0] != -1 && lastSeenIndex[1] != -1 && lastSeenIndex[2] != -1)
-                    ans = ans + (1 + Math.min(lastSeenIndex[0],Math.min(lastSeenIndex[1],lastSeenIndex[2])));
+                ans = ans + (1 + Math.min(lastSeenIndex[0],Math.min(lastSeenIndex[1],lastSeenIndex[2])));
 
                 i++;
             }
@@ -161,6 +190,11 @@ class Solution {
 
     }
 }
+
+
+
+
+
 
 
 
