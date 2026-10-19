@@ -21,48 +21,48 @@ SC: O(1) [HashMap stores at most three distinct characters,
 since the string contains only 'a', 'b', and 'c']
 */
 
-class Solution {
-    public int numberOfSubstrings(String s) {
+// class Solution {
+//     public int numberOfSubstrings(String s) {
         
-            int n = s.length();
+//             int n = s.length();
 
-            int count_sub = 0;
+//             int count_sub = 0;
 
-            int l = 0;
-            int r = 0;
+//             int l = 0;
+//             int r = 0;
 
-            Map<Character,Integer> mp = new HashMap<>();
+//             Map<Character,Integer> mp = new HashMap<>();
 
-            while(r<n)
-            {
-                char ch = s.charAt(r);
+//             while(r<n)
+//             {
+//                 char ch = s.charAt(r);
 
-                if(!mp.containsKey(ch))
-                 mp.put(ch,1);
-                 else
-                 mp.put(ch,mp.get(ch)+1);
+//                 if(!mp.containsKey(ch))
+//                  mp.put(ch,1);
+//                  else
+//                  mp.put(ch,mp.get(ch)+1);
 
 
-                while(mp.size() == 3)
-                {
-                    count_sub = count_sub + n - r;  // this will count all possible valid substring starting from particular l till n !!!
+//                 while(mp.size() == 3)
+//                 {
+//                     count_sub = count_sub + n - r;  // this will count all possible valid substring starting from particular l till n !!!
 
-                    char temp_ch = s.charAt(l);
+//                     char temp_ch = s.charAt(l);
 
-                    mp.put(temp_ch,mp.get(temp_ch)-1);
+//                     mp.put(temp_ch,mp.get(temp_ch)-1);
 
-                    if(mp.get(temp_ch) == 0)
-                      mp.remove(temp_ch);
+//                     if(mp.get(temp_ch) == 0)
+//                       mp.remove(temp_ch);
 
-                    l++;
-                }
+//                     l++;
+//                 }
 
-                r++;
-            }
+//                 r++;
+//             }
 
-            return count_sub;     
-    }
-}
+//             return count_sub;     
+//     }
+// }
 
 
 
@@ -126,6 +126,41 @@ approaches have the same asymptotic time and space complexity.
 //             return count_sub;     
 //     }
 // }
+
+
+
+
+
+
+
+class Solution {
+    public int numberOfSubstrings(String s) {
+        
+            int n = s.length();
+
+            int[] lastSeenIndex = new int[3];
+
+            Arrays.fill(lastSeenIndex,-1);
+
+            int i=0;
+
+            int ans = 0;
+
+            while(i < n)
+            {
+                char ch = s.charAt(i);
+                lastSeenIndex[ch-'a']=i;
+
+                if(lastSeenIndex[0] != -1 && lastSeenIndex[1] != -1 && lastSeenIndex[2] != -1)
+                    ans = ans + (1 + Math.min(lastSeenIndex[0],Math.min(lastSeenIndex[1],lastSeenIndex[2])));
+
+                i++;
+            }
+
+            return ans;
+
+    }
+}
 
 
 
