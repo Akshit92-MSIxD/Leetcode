@@ -59,7 +59,6 @@ class Solution {
             int[] freq = new int[26];
 
             int maxFreq = 0;
-            int maxFreqChar = -1;
 
             int r=0,l=0;
 
