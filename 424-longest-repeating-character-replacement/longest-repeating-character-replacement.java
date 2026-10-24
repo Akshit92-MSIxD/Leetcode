@@ -58,8 +58,6 @@ class Solution {
          
             int[] freq = new int[26];
 
-            Arrays.fill(freq,0);
-
             int maxFreq = 0;
             int maxFreqChar = -1;
 
