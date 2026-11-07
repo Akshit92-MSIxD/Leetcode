@@ -14,11 +14,11 @@ class Solution {
 
           while(r<n)
           {
-             countOfOdds += (nums[r]%2 != 0) ? 1 : 0;
+             countOfOdds += nums[r]%2;
 
              while(countOfOdds > k)
              {
-                countOfOdds -= (nums[l]%2 != 0) ? 1 : 0;
+                countOfOdds -= nums[l]%2;
                 l++;
              }
 
