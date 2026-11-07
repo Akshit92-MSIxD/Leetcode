@@ -1,8 +1,15 @@
+
+
+// Approach : Sliding Window
+// ***Hint : Exactly(k) = Atmost(k) - Atmost(k-1)
+// TC : O(2*2n) ~ O(n)
+// SC : O(n)  [extra Hashmap space -> if arrays contain n unique integers and k is equal to n !!! ]
+
 class Solution {
 
     int countNoOfSubarraysHavingDifferentIntegersAtmost(int[] nums, int k)
     {
-        
+
         int l=0 , r=0;
         int countOfSubarrays = 0;
 
