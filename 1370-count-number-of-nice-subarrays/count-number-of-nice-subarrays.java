@@ -1,3 +1,10 @@
+
+// Approach : Using Sliding Window
+// Prerequisite Problem : https://leetcode.com/problems/binary-subarrays-with-sum/description/
+// *** Hint : exactly(k) = atmost(k-1) - atmost(k) 
+// TC : O(2*2n) ~ O(n)
+// SC : O(1)
+
 class Solution {
 
      int countOfSubarraysHavingOddsLessThanEqualTo(int[] nums,int k)
