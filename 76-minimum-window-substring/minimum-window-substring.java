@@ -58,11 +58,7 @@ class Solution {
            if(si == -1)
            return new String("");
 
-           StringBuilder ansString = new StringBuilder();
-
-           for(int i=si;i<(si+minWinLength);i++)
-           ansString.append(s.charAt(i));
-
-           return ansString.toString();
+           
+           return s.substring(si,si+minWinLength);
 }
 }
