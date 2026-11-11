@@ -1,5 +1,8 @@
 class Solution {
     public String minWindow(String s, String t) {
+
+         if (t.isEmpty() || s.isEmpty() || t.length() > s.length())
+    return "";
               
           Map<Character,Integer> mp = new HashMap<>();
 
