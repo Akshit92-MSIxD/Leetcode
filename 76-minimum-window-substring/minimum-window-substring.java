@@ -1,8 +1,30 @@
+
+/*
+Approach: Using Sliding Window and a HashMap to find the minimum window
+substring containing all characters of t, including their required frequencies.
+
+Initialize the HashMap with the frequency of each character in t.
+Expand the window by moving r and decrease the frequency of the current
+character if it exists in the map.
+Increment count only when the character is still required (frequency > 0).
+When count == t.length(), all required character occurrences are present
+in the current window.
+Update minWinLength and si if a smaller valid window is found.
+Shrink the window by moving l forward and restore the frequency of the
+character leaving the window.
+If its frequency becomes positive, decrement count because that character
+is now missing from the window.
+Continue until all possible minimum windows have been considered.
+
+TC: O(n + m) — Each pointer traverses the string at most once, and the
+HashMap operations take O(1) average time.
+SC: O(u) — The HashMap stores only the distinct characters present in t.
+
+*/
+
 class Solution {
     public String minWindow(String s, String t) {
 
-         if (t.isEmpty() || s.isEmpty() || t.length() > s.length())
-    return "";
               
           Map<Character,Integer> mp = new HashMap<>();
 
