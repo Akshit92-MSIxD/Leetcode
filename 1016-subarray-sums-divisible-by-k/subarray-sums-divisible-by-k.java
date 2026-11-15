@@ -47,7 +47,9 @@ class Solution {
             {
                 prefixSum += num;
 
-                int rem = ((prefixSum % k) + k) % k;
+                int rem = prefixSum % k;
+
+                if(rem < 0) rem = rem + k; // will store the +ve corresponding remainder of -ve remainder
 
                 if(mp.containsKey(rem))
                 {
