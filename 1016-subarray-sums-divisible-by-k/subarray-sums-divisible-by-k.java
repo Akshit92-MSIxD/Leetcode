@@ -49,8 +49,6 @@ class Solution {
 
                 int rem = ((prefixSum % k) + k) % k;
 
-                if(rem < 0) rem = -rem;
-
                 if(mp.containsKey(rem))
                 {
                    ansCount += mp.get(rem);
