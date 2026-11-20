@@ -109,7 +109,7 @@
 /*---------------------------------------------------------------------------------------------------*/
 
 
-// Approach 2 : Using Single Queue
+// Approach 3 : Using Single Queue
 // TC for push() : O(n) , pop() : O(1) , top() : O(1) , empty() : O(1)
 
 class MyStack {
@@ -123,9 +123,6 @@ class MyStack {
     public void push(int x) {
          
          mainQ.add(x);
-
-         if(mainQ.size() == 0)
-         return;
 
          int currSize = mainQ.size();
 
