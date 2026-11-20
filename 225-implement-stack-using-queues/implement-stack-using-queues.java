@@ -1,54 +1,60 @@
+// Note : I have written three approaches for this problem below. Please read all three of them !!!
 
-// // Approach 1 : Using Two Queues
-// // TC for push() : O(1) , pop() : O(n) , top() : O(n) , empty() : O(1)
+// Approach 3 is better as it uses single queue !!!
 
-// class MyStack {
+
+
+// Approach 1 : Using Two Queues
+// TC for push() : O(1) , pop() : O(n) , top() : O(n) , empty() : O(1)
+// SC : O(n)
+
+class MyStack {
   
-//     Queue<Integer> mainQ;
-//     Queue<Integer> helpQ;
+    Queue<Integer> mainQ;
+    Queue<Integer> helpQ;
     
-//     public MyStack() {
-//         mainQ = new ArrayDeque();
-//         helpQ = new ArrayDeque();
-//     }
+    public MyStack() {
+        mainQ = new ArrayDeque();
+        helpQ = new ArrayDeque();
+    }
     
-//     public void push(int x) {
+    public void push(int x) {
          
-//           mainQ.add(x);
-//     }
+          mainQ.add(x);
+    }
     
-//     public int pop() {
+    public int pop() {
         
-//          while(mainQ.size() > 1)
-//             helpQ.add(mainQ.poll());
+         while(mainQ.size() > 1)
+            helpQ.add(mainQ.poll());
 
-//          int poppedValue = mainQ.poll();
+         int poppedValue = mainQ.poll();
 
-//          mainQ = helpQ;
-//          helpQ = new ArrayDeque();
+         mainQ = helpQ;
+         helpQ = new ArrayDeque();
 
-//          return poppedValue;
-//     }
+         return poppedValue;
+    }
     
-//     public int top() {
+    public int top() {
          
-//           while(mainQ.size() > 1)
-//           helpQ.add(mainQ.poll());
+          while(mainQ.size() > 1)
+          helpQ.add(mainQ.poll());
 
-//           int topValue = mainQ.peek();
-//           helpQ.add(mainQ.poll());
+          int topValue = mainQ.peek();
+          helpQ.add(mainQ.poll());
 
-//           mainQ = helpQ;
-//           helpQ = new ArrayDeque();
+          mainQ = helpQ;
+          helpQ = new ArrayDeque();
 
-//           return topValue; 
-//     }
+          return topValue; 
+    }
     
-//     public boolean empty() {
+    public boolean empty() {
          
-//          return mainQ.size() == 0;
-//     }
-// }
+         return mainQ.size() == 0;
+    }
+}
 
 
 
@@ -60,6 +66,7 @@
 
 // // Approach 2 : Using Two Queues
 // // TC for push() : O(2*n) , pop() : O(1) , top() : O(1) , empty() : O(1)
+// // SC : O(n)
 
 // class MyStack {
   
@@ -109,42 +116,44 @@
 /*---------------------------------------------------------------------------------------------------*/
 
 
-// Approach 3 : Using Single Queue
-// TC for push() : O(n) , pop() : O(1) , top() : O(1) , empty() : O(1)
 
-class MyStack {
+// // Approach 3 : Using Single Queue
+// // TC for push() : O(n) , pop() : O(1) , top() : O(1) , empty() : O(1)
+// // SC : O(n)
+
+// class MyStack {
   
-    Queue<Integer> mainQ;
+//     Queue<Integer> mainQ;
     
-    public MyStack() {
-        mainQ = new ArrayDeque();
-    }
+//     public MyStack() {
+//         mainQ = new ArrayDeque();
+//     }
     
-    public void push(int x) {
+//     public void push(int x) {
          
-         mainQ.add(x);
+//          mainQ.add(x);
 
-         int currSize = mainQ.size();
+//          int currSize = mainQ.size();
 
-        for(int i=1;i<=currSize-1;i++)
-           mainQ.add(mainQ.poll());
-    }
+//         for(int i=1;i<=currSize-1;i++)
+//            mainQ.add(mainQ.poll());
+//     }
     
-    public int pop() {
+//     public int pop() {
           
-           return mainQ.poll();
-    }
+//            return mainQ.poll();
+//     }
     
-    public int top() {
+//     public int top() {
          
-         return mainQ.peek();
-    }
+//          return mainQ.peek();
+//     }
     
-    public boolean empty() {
+//     public boolean empty() {
          
-         return mainQ.size() == 0;
-    }
-}
+//          return mainQ.size() == 0;
+//     }
+// }
 
 /**
  * Your MyStack object will be instantiated and called as such:
