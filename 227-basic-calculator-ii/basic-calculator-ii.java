@@ -136,7 +136,7 @@ class Solution {
                        break;
             case '*' : precedence = 2;
                        break;
-            default :  precedence = 2;
+            case '/' :  precedence = 2;
                        break;
         }
 
